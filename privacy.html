@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScottPrivacy · Privacy policy</title>
+<meta name="description" content="How ScottPrivacy handles your data: everything is checked on your phone and nothing is uploaded.">
+<link rel="icon" href="logo.svg">
+<style>
+:root{--ink:#111827;--muted:#4B5563;--line:#E5E7EB;--bg:#F2F4F8;--card:#fff;--brand:#2F5BEA;--navy:#0B1433}
+@media (prefers-color-scheme:dark){:root{--ink:#F1F3F7;--muted:#AAB3C5;--line:#2A3346;--bg:#0E1320;--card:#192030;--brand:#6F8FF5}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:28px 20px}
+header a{color:#fff;text-decoration:none;display:flex;align-items:center;gap:12px;font-weight:700;font-size:20px;max-width:780px;margin:0 auto}
+header img{width:40px;height:40px;border-radius:10px}
+main{max-width:780px;margin:0 auto;padding:24px 20px 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:18px 0}
+h1{font-size:30px;line-height:1.2;margin:8px 0 4px}
+h2{font-size:20px;margin:0 0 8px}
+p,li{color:var(--muted)}
+strong{color:var(--ink)}
+a{color:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{border-top:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+th{color:var(--ink)}
+.small{font-size:14px}
+</style>
+</head>
+<body>
+<header><a href="index.html"><img src="logo.svg" alt="">ScottPrivacy</a></header>
+<main>
+<h1>Privacy policy</h1>
+<p class="small">Effective 5 October 2026 · App: ScottPrivacy (com.scottprivacy.app)</p>
+
+<div class="card">
+<h2>The short version</h2>
+<p><strong>ScottPrivacy checks your calls, messages, contacts, apps and files on your phone. None of it is uploaded to us or anyone else.</strong> We don't have accounts, ads, analytics or tracking, and we don't sell or share data.</p>
+</div>
+
+<div class="card">
+<h2>What stays on your phone</h2>
+<p>To protect you, the app reads the following. It is processed only on your device and stored only in the app's private storage, which other apps can't read.</p>
+<table>
+<tr><th>Data</th><th>Why</th></tr>
+<tr><td>Phone numbers of incoming and outgoing calls, call history</td><td>Call blocking, the call screen and your call log (only when ScottPrivacy is your Phone app, or for the caller ID &amp; spam role)</td></tr>
+<tr><td>SMS messages</td><td>Showing your messages, sorting scams into Spam, warning about suspicious messages, Code guard (only when ScottPrivacy is your SMS app)</td></tr>
+<tr><td>Names in your own M-PESA / Airtel Money messages</td><td>Showing a name for numbers that aren't in your contacts. You can switch this off and erase learned names.</td></tr>
+<tr><td>Contacts</td><td>Telling contacts apart from unknown numbers, so contacts always get through</td></tr>
+<tr><td>List of installed apps and their permissions</td><td>App check and App permissions: finding apps with risky access</td></tr>
+<tr><td>Files in folders you choose</td><td>Finding junk, large files and exact duplicates. The app only sees folders you pick, and only deletes what you confirm.</td></tr>
+<tr><td>Wi-Fi name, network type, device settings</td><td>The network &amp; device audit</td></tr>
+<tr><td>Your block lists, settings and check history</td><td>Remembering your choices</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>The only times the app uses the internet</h2>
+<ul>
+<li><strong>Password breach check (when you use it):</strong> only the first 5 characters of a SHA-1 hash of the password are sent to <a href="https://haveibeenpwned.com/Passwords">Pwned Passwords</a>. Your password itself never leaves the phone.</li>
+<li><strong>Email breach check (only if you add your own API key):</strong> the email address you type is sent to <a href="https://haveibeenpwned.com/Privacy">Have I Been Pwned</a> to look it up.</li>
+<li><strong>Scam rule updates:</strong> about once a day the app downloads a small rules file from GitHub Pages. Nothing about you is sent; like any website, GitHub may see your IP address. See <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</li>
+<li><strong>Contact support:</strong> if you tap it, your email app opens with your phone model and app version filled in. You decide whether to send it.</li>
+</ul>
+<p>Google Play delivers the app and updates and may collect data under <a href="https://policies.google.com/privacy">Google's privacy policy</a>. If you buy ScottPrivacy Pro, Google Play handles the payment; we only receive confirmation that the purchase is valid, not your payment details.</p>
+</div>
+
+<div class="card">
+<h2>Your control</h2>
+<ul>
+<li>Every permission is optional and can be removed in Android settings. Features that need it will stop working.</li>
+<li>You can stop using ScottPrivacy as your Phone or SMS app at any time in Android settings. Your messages and call history stay on your phone.</li>
+<li><strong>Delete your data:</strong> Settings &gt; Erase personal data, or uninstall the app. Since we hold no copy, there is nothing to delete on our side.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Children</h2>
+<p>ScottPrivacy is not directed at children under 13 and doesn't knowingly collect anything from them. In fact it collects nothing at all.</p>
+</div>
+
+<div class="card">
+<h2>Changes and contact</h2>
+<p>If this policy changes, the new version will be posted here with a new date. Questions or requests under Kenya's Data Protection Act, 2019 or any other privacy law: email <a href="mailto:support@example.com">support@example.com</a>.</p>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "updated": "2026-10-05",
+  "note": "Extra scam rules for ScottPrivacy. The app downloads this file about once a day. Rules only ADD checks; built-in rules always apply. Patterns must work in both Godot (PCRE2) and Java regex. weight: 1-5. when: any | phone_sender.",
+  "rules": [
+    {
+      "id": "fuliza_limit",
+      "weight": 3,
+      "when": "phone_sender",
+      "pattern": "(?is)(fuliza|okoa).{0,60}(limit|increase|boost|ongeza)",
+      "text": "Offers to increase your Fuliza or loan limit. Safaricom never does this from a personal number."
+    },
+    {
+      "id": "sim_swap",
+      "weight": 4,
+      "when": "any",
+      "pattern": "(?is)(sim (card )?(swap|replacement|upgrade)|line yako (itafungwa|imefungwa)|upgrade (your|to) (4g|5g) sim)",
+      "text": "Talks about swapping or upgrading your SIM. Scammers use this to take over your number and M-PESA."
+    },
+    {
+      "id": "kra_refund",
+      "weight": 3,
+      "when": "phone_sender",
+      "pattern": "(?is)\\bkra\\b.{0,80}(refund|rebate|penalty|arrears)",
+      "text": "Claims to be about a KRA refund or penalty but came from a personal number."
+    },
+    {
+      "id": "parcel_fee",
+      "weight": 3,
+      "when": "any",
+      "pattern": "(?is)(parcel|package|mzigo|delivery).{0,80}(fee|pay|lipa|clearance|customs)",
+      "text": "Says a parcel is waiting and asks you to pay a fee to release it."
+    },
+    {
+      "id": "investment_promise",
+      "weight": 3,
+      "when": "any",
+      "pattern": "(?is)(double your (money|investment)|guaranteed (profit|returns)|earn ksh ?[\\d,]+ (daily|per day|kila siku)|forex (signals|account manager))",
+      "text": "Promises guaranteed or very fast returns on money."
+    }
+  ],
+  "shorteners": ["shorturl.gg", "lnkd.in.net", "tiny.one"],
+  "risky_tlds": ["support", "help", "zip", "mov"],
+  "brands": {
+    "kplc": ["kplc.co.ke"],
+    "nssf": ["nssf.or.ke"],
+    "helb": ["helb.co.ke"]
+  }
+}
