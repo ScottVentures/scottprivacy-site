@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download ScottPrivacy for Android</title>
+<meta name="description" content="Download the ScottPrivacy APK for Android: scam call blocking, scam SMS to Spam and a phone cleaner. Updates install from inside the app.">
+<link rel="icon" href="logo.svg">
+<style>
+:root{--ink:#111827;--muted:#4B5563;--line:#E5E7EB;--bg:#F2F4F8;--card:#fff;--brand:#2F5BEA;--navy:#0B1433;--mint:#34D399;--warn:#92400E;--warnbg:#FEF3C7}
+@media (prefers-color-scheme:dark){:root{--ink:#F1F3F7;--muted:#AAB3C5;--line:#2A3346;--bg:#0E1320;--card:#192030;--brand:#6F8FF5;--warn:#FCD34D;--warnbg:#3A2E12}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.hero{background:radial-gradient(120% 90% at 85% 100%,#2F5BEA 0%,#1C2F86 45%,#0B1433 80%);color:#fff;padding:40px 20px 48px}
+.wrap{max-width:780px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:20px;color:#fff;text-decoration:none}
+.brand img{width:44px;height:44px;border-radius:12px}
+h1{font-size:clamp(30px,6vw,44px);line-height:1.1;margin:24px 0 10px}
+.lead{color:#D6E0FF;margin:0}
+.cta{display:inline-block;margin-top:22px;background:#fff;color:#0B1433;font-weight:700;padding:15px 28px;border-radius:999px;text-decoration:none;font-size:18px}
+.meta{color:#A9C1FF;font-size:14px;margin-top:12px}
+main{padding:24px 20px 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin:16px 0}
+h2{font-size:20px;margin:0 0 8px}
+ol{padding-left:22px;margin:0}
+li{color:var(--muted);margin:6px 0}
+li strong,p strong{color:var(--ink)}
+p{color:var(--muted);margin:6px 0}
+.note{background:var(--warnbg);color:var(--warn);border-radius:12px;padding:12px 16px;font-size:15px}
+code{font-size:13px;word-break:break-all}
+a{color:var(--brand)}
+footer{border-top:1px solid var(--line);padding:22px 20px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px}
+</style>
+</head>
+<body>
+<section class="hero">
+<div class="wrap">
+<a class="brand" href="index.html"><img src="logo.svg" alt="">ScottPrivacy</a>
+<h1>Download ScottPrivacy</h1>
+<p class="lead">For Android 7 and newer. Free, no ads, nothing uploaded.</p>
+<a class="cta" href="https://github.com/ScottVentures/scottprivacy-site/releases/latest/download/ScottPrivacy.apk">Download APK</a>
+<div class="meta" id="meta">Latest version</div>
+</div>
+</section>
+<main>
+<div class="wrap">
+<div class="card">
+<h2>Install it</h2>
+<ol>
+<li>Tap <strong>Download APK</strong>, then open the file from your notifications or the Files app.</li>
+<li>If Android says your browser isn't allowed to install apps, tap <strong>Settings</strong>, turn on <strong>Allow from this source</strong>, then go back.</li>
+<li>Tap <strong>Install</strong>, then <strong>Open</strong>.</li>
+</ol>
+<p class="note">Google Play Protect may say the app is from an unknown developer. That's because this copy doesn't come from Play. Tap <strong>More details › Install anyway</strong>. Only download ScottPrivacy from this page.</p>
+</div>
+
+<div class="card">
+<h2>Updates</h2>
+<p>ScottPrivacy checks this website once a day. When there's a new version it asks you, downloads it, checks it, and Android asks you to confirm the update. The first time, Android asks you to allow ScottPrivacy to <strong>install unknown apps</strong>; that's only used for its own updates.</p>
+<p>You can also check any time: <strong>Settings › Check for updates</strong>.</p>
+</div>
+
+<div class="card">
+<h2>Also on Palm Store</h2>
+<p>On Tecno, Infinix and itel phones you can also install ScottPrivacy from Palm Store, which keeps it updated for you. A copy from Palm Store and one from this page can't update each other: to switch, uninstall the old one first.</p>
+</div>
+
+<div class="card">
+<h2>Check the file (optional)</h2>
+<p>SHA-256 of the latest APK:</p>
+<p><code id="sha">See update/version.json</code></p>
+</div>
+</div>
+</main>
+<footer><div class="wrap"><span>© 2026 ScottPrivacy</span><a href="index.html">Home</a><a href="privacy.html">Privacy policy</a><a href="mailto:scotttechstar@gmail.com">Support</a></div></footer>
+<script>
+fetch("update/version.json", {cache: "no-store"}).then(r => r.json()).then(v => {
+  if (!v || !v.version_name) return;
+  var mb = v.size ? " · " + (v.size / 1048576).toFixed(1) + " MB" : "";
+  document.getElementById("meta").textContent = "Version " + v.version_name + mb;
+  if (v.sha256 && !/^0+$/.test(v.sha256)) document.getElementById("sha").textContent = v.sha256;
+}).catch(function () {});
+</script>
+</body>
+</html>
