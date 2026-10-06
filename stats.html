@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScottPrivacy · Downloads</title>
+<meta name="description" content="Download statistics for ScottPrivacy.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B1433">
+<meta property="og:title" content="ScottPrivacy · Downloads">
+<meta property="og:description" content="Download statistics for ScottPrivacy.">
+<meta property="og:image" content="https://scottventures.github.io/scottprivacy-site/assets/img/og.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="logo.svg">
+<link rel="preload" href="assets/fonts/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#privacy">Privacy</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="support.html">Support</a>
+    </nav>
+    <a class="btn btn-primary btn-small" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download</a>
+  </div>
+</header>
+<main id="main">
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Dashboard</span>
+    <h1>Downloads</h1>
+    <p id="updated">Loading…</p>
+  </div>
+</section>
+<div class="wrap" style="padding-bottom:80px">
+  <div class="tiles">
+    <div class="tile"><div class="lbl">Total downloads</div><div class="val" id="t-total">–</div><div class="sub">All versions, website APK</div></div>
+    <div class="tile"><div class="lbl">Latest version</div><div class="val" id="t-latest">–</div><div class="sub" id="t-latest-sub">&nbsp;</div></div>
+    <div class="tile"><div class="lbl">Last 7 days</div><div class="val" id="t-week">–</div><div class="sub">New downloads</div></div>
+    <div class="tile"><div class="lbl">Versions released</div><div class="val" id="t-versions">–</div><div class="sub">GitHub Releases</div></div>
+  </div>
+  <div class="chart-card">
+    <h3>Total downloads over time</h3>
+    <p class="sub">Running total, recorded once a day</p>
+    <div class="chart" id="c-total"></div>
+    <details class="data-table"><summary>Show as a table</summary><table class="table" id="tb-total"></table></details>
+  </div>
+  <div class="chart-card">
+    <h3>Downloads per version</h3>
+    <p class="sub">Newest first</p>
+    <div class="chart" id="c-versions"></div>
+    <details class="data-table"><summary>Show as a table</summary><table class="table" id="tb-versions"></table></details>
+  </div>
+  <div class="chart-card">
+    <h3>Ratings</h3>
+    <p class="sub" style="margin:6px 0 0">Star ratings appear on the Google Play and Palm Store pages once the app is published there. Ratings sent with the support form arrive in your inbox with each message.</p>
+  </div>
+</div>
+<script src="assets/stats.js" defer></script>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
+        <p>Scam call blocking, scam SMS protection and a phone cleaner that works on your phone. Nothing is uploaded.</p>
+      </div>
+      <div>
+        <h4>App</h4>
+        <ul>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="download.html">Download for Android</a></li>
+          <li><a href="download.html#updates">Updates</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Help</h4>
+        <ul>
+          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="download.html#install">How to install</a></li>
+          <li><a href="support.html">Contact support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy policy</a></li>
+          <li><a href="privacy.html#control">Delete your data</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© 2026 ScottPrivacy. All rights reserved.</span>
+      <span>This website uses no cookies and no trackers.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/help.js" defer></script>
+</body>
+</html>

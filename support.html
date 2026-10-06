@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScottPrivacy · Support</title>
+<meta name="description" content="Get help with ScottPrivacy: instant answers to common questions, or send us a message.">
+<meta name="theme-color" content="#0B1433">
+<meta property="og:title" content="ScottPrivacy · Support">
+<meta property="og:description" content="Get help with ScottPrivacy: instant answers to common questions, or send us a message.">
+<meta property="og:image" content="https://scottventures.github.io/scottprivacy-site/assets/img/og.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="logo.svg">
+<link rel="preload" href="assets/fonts/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#privacy">Privacy</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="support.html" aria-current="page">Support</a>
+    </nav>
+    <a class="btn btn-primary btn-small" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download</a>
+  </div>
+</header>
+<main id="main">
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Support</span>
+    <h1>How can we help?</h1>
+    <p>Get an instant answer from the help assistant, or send us a message and we'll reply by email.</p>
+  </div>
+</section>
+<div class="wrap">
+  <div class="support">
+    <div>
+      <div id="assistant" aria-label="Help assistant"></div>
+      <p style="margin-top:12px;font-size:14px;color:var(--muted)">The assistant runs in your browser. Your questions aren't sent anywhere.</p>
+    </div>
+    <div class="dl-card" id="form">
+      <h2 style="font-size:26px">Send us a message</h2>
+      <p style="margin:8px 0 22px;color:var(--muted)">Tell us your phone model and what you see on screen. A screenshot description helps a lot.</p>
+      <!-- Web3Forms delivers the message to the ScottPrivacy inbox without showing the address here.
+           Put your access key from https://web3forms.com in data-key. Until then the form opens the visitor's email app. -->
+      <form class="form" id="support-form" data-key="996b2e7c-7231-485d-a146-484ed9db8223" data-fallback="scotttechstar@gmail.com" novalidate>
+        <div class="row">
+          <label>Your name<input name="name" autocomplete="name" required></label>
+          <label>Your email<input name="email" type="email" autocomplete="email" required><span class="hint">We only use it to reply.</span></label>
+        </div>
+        <div class="row">
+          <label>Topic
+            <select name="topic">
+              <option>Installing the app</option>
+              <option>Calls or call blocking</option>
+              <option>Messages or Spam</option>
+              <option>Security check</option>
+              <option>Cleaner</option>
+              <option>Updates</option>
+              <option>Feedback or idea</option>
+              <option>Report a scam message</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label>Phone model<input name="phone" placeholder="e.g. Tecno Spark 20, Android 13"></label>
+        </div>
+        <label>Message<textarea name="message" required placeholder="What happened? What did you expect?"></textarea></label>
+        <fieldset style="border:0;padding:0;margin:0">
+          <legend style="font:600 14px var(--head);color:var(--ink);margin-bottom:6px">How would you rate ScottPrivacy? <span class="hint">(optional)</span></legend>
+          <div class="stars">
+            <input type="radio" name="rating" id="r5" value="5"><label for="r5" title="5 stars">★</label>
+            <input type="radio" name="rating" id="r4" value="4"><label for="r4" title="4 stars">★</label>
+            <input type="radio" name="rating" id="r3" value="3"><label for="r3" title="3 stars">★</label>
+            <input type="radio" name="rating" id="r2" value="2"><label for="r2" title="2 stars">★</label>
+            <input type="radio" name="rating" id="r1" value="1"><label for="r1" title="1 star">★</label>
+          </div>
+        </fieldset>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn btn-primary">Send message</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        <p class="hint" style="font-size:13px;color:var(--muted)">Your message is delivered to us by Web3Forms. See the <a href="privacy.html#website">privacy policy</a>.</p>
+      </form>
+    </div>
+  </div>
+</div>
+<section style="padding-top:72px">
+  <div class="wrap">
+    <div class="cta">
+      <h2>Report a scam number</h2>
+      <p>Got a scam call or SMS? Send it to us with the "Report a scam message" topic. It helps us teach ScottPrivacy new scams for everyone.</p>
+      <a class="btn btn-primary" href="#form">Report a scam</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
+        <p>Scam call blocking, scam SMS protection and a phone cleaner that works on your phone. Nothing is uploaded.</p>
+      </div>
+      <div>
+        <h4>App</h4>
+        <ul>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="download.html">Download for Android</a></li>
+          <li><a href="download.html#updates">Updates</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Help</h4>
+        <ul>
+          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="download.html#install">How to install</a></li>
+          <li><a href="support.html">Contact support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy policy</a></li>
+          <li><a href="privacy.html#control">Delete your data</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© 2026 ScottPrivacy. All rights reserved.</span>
+      <span>This website uses no cookies and no trackers.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/help.js" defer></script>
+</body>
+</html>
