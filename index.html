@@ -23,6 +23,7 @@
       <a href="index.html#features" aria-current="page">Features</a>
       <a href="index.html#privacy">Privacy</a>
       <a href="index.html#faq">FAQ</a>
+      <a href="#numbers">Stats</a>
       <a href="support.html">Support</a>
     </nav>
     <a class="btn btn-primary btn-small" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download</a>
@@ -201,6 +202,27 @@
   </div>
 </section>
 
+<section id="numbers" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:28px">
+      <span class="eyebrow">In numbers</span>
+      <h2 style="margin-top:12px">ScottPrivacy so far</h2>
+      <p id="updated">Loading the latest numbers…</p>
+    </div>
+    <div class="tiles" style="margin-top:0">
+      <div class="tile"><div class="lbl">Total downloads</div><div class="val" id="t-total">–</div><div class="sub">From this website</div></div>
+      <div class="tile"><div class="lbl">Latest version</div><div class="val" id="t-latest">–</div><div class="sub" id="t-latest-sub">&nbsp;</div></div>
+      <div class="tile"><div class="lbl">Last 7 days</div><div class="val" id="t-week">–</div><div class="sub">New downloads</div></div>
+      <div class="tile"><div class="lbl">Versions released</div><div class="val" id="t-versions">–</div><div class="sub">Free updates</div></div>
+    </div>
+    <div class="chart-card">
+      <h3>Downloads over time</h3>
+      <p class="sub">Running total, recorded every night · <a href="stats.html">See all statistics</a></p>
+      <div class="chart" id="c-total"></div>
+    </div>
+  </div>
+</section>
+
 <section id="faq" style="padding-top:0">
   <div class="wrap">
     <div class="section-head">
@@ -241,6 +263,7 @@
           <li><a href="index.html#features">Features</a></li>
           <li><a href="download.html">Download for Android</a></li>
           <li><a href="download.html#updates">Updates</a></li>
+          <li><a href="stats.html">Download stats</a></li>
         </ul>
       </div>
       <div>
@@ -266,5 +289,6 @@
   </div>
 </footer>
 <script src="assets/help.js" defer></script>
+<script src="assets/stats.js" defer></script>
 </body>
 </html>

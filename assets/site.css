@@ -286,3 +286,4 @@ code{font-size:13px;word-break:break-all;background:var(--soft);padding:2px 6px;
 @media (prefers-color-scheme:dark){.chart .line,.chart .pt{stroke:#6F8FF5}.chart .pt{fill:#6F8FF5;stroke:var(--card)}.chart .area,.chart .bar{fill:#6F8FF5}.chart .bar:hover,.chart .bar.hl{fill:#A9C1FF}}
 [data-downloads]{font-weight:700;color:var(--mint-2)}
 [data-downloads]:not([hidden])::after{content:" ·";color:#A9C1FF;font-weight:400}
+section[id]{scroll-margin-top:68px}

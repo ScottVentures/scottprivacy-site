@@ -5,6 +5,7 @@
   var REPO = "ScottVentures/scottprivacy-site";
   var NS = "http://www.w3.org/2000/svg";
   function $(id) { return document.getElementById(id); }
+  function setText(id, v) { var e = $(id); if (e) e.textContent = v; }
   function fmt(n) { return Number(n || 0).toLocaleString(); }
   function svg(tag, attrs, parent) {
     var e = document.createElementNS(NS, tag);
@@ -24,7 +25,12 @@
 
   function lineChart(box, pts) {
     box.innerHTML = "";
-    if (pts.length < 2) { box.innerHTML = "<div class='empty'>The graph starts once there are two days of data. The website records the total every day.</div>"; return; }
+    if (pts.length < 2) {
+      box.innerHTML = pts.length
+        ? "<div class='empty'><b style='font:700 32px var(--head);color:var(--ink)'>" + fmt(pts[0].v) + "</b><br>downloads on " + shortDate(pts[0].d) + ". The line starts tomorrow: the total is recorded every night.</div>"
+        : "<div class='empty'>The graph starts after the first night: the website records the total every day.</div>";
+      return;
+    }
     var W = 760, H = 280, L = 52, R = 16, T = 14, B = 34;
     var max = niceMax(Math.max.apply(null, pts.map(function (p) { return p.v; })));
     var x = function (i) { return L + (W - L - R) * i / (pts.length - 1); };
@@ -100,19 +106,19 @@
     });
     var total = vers.reduce(function (a, r) { return a + r.n; }, 0);
     if (!vers.length && days.length) total = days[days.length - 1].total;
-    $("t-total").textContent = fmt(total);
-    $("t-latest").textContent = vers.length ? fmt(vers[0].n) : "–";
-    $("t-latest-sub").textContent = vers.length ? vers[0].v : "No release yet";
+    setText("t-total", fmt(total));
+    setText("t-latest", vers.length ? fmt(vers[0].n) : "–");
+    setText("t-latest-sub", vers.length ? vers[0].v : "No release yet");
     var weekAgo = days.length ? days.filter(function (d) { return (Date.now() - new Date(d.date + "T00:00:00")) <= 7.5 * 864e5; })[0] : null;
     var lastDay = days[days.length - 1];
-    $("t-week").textContent = weekAgo && lastDay && lastDay !== weekAgo ? fmt(Math.max(0, lastDay.total - weekAgo.total)) : "–";
-    $("t-versions").textContent = fmt(vers.length);
+    setText("t-week", weekAgo && lastDay && lastDay !== weekAgo ? fmt(Math.max(0, lastDay.total - weekAgo.total)) : "–");
+    setText("t-versions", fmt(vers.length));
     var pts = days.map(function (d) { return { d: d.date, v: d.total }; });
-    lineChart($("c-total"), pts);
-    barChart($("c-versions"), vers.slice(0, 12));
+    if ($("c-total")) lineChart($("c-total"), pts);
+    if ($("c-versions")) barChart($("c-versions"), vers.slice(0, 12));
     table("tb-total", ["Date", "Total downloads"], days.slice().reverse().map(function (d) { return [d.date, fmt(d.total)]; }));
     table("tb-versions", ["Version", "Released", "Downloads"], vers.map(function (r) { return [r.v, r.date, fmt(r.n)]; }));
-    $("updated").textContent = "Live from GitHub · history recorded daily" + (history && history.updated ? " (last " + history.updated + ")" : "");
+    setText("updated", "Live from GitHub · history recorded daily" + (history && history.updated ? " (last " + history.updated + ")" : ""));
   }
 
   document.addEventListener("DOMContentLoaded", function () {
