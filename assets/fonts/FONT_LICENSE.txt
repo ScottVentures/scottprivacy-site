@@ -1,0 +1,6 @@
+All fonts in this folder are licensed under the SIL Open Font License, Version 1.1 — https://openfontlicense.org
+
+Poppins (Regular, Medium, SemiBold, Bold) by Indian Type Foundry and Jonny Pinhorn — https://fonts.google.com/specimen/Poppins
+Inter (variable) — Copyright 2020 The Inter Project Authors (https://github.com/rsms/inter)
+Nunito (variable) — Copyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito)
+Lora (variable) — Copyright 2011 The Lora Project Authors, Reserved Font Name "Lora"
