@@ -1,11 +1,11 @@
 {
-  "version_code": 3,
-  "version_name": "1.0.4",
-  "apk_url": "https://github.com/ScottVentures/scottprivacy-site/releases/download/v1.0.4/ScottPrivacy.apk",
-  "sha256": "a6957d0998931f6ea529513456f0933808b6f6648c0ab3aae864e868443fdee2",
-  "size": 54539350,
+  "version_code": 4,
+  "version_name": "1.0.5",
+  "apk_url": "https://github.com/ScottVentures/scottprivacy-site/releases/download/v1.0.5/ScottPrivacy.apk",
+  "sha256": "4ea0167263c9953481614c0b5c5f38fa5128678f1bebce6c9348402c81f6b38c",
+  "size": 54577502,
   "min_sdk": 24,
   "notes": [
-    "Smaller download, languages, works in every country"
+    "Improvements and fixes"
   ]
 }
