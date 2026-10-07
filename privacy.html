@@ -28,7 +28,9 @@
       <a href="faq.html">FAQ</a>
       <a href="support.html">Support</a>
       <a class="btn btn-primary nav-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download the app</a>
+      <a class="nav-acct" href="account.html">My account</a>
     </nav>
+    <div class="acct" data-acct hidden></div>
     <a class="btn btn-primary btn-small head-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg><span>Download</span></a>
     <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
@@ -42,7 +44,7 @@
   </div>
 </section>
 <div class="wrap doc">
-  <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#summary">The short version</a><a href="#on-device">What stays on your phone</a><a href="#internet">The only times the app uses the internet</a><a href="#control">Your control</a><a href="#children">Children</a><a href="#website">This website</a><a href="#reviews">Ratings and reviews</a><a href="#contact">Changes and contact</a></nav>
+  <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#summary">The short version</a><a href="#on-device">What stays on your phone</a><a href="#internet">The only times the app uses the internet</a><a href="#control">Your control</a><a href="#children">Children</a><a href="#website">This website</a><a href="#accounts">Your account</a><a href="#reviews">Ratings and reviews</a><a href="#contact">Changes and contact</a></nav>
   <article>
 <div class="summary"><h2 id="summary" style="margin:0 0 8px;font-size:20px">The short version</h2><p><strong>ScottPrivacy checks your calls, messages, contacts, apps and files on your phone. None of it is uploaded to us or anyone else.</strong> We don't have accounts, ads, analytics or tracking, and we don't sell or share data.</p></div>
 <h2 id="on-device">What stays on your phone</h2>
@@ -54,7 +56,7 @@
 <tr><td>Names in your own mobile money messages (M-PESA, Airtel Money, MTN MoMo…)</td><td>Showing a name for numbers that aren't in your contacts. You can switch this off and erase learned names.</td></tr>
 <tr><td>Contacts</td><td>Telling contacts apart from unknown numbers, so contacts always get through</td></tr>
 <tr><td>List of installed apps and their permissions</td><td>App check and App permissions: finding apps with risky access</td></tr>
-<tr><td>Files in folders you choose</td><td>Finding junk, large files and exact duplicates. The app only sees folders you pick, and only deletes what you confirm.</td></tr>
+<tr><td>Files in your phone storage (after you allow file access)</td><td>Finding junk, old APK files, large files and exact duplicates. Files are checked on the phone, never uploaded, and only what you confirm is deleted. The Google Play version only looks in folders you pick.</td></tr>
 <tr><td>Your country (from the SIM card, or the one you pick)</td><td>Reading local phone numbers correctly and showing local scam tips</td></tr>
 <tr><td>Wi-Fi name, network type, device settings</td><td>The network &amp; device audit</td></tr>
 <tr><td>"Install unknown apps" (website copies only)</td><td>Installing ScottPrivacy's own updates after you tap Update. It isn't used to install anything else.</td></tr>
@@ -62,6 +64,7 @@
 </table>
 <h2 id="internet">The only times the app uses the internet</h2>
 <ul>
+<li><strong>Signing in:</strong> your email and password are sent to our account service (<a href="https://supabase.com/privacy">Supabase</a>) to sign you in, and the app checks now and then that your account is still active. See <a href="#accounts">Your account</a>.</li>
 <li><strong>Password breach check (when you use it):</strong> only the first 5 characters of a SHA-1 hash of the password are sent to <a href="https://haveibeenpwned.com/Passwords">Pwned Passwords</a>. Your password itself never leaves the phone.</li>
 <li><strong>Email breach check (only if you add your own API key):</strong> the email address you type is sent to <a href="https://haveibeenpwned.com/Privacy">Have I Been Pwned</a> to look it up.</li>
 <li><strong>Scam rule updates:</strong> about once a day the app downloads a small rules file from GitHub Pages. Nothing about you is sent; like any website, GitHub may see your IP address. See <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</li>
@@ -78,10 +81,13 @@
 <h2 id="children">Children</h2>
 <p>ScottPrivacy is not directed at children under 13 and doesn't knowingly collect anything from them. In fact it collects nothing at all.</p>
 <h2 id="website">This website</h2>
-<p>The website uses no cookies, analytics or trackers, and loads nothing from other companies. The help assistant runs in your browser, so your questions aren't sent anywhere.</p>
+<p>The website uses no cookies, analytics or trackers, and loads nothing from other companies. If you sign in, your browser keeps a sign-in token so you stay signed in; it is used for nothing else. The help assistant runs in your browser, so your questions aren't sent anywhere.</p>
 <p>If you send a message with the <a href="support.html">contact form</a>, it is delivered to us by <a href="https://web3forms.com/privacy">Web3Forms</a> and we receive your name, email, phone model, rating and message. We use them only to reply and to improve ScottPrivacy, and delete them when they're no longer needed. Download numbers come from GitHub's public release counts, which contain nothing about who downloaded.</p>
+<h2 id="accounts">Your account</h2>
+<p>You need a free account to download the app and to rate it, and the app asks you to sign in with the same account. Signing in only sends your email and password (to check them) and keeps you signed in; what the app checks on your phone (calls, messages, files) is still never uploaded. For your account we store, at <a href="https://supabase.com/privacy">Supabase</a>: your email address, your password (only in scrambled form), the name and country you give us, when you joined and last signed in, and which versions of the app you downloaded from this website and when. We use this only to run your account, keep downloads and ratings honest, and see how many people use ScottPrivacy. We never sell it or show your email to anyone.</p>
+<p>You can change your name, country and password on your <a href="account.html">account page</a>, and delete the whole account there at any time. Deleting it removes your profile, your review and your download history straight away.</p>
 <h2 id="reviews">Ratings and reviews</h2>
-<p>If you rate ScottPrivacy on the <a href="reviews.html">reviews page</a>, your stars, and the name, country and review you choose to type, are stored in our reviews database at <a href="https://supabase.com/privacy">Supabase</a>. Written reviews are shown publicly only after we approve them. To stop the same person rating many times, the database keeps a scrambled code made from your network address for 30 days; the address itself isn't stored. To have your review removed, use the <a href="support.html">contact form</a>.</p>
+<p>Ratings are tied to your account, so each person rates once (you can change it later). Every rating counts in the score shown on the site. Written reviews are shown publicly with your first name and country only after we check them, and never with your email. To remove your review, delete it from your <a href="account.html">account page</a> or use the <a href="support.html">contact form</a>.</p>
 <h2 id="contact">Changes and contact</h2>
 <p>If this policy changes, the new version will be posted here with a new date. Questions or requests under Kenya's Data Protection Act 2019, India's Digital Personal Data Protection Act 2023, the GDPR or any other privacy law: use the <a href="support.html">contact form</a>.</p>
   </article>
@@ -127,6 +133,8 @@
   </div>
 </footer>
 <script src="assets/config.js"></script>
+<script src="assets/vendor/supabase.js" defer></script>
+<script src="assets/auth.js" defer></script>
 <script src="assets/site.js" defer></script>
 <script src="assets/help.js" defer></script>
 <script src="assets/reviews.js" defer></script>

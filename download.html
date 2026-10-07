@@ -28,7 +28,9 @@
       <a href="faq.html">FAQ</a>
       <a href="support.html">Support</a>
       <a class="btn btn-primary nav-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download the app</a>
+      <a class="nav-acct" href="account.html">My account</a>
     </nav>
+    <div class="acct" data-acct hidden></div>
     <a class="btn btn-primary btn-small head-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg><span>Download</span></a>
     <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
@@ -46,7 +48,7 @@
     <div class="dl-card" id="install">
       <h2 style="font-size:26px">Download the app</h2>
       <div class="meta"><span id="ver">Latest version</span><span>Android 7+</span><span>English · Kiswahili · हिन्दी · Français</span></div>
-      <a class="btn btn-primary" href="https://github.com/ScottVentures/scottprivacy-site/releases/latest/download/ScottPrivacy.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download APK</a>
+      <a class="btn btn-primary" href="https://github.com/ScottVentures/scottprivacy-site/releases/latest/download/ScottPrivacy.apk" data-download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download APK</a>
       <h3 style="margin:34px 0 16px">Install it in 3 steps</h3>
       <ol class="steps">
         <li><div><strong>Open the file.</strong> When the download finishes, tap it in your notifications or open it from the Files app.</div></li>
@@ -134,6 +136,8 @@ fetch("update/version.json", {cache: "no-store"}).then(function (r) { return r.j
   </div>
 </footer>
 <script src="assets/config.js"></script>
+<script src="assets/vendor/supabase.js" defer></script>
+<script src="assets/auth.js" defer></script>
 <script src="assets/site.js" defer></script>
 <script src="assets/help.js" defer></script>
 <script src="assets/reviews.js" defer></script>

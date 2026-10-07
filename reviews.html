@@ -28,7 +28,9 @@
       <a href="faq.html">FAQ</a>
       <a href="support.html">Support</a>
       <a class="btn btn-primary nav-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download the app</a>
+      <a class="nav-acct" href="account.html">My account</a>
     </nav>
+    <div class="acct" data-acct hidden></div>
     <a class="btn btn-primary btn-small head-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg><span>Download</span></a>
     <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
@@ -54,12 +56,12 @@
     <div class="dl-card" id="rate">
       <h2 style="font-size:26px">Rate ScottPrivacy</h2>
       <p class="muted" style="margin:6px 0 18px">Tap the stars. A few words help other people decide.</p>
+      <div class="rev-gate" id="rev-gate" hidden>
+        <p>Ratings come from registered users only, so every score is from a real person.</p>
+        <div class="gate-acts"><a class="btn btn-primary" href="account.html?why=review&amp;next=reviews.html%23rate">Sign in to rate</a><a class="btn btn-outline" href="account.html?why=review&amp;tab=signup&amp;next=reviews.html%23rate">Create a free account</a></div>
+      </div>
       <form class="form" id="rev-form" novalidate>
         <div class="stars-input"><input type="radio" name="stars" id="s5" value="5" required><label for="s5" title="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></label><input type="radio" name="stars" id="s4" value="4" required><label for="s4" title="4 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></label><input type="radio" name="stars" id="s3" value="3" required><label for="s3" title="3 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></label><input type="radio" name="stars" id="s2" value="2" required><label for="s2" title="2 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></label><input type="radio" name="stars" id="s1" value="1" required><label for="s1" title="1 star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></label></div>
-        <div class="row">
-          <label>Your name <span class="hint">(optional)</span><input name="name" maxlength="40" autocomplete="given-name" placeholder="e.g. Wanjiku"></label>
-          <label>Country <span class="hint">(optional)</span><input name="country" maxlength="40" placeholder="e.g. Kenya"></label>
-        </div>
         <label>Your review <span class="hint">(optional)</span><textarea name="comment" maxlength="600" placeholder="What did ScottPrivacy catch for you?"></textarea></label>
         <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="btn btn-primary">Submit rating</button>
@@ -114,6 +116,8 @@
   </div>
 </footer>
 <script src="assets/config.js"></script>
+<script src="assets/vendor/supabase.js" defer></script>
+<script src="assets/auth.js" defer></script>
 <script src="assets/site.js" defer></script>
 <script src="assets/help.js" defer></script>
 <script src="assets/reviews.js" defer></script>
