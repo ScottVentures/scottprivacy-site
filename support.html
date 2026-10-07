@@ -4,33 +4,36 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ScottPrivacy · Support</title>
-<meta name="description" content="Get help with ScottPrivacy: instant answers to common questions, or send us a message.">
+<meta name="description" content="Get help with ScottPrivacy: instant answers, or send us a message.">
 <meta name="theme-color" content="#0B1433">
 <meta property="og:title" content="ScottPrivacy · Support">
-<meta property="og:description" content="Get help with ScottPrivacy: instant answers to common questions, or send us a message.">
+<meta property="og:description" content="Get help with ScottPrivacy: instant answers, or send us a message.">
 <meta property="og:image" content="https://scottventures.github.io/scottprivacy-site/assets/img/og.png">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://scottventures.github.io/scottprivacy-site/support.html">
 <link rel="icon" href="logo.svg">
 <link rel="preload" href="assets/fonts/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
 </head>
-<body>
+<body data-page="support.html">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
-    <nav class="nav" aria-label="Main">
-      <a href="index.html#features">Features</a>
-      <a href="index.html#privacy">Privacy</a>
-      <a href="index.html#faq">FAQ</a>
-      <a href="index.html#numbers">Stats</a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="features.html">Features</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="stats.html">Stats</a>
+      <a href="faq.html">FAQ</a>
       <a href="support.html" aria-current="page">Support</a>
+      <a class="btn btn-primary nav-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download the app</a>
     </nav>
-    <a class="btn btn-primary btn-small" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download</a>
+    <a class="btn btn-primary btn-small head-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg><span>Download</span></a>
+    <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
 </header>
 <main id="main">
-
 <section class="page-hero">
   <div class="wrap">
     <span class="eyebrow">Support</span>
@@ -97,19 +100,19 @@
       <a class="btn btn-primary" href="#form">Report a scam</a>
     </div>
   </div>
-</section>
-</main>
+</section></main>
 <footer class="site-footer">
   <div class="wrap">
     <div class="cols">
       <div>
         <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
         <p>Scam call blocking, scam SMS protection and a phone cleaner that works on your phone. Nothing is uploaded.</p>
+        <a class="foot-rating" href="reviews.html" data-rating-foot hidden></a>
       </div>
       <div>
         <h4>App</h4>
         <ul>
-          <li><a href="index.html#features">Features</a></li>
+          <li><a href="features.html">Features</a></li>
           <li><a href="download.html">Download for Android</a></li>
           <li><a href="download.html#updates">Updates</a></li>
           <li><a href="stats.html">Download stats</a></li>
@@ -118,9 +121,10 @@
       <div>
         <h4>Help</h4>
         <ul>
-          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="download.html#install">How to install</a></li>
           <li><a href="support.html">Contact support</a></li>
+          <li><a href="reviews.html#rate">Rate the app</a></li>
         </ul>
       </div>
       <div>
@@ -133,10 +137,13 @@
     </div>
     <div class="bottom">
       <span>© 2026 ScottPrivacy. All rights reserved.</span>
-      <span>This website uses no cookies and no trackers.</span>
+      <span>No cookies. No trackers.</span>
     </div>
   </div>
 </footer>
+<script src="assets/config.js"></script>
+<script src="assets/site.js" defer></script>
 <script src="assets/help.js" defer></script>
+<script src="assets/reviews.js" defer></script>
 </body>
 </html>

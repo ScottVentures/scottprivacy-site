@@ -10,27 +10,30 @@
 <meta property="og:description" content="How ScottPrivacy handles your data: everything is checked on your phone and nothing is uploaded.">
 <meta property="og:image" content="https://scottventures.github.io/scottprivacy-site/assets/img/og.png">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://scottventures.github.io/scottprivacy-site/privacy.html">
 <link rel="icon" href="logo.svg">
 <link rel="preload" href="assets/fonts/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
 </head>
-<body>
+<body data-page="privacy.html">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
-    <nav class="nav" aria-label="Main">
-      <a href="index.html#features">Features</a>
-      <a href="index.html#privacy">Privacy</a>
-      <a href="index.html#faq">FAQ</a>
-      <a href="index.html#numbers">Stats</a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="features.html">Features</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="stats.html">Stats</a>
+      <a href="faq.html">FAQ</a>
       <a href="support.html">Support</a>
+      <a class="btn btn-primary nav-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download the app</a>
     </nav>
-    <a class="btn btn-primary btn-small" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download</a>
+    <a class="btn btn-primary btn-small head-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg><span>Download</span></a>
+    <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
 </header>
 <main id="main">
-
 <section class="page-hero">
   <div class="wrap">
     <span class="eyebrow">Legal</span>
@@ -39,7 +42,7 @@
   </div>
 </section>
 <div class="wrap doc">
-  <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#summary">The short version</a><a href="#on-device">What stays on your phone</a><a href="#internet">The only times the app uses the internet</a><a href="#control">Your control</a><a href="#children">Children</a><a href="#website">This website</a><a href="#contact">Changes and contact</a></nav>
+  <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#summary">The short version</a><a href="#on-device">What stays on your phone</a><a href="#internet">The only times the app uses the internet</a><a href="#control">Your control</a><a href="#children">Children</a><a href="#website">This website</a><a href="#reviews">Ratings and reviews</a><a href="#contact">Changes and contact</a></nav>
   <article>
 <div class="summary"><h2 id="summary" style="margin:0 0 8px;font-size:20px">The short version</h2><p><strong>ScottPrivacy checks your calls, messages, contacts, apps and files on your phone. None of it is uploaded to us or anyone else.</strong> We don't have accounts, ads, analytics or tracking, and we don't sell or share data.</p></div>
 <h2 id="on-device">What stays on your phone</h2>
@@ -77,22 +80,24 @@
 <h2 id="website">This website</h2>
 <p>The website uses no cookies, analytics or trackers, and loads nothing from other companies. The help assistant runs in your browser, so your questions aren't sent anywhere.</p>
 <p>If you send a message with the <a href="support.html">contact form</a>, it is delivered to us by <a href="https://web3forms.com/privacy">Web3Forms</a> and we receive your name, email, phone model, rating and message. We use them only to reply and to improve ScottPrivacy, and delete them when they're no longer needed. Download numbers come from GitHub's public release counts, which contain nothing about who downloaded.</p>
+<h2 id="reviews">Ratings and reviews</h2>
+<p>If you rate ScottPrivacy on the <a href="reviews.html">reviews page</a>, your stars, and the name, country and review you choose to type, are stored in our reviews database at <a href="https://supabase.com/privacy">Supabase</a>. Written reviews are shown publicly only after we approve them. To stop the same person rating many times, the database keeps a scrambled code made from your network address for 30 days; the address itself isn't stored. To have your review removed, use the <a href="support.html">contact form</a>.</p>
 <h2 id="contact">Changes and contact</h2>
 <p>If this policy changes, the new version will be posted here with a new date. Questions or requests under Kenya's Data Protection Act 2019, India's Digital Personal Data Protection Act 2023, the GDPR or any other privacy law: use the <a href="support.html">contact form</a>.</p>
   </article>
-</div>
-</main>
+</div></main>
 <footer class="site-footer">
   <div class="wrap">
     <div class="cols">
       <div>
         <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
         <p>Scam call blocking, scam SMS protection and a phone cleaner that works on your phone. Nothing is uploaded.</p>
+        <a class="foot-rating" href="reviews.html" data-rating-foot hidden></a>
       </div>
       <div>
         <h4>App</h4>
         <ul>
-          <li><a href="index.html#features">Features</a></li>
+          <li><a href="features.html">Features</a></li>
           <li><a href="download.html">Download for Android</a></li>
           <li><a href="download.html#updates">Updates</a></li>
           <li><a href="stats.html">Download stats</a></li>
@@ -101,9 +106,10 @@
       <div>
         <h4>Help</h4>
         <ul>
-          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="download.html#install">How to install</a></li>
           <li><a href="support.html">Contact support</a></li>
+          <li><a href="reviews.html#rate">Rate the app</a></li>
         </ul>
       </div>
       <div>
@@ -116,10 +122,13 @@
     </div>
     <div class="bottom">
       <span>© 2026 ScottPrivacy. All rights reserved.</span>
-      <span>This website uses no cookies and no trackers.</span>
+      <span>No cookies. No trackers.</span>
     </div>
   </div>
 </footer>
+<script src="assets/config.js"></script>
+<script src="assets/site.js" defer></script>
 <script src="assets/help.js" defer></script>
+<script src="assets/reviews.js" defer></script>
 </body>
 </html>

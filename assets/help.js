@@ -10,6 +10,8 @@
       a: "Tap <b>Download APK</b> on the <a href='download.html#install'>download page</a>, open the file, allow installs from your browser when Android asks, then tap <b>Install</b>." },
     { q: "It says \"App not installed\" or \"conflicts with an existing package\"", k: "app not installed conflict existing package error failed install haikusakinishwa signature",
       a: "An older copy of ScottPrivacy from somewhere else (another website, Palm Store or a test build) is already on the phone. Uninstall it first, then install again. Copies from different places can't replace each other." },
+    { q: "Play Protect blocked the app", k: "play protect blocked block blocking cannot install harmful fraud protection sensitive sms permission imezuiwa",
+      a: "Download the latest version from the <a href='download.html'>download page</a>. It leaves out SMS reading, which is what Play Protect blocks in apps installed from a website. Automatic scam SMS filtering is in the full version from Palm Store and Google Play." },
     { q: "Play Protect warns me about the app", k: "play protect warning unsafe harmful unknown developer blocked virus",
       a: "That's normal for apps installed from a website instead of Google Play. Tap <b>More details › Install anyway</b>. Only download ScottPrivacy from this website." },
     { q: "Why does it want to be my Phone or SMS app?", k: "default phone app sms app messages why role dialer default sms permission",

@@ -10,36 +10,39 @@
 <meta property="og:description" content="ScottPrivacy blocks scam calls, sends scam SMS to Spam, warns about fake M-PESA, MoMo, UPI and bank messages and cleans your phone. Free, no ads, nothing uploaded.">
 <meta property="og:image" content="https://scottventures.github.io/scottprivacy-site/assets/img/og.png">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://scottventures.github.io/scottprivacy-site/">
 <link rel="icon" href="logo.svg">
 <link rel="preload" href="assets/fonts/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
 </head>
-<body>
+<body data-page="index.html">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
-    <nav class="nav" aria-label="Main">
-      <a href="index.html#features" aria-current="page">Features</a>
-      <a href="index.html#privacy">Privacy</a>
-      <a href="index.html#faq">FAQ</a>
-      <a href="#numbers">Stats</a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="features.html">Features</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="stats.html">Stats</a>
+      <a href="faq.html">FAQ</a>
       <a href="support.html">Support</a>
+      <a class="btn btn-primary nav-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download the app</a>
     </nav>
-    <a class="btn btn-primary btn-small" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download</a>
+    <a class="btn btn-primary btn-small head-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg><span>Download</span></a>
+    <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
 </header>
 <main id="main">
-
 <section class="hero" style="padding-bottom:0">
   <div class="wrap">
     <div class="hero-copy">
-      <span class="pill"><i></i>Free · No ads · Nothing uploaded</span>
+      <div class="hero-badges"><span class="pill"><i></i>Free · No ads · Nothing uploaded</span><a class="rating-pill" href="reviews.html" data-rating-pill hidden></a></div>
       <h1>Your phone's <em>bodyguard</em> against scams.</h1>
       <p class="lead">ScottPrivacy stops scam calls before they ring, moves scam SMS to Spam and warns you about fake M-PESA, MoMo, UPI and bank messages. Then it checks your phone's security and clears out junk.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Android</a>
-        <a class="btn btn-ghost" href="#features">See how it works</a>
+        <a class="btn btn-ghost" href="features.html">See how it works</a>
       </div>
       <p class="hero-note"><span data-downloads="1000" hidden></span> Android 7 and newer · English, Kiswahili, हिन्दी, Français</p>
     </div>
@@ -49,7 +52,6 @@
     </div>
   </div>
 </section>
-
 <div class="trust">
   <div class="wrap">
     <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18.5h2"/></svg>Checks happen on your phone</div>
@@ -58,188 +60,87 @@
     <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>Works in every country</div>
   </div>
 </div>
-
-<section id="features">
+<section class="pillars-sec">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">What it does</span>
-      <h2 style="margin-top:12px">Protection that works the moment your phone rings</h2>
-      <p>Built for the scams people actually get: "sent by mistake" reversals, fake prizes, KYC threats and callers asking for your code.</p>
+      <span class="eyebrow">One app, four shields</span>
+      <h2 style="margin-top:12px">Everything that keeps scammers out</h2>
+      <p>Tap a card to see how each part works.</p>
     </div>
+    <div class="pillars">
+      <a class="pillar" href="features.html#calls">
+        <div class="pillar-shot"><img src="assets/img/shield.webp" alt="" width="540" height="1170" loading="lazy"></div>
+        <div class="pillar-body">
+          <span class="eyebrow">Calls</span>
+          <h3>Stop scam calls before they ring</h3>
+          <p>Block hidden, faked and foreign numbers. Your contacts always get through.</p>
+          <span class="more">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
 
-    <div class="feature">
-      <div class="shot"><div class="phone "><img src="assets/img/shield.webp" alt="ScottPrivacy Blocking screen with protection level and stats" width="540" height="1170" loading="lazy"></div>
-        <div class="badge ok"><span class="dot"></span><span><b>Blocked</b>Hidden number · 2:38 AM</span></div>
-      </div>
-      <div>
-        <span class="eyebrow">Call blocking</span>
-        <h3>Stop scam calls before they ring</h3>
-        <p>Pick a protection level and ScottPrivacy handles the rest. Your contacts always get through.</p>
-        <ul class="ticks">
-          <li>Block hidden numbers, faked caller IDs, foreign numbers or whole number series</li>
-          <li>Max mode: only your contacts can ring</li>
-          <li>Quiet hours at night, and repeat callers still get through in an emergency</li>
-          <li>A call screen that warns you before you answer</li>
-        </ul>
-      </div>
-    </div>
+      <a class="pillar" href="features.html#sms">
+        <div class="pillar-shot"><img src="assets/img/conv.webp" alt="" width="540" height="1170" loading="lazy"></div>
+        <div class="pillar-body">
+          <span class="eyebrow">Messages</span>
+          <h3>Scam SMS go straight to Spam</h3>
+          <p>Fake M-PESA, MoMo and bank messages are caught before you read them.</p>
+          <span class="more">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
 
-    <div class="feature flip">
-      <div class="shot"><div class="phone "><img src="assets/img/conv.webp" alt="A suspicious M-PESA reversal message flagged in a conversation" width="540" height="1170" loading="lazy"></div>
-        <div class="badge"><span class="dot"></span><span><b>Moved to Spam</b>"Nimekosea kutuma, tafadhali rudisha"</span></div>
-      </div>
-      <div>
-        <span class="eyebrow">Scam SMS</span>
-        <h3>Scam texts go straight to Spam</h3>
-        <p>Make ScottPrivacy your SMS app and your inbox stays clean. Real messages from M-PESA, your bank and friends stay where they are.</p>
-        <ul class="ticks">
-          <li>Fake money confirmations sent from ordinary phone numbers</li>
-          <li>"Sent by mistake, please reverse" requests</li>
-          <li>Fake prizes, loans, jobs and dangerous look-alike links</li>
-          <li>One tap for "Not spam" if we ever get it wrong</li>
-        </ul>
-      </div>
-    </div>
+      <a class="pillar" href="features.html#checker">
+        <div class="pillar-shot"><img src="assets/img/check.webp" alt="" width="540" height="1170" loading="lazy"></div>
+        <div class="pillar-body">
+          <span class="eyebrow">Checker</span>
+          <h3>Paste anything, get a verdict</h3>
+          <p>Messages and links checked in a second, in five languages.</p>
+          <span class="more">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
 
-    <div class="feature">
-      <div class="shot"><div class="phone "><img src="assets/img/check.webp" alt="Message checker showing Very likely a scam with warning signs" width="540" height="1170" loading="lazy"></div></div>
-      <div>
-        <span class="eyebrow">Message checker</span>
-        <h3>Not sure? Paste it and get a verdict</h3>
-        <p>Copy any SMS, WhatsApp message or link into ScottPrivacy. In a second you see whether it's a scam and exactly which warning signs it shows, with advice on what to do.</p>
-        <ul class="ticks">
-          <li>Understands scams in English, Kiswahili, Hindi, French and Portuguese</li>
-          <li>Spots fake brand websites, link shorteners and risky domains</li>
-          <li>Checked on your phone. Nothing is sent anywhere</li>
-        </ul>
-      </div>
-    </div>
+      <a class="pillar" href="features.html#security">
+        <div class="pillar-shot"><img src="assets/img/security.webp" alt="" width="540" height="1170" loading="lazy"></div>
+        <div class="pillar-body">
+          <span class="eyebrow">Security &amp; cleaner</span>
+          <h3>A safer, lighter phone</h3>
+          <p>Find risky apps and settings, then clear out junk safely.</p>
+          <span class="more">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
 
-    <div class="feature flip">
-      <div class="shot"><div class="phone "><img src="assets/img/security.webp" alt="Security check showing settings that need attention" width="540" height="1170" loading="lazy"></div></div>
-      <div>
-        <span class="eyebrow">Security check</span>
-        <h3>Find the weak spots on your phone</h3>
-        <p>A plain-language check-up of the apps and settings scammers rely on.</p>
-        <ul class="ticks">
-          <li>Apps that can read your SMS, control your screen or hide their icon</li>
-          <li>Private DNS, Wi-Fi security, USB debugging and screen lock</li>
-          <li>See if your password has leaked, without sending your password</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="feature">
-      <div class="shot"><div class="phone "><img src="assets/img/junk.webp" alt="Junk cleaner with leftover APK files and temporary files" width="540" height="1170" loading="lazy"></div>
-        <div class="badge ok"><span class="dot"></span><span><b>Freed</b>212 MB of junk</span></div>
-      </div>
-      <div>
-        <span class="eyebrow">Cleaner</span>
-        <h3>Free up space, safely</h3>
-        <p>Only the folders you choose are scanned, and nothing is deleted until you confirm.</p>
-        <ul class="ticks">
-          <li>Leftover APK installers, temporary files and empty folders</li>
-          <li>Exact duplicate photos, always keeping the oldest copy</li>
-          <li>Large files and apps you haven't used in months</li>
-        </ul>
-      </div>
     </div>
   </div>
 </section>
-
-<section style="padding-top:0">
+<section class="loved">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">And more</span>
-      <h2 style="margin-top:12px">Small things that make a big difference</h2>
-    </div>
-    <div class="grid">
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8"/><path d="M16 7l2 2"/><path d="M14 9l2 2"/></svg></div><h3>Code guard</h3><p>A one-time code arrives while you're on a call? You get a loud warning not to read it out. That's exactly when scammers ask.</p></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><h3>Names for unsaved numbers</h3><p>See who's calling using names from your own M-PESA, MoMo and Airtel Money messages. Worked out on your phone.</p></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Quiet hours</h3><p>Unknown numbers don't ring at night. They still show as missed calls, and repeat callers get through.</p></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg></div><h3>Made for your country</h3><p>Picks your country from the SIM so local numbers, foreign calls and tips are right, from Nairobi to Mumbai to Dakar.</p></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></div><h3>Make it yours</h3><p>Dark mode, 7 colour themes, 6 font styles, bigger text, ringtones and notification sounds.</p></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.5-4.5L4 8"/><path d="M4 3v5h5"/><path d="M4 13a8 8 0 0 0 14.5 4.5L20 16"/><path d="M20 21v-5h-5"/></svg></div><h3>Always up to date</h3><p>New scam wording reaches your phone without an app update, and the app updates itself safely.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="band">
-  <div class="wrap">
-    <div class="section-head" style="margin-bottom:36px">
-      <span class="eyebrow">Real scams it catches</span>
-      <h2 style="margin-top:12px">If it sounds like this, it's a scam</h2>
-    </div>
-    <div class="chips">
-      <span class="chip"><small>Kenya</small>"Nimekosea kutuma, tafadhali rudisha"</span>
-      <span class="chip"><small>Everywhere</small>"Ksh 2,500 sent to you by mistake. Kindly reverse"</span>
-      <span class="chip"><small>India</small>"Your KYC is pending, account will be blocked today"</span>
-      <span class="chip"><small>India</small>"Electricity will be disconnected tonight at 9:30"</span>
-      <span class="chip"><small>Nigeria</small>"Your BVN has been restricted. Verify now"</span>
-      <span class="chip"><small>Uganda</small>"You have received UGX 50,000… please return"</span>
-      <span class="chip"><small>Everywhere</small>"Send me the code you just received"</span>
-      <span class="chip"><small>Francophone</small>"Félicitations ! Vous avez gagné 500 000 FCFA"</span>
-    </div>
-    <p class="langs">The app speaks <b>English</b>, <b>Kiswahili</b>, <b>हिन्दी</b> and <b>Français</b>.</p>
-  </div>
-</section>
-
-<section id="privacy">
-  <div class="wrap">
-    <div class="dark">
+    <div class="loved-grid">
       <div>
-        <span class="eyebrow">Privacy first</span>
-        <h2 style="margin-top:12px">Your calls and messages never leave your phone</h2>
-        <p>ScottPrivacy has no servers that see your data. Every check runs on your phone, so there's nothing for us to sell, leak or lose.</p>
-        <p><a href="privacy.html">Read the privacy policy →</a></p>
+        <span class="eyebrow">Reviews</span>
+        <h2 style="margin-top:12px">What people say</h2>
+        <div class="rev-mini" id="rev-mini">
+          <div class="big-rating"><span class="avg" data-avg>–</span><span class="stars" data-stars></span></div>
+          <p class="muted" data-count>Be one of the first to rate ScottPrivacy.</p>
+        </div>
+        <div class="cta-row" style="margin-top:22px">
+          <a class="btn btn-primary" href="reviews.html#rate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>Rate the app</a>
+          <a class="btn btn-outline" href="reviews.html">Read all reviews</a>
+        </div>
       </div>
-      <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg><div><strong>No uploads</strong>Calls, messages, contacts and files are checked on your phone.</div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg><div><strong>No account, no ads, no tracking</strong>Open it and it works. We don't know who you are.</div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><div><strong>You stay in control</strong>Every permission is optional and you can switch back to your old apps any time.</div></li>
-      </ul>
+      <div class="rev-list compact" id="rev-teaser" data-limit="3"></div>
     </div>
   </div>
 </section>
-
-<section id="numbers" style="padding-top:0">
+<section class="numbers-sec">
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:28px">
-      <span class="eyebrow">In numbers</span>
-      <h2 style="margin-top:12px">ScottPrivacy so far</h2>
-      <p id="updated">Loading the latest numbers…</p>
+    <div class="tiles tiles-flat">
+      <div class="tile"><div class="lbl">Downloads</div><div class="val" id="t-total">–</div><div class="sub">From this website</div></div>
+      <div class="tile"><div class="lbl">Average rating</div><div class="val" data-avg>–</div><div class="sub" data-count-short>No ratings yet</div></div>
+      <div class="tile"><div class="lbl">Latest version</div><div class="val" id="t-latest-sub">–</div><div class="sub">Free updates</div></div>
+      <div class="tile"><div class="lbl">Languages</div><div class="val">4</div><div class="sub">English, Kiswahili, हिन्दी, Français</div></div>
     </div>
-    <div class="tiles" style="margin-top:0">
-      <div class="tile"><div class="lbl">Total downloads</div><div class="val" id="t-total">–</div><div class="sub">From this website</div></div>
-      <div class="tile"><div class="lbl">Latest version</div><div class="val" id="t-latest">–</div><div class="sub" id="t-latest-sub">&nbsp;</div></div>
-      <div class="tile"><div class="lbl">Last 7 days</div><div class="val" id="t-week">–</div><div class="sub">New downloads</div></div>
-      <div class="tile"><div class="lbl">Versions released</div><div class="val" id="t-versions">–</div><div class="sub">Free updates</div></div>
-    </div>
-    <div class="chart-card">
-      <h3>Downloads over time</h3>
-      <p class="sub">Running total, recorded every night · <a href="stats.html">See all statistics</a></p>
-      <div class="chart" id="c-total"></div>
-    </div>
+    <p class="center" style="margin-top:18px"><a href="stats.html">See download statistics <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </div>
 </section>
-
-<section id="faq" style="padding-top:0">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">FAQ</span>
-      <h2 style="margin-top:12px">Questions people ask</h2>
-    </div>
-    <div class="faq">
-      <details><summary>Is ScottPrivacy free?</summary><p>Yes. You can download and use it for free, and there are no ads.</p></details>
-      <details><summary>Why does it ask to be my Phone or SMS app?</summary><p>Android only lets the Phone app block calls and show a warning screen, and only the SMS app can move scam texts to Spam. You can switch back to your old apps any time in Android settings, and your messages and call history stay on your phone.</p></details>
-      <details><summary>Is it safe to install from this website?</summary><p>Yes, as long as you download it from this site. Android may warn you because the app isn't from Google Play; that's normal for apps installed directly. Every update is checked by the app and by Android before it installs, and you always confirm it.</p></details>
-      <details><summary>Does it work on Tecno, Infinix, itel and Samsung phones?</summary><p>Yes. It works on Android 7 and newer. Some phones have extra battery settings; ScottPrivacy shows you which ones to change so the call screen opens instantly.</p></details>
-      <details><summary>Does it work outside Kenya?</summary><p>Yes. It reads your country from the SIM card, so local numbers, foreign calls and tips are right wherever you are. Scam checks cover East Africa, India, West Africa and French- and Portuguese-speaking countries.</p></details>
-      <details><summary>What does it send over the internet?</summary><p>Nothing about you. Once a day it downloads a small scam-rules file and checks for updates. If you use the password check, only the first 5 characters of a scrambled code of your password are sent, never the password itself. The privacy policy lists everything.</p></details>
-    </div>
-  </div>
-</section>
-
 <section style="padding-top:0">
   <div class="wrap">
     <div class="cta">
@@ -248,19 +149,19 @@
       <a class="btn btn-primary" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download ScottPrivacy</a>
     </div>
   </div>
-</section>
-</main>
+</section></main>
 <footer class="site-footer">
   <div class="wrap">
     <div class="cols">
       <div>
         <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
         <p>Scam call blocking, scam SMS protection and a phone cleaner that works on your phone. Nothing is uploaded.</p>
+        <a class="foot-rating" href="reviews.html" data-rating-foot hidden></a>
       </div>
       <div>
         <h4>App</h4>
         <ul>
-          <li><a href="index.html#features">Features</a></li>
+          <li><a href="features.html">Features</a></li>
           <li><a href="download.html">Download for Android</a></li>
           <li><a href="download.html#updates">Updates</a></li>
           <li><a href="stats.html">Download stats</a></li>
@@ -269,9 +170,10 @@
       <div>
         <h4>Help</h4>
         <ul>
-          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="download.html#install">How to install</a></li>
           <li><a href="support.html">Contact support</a></li>
+          <li><a href="reviews.html#rate">Rate the app</a></li>
         </ul>
       </div>
       <div>
@@ -284,11 +186,14 @@
     </div>
     <div class="bottom">
       <span>© 2026 ScottPrivacy. All rights reserved.</span>
-      <span>This website uses no cookies and no trackers.</span>
+      <span>No cookies. No trackers.</span>
     </div>
   </div>
 </footer>
+<script src="assets/config.js"></script>
+<script src="assets/site.js" defer></script>
 <script src="assets/help.js" defer></script>
+<script src="assets/reviews.js" defer></script>
 <script src="assets/stats.js" defer></script>
 </body>
 </html>

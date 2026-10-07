@@ -4,33 +4,36 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Download ScottPrivacy for Android</title>
-<meta name="description" content="Download the ScottPrivacy APK: scam call blocking, scam SMS to Spam and a phone cleaner. Install steps and automatic updates.">
+<meta name="description" content="Download the ScottPrivacy APK: install steps and automatic updates.">
 <meta name="theme-color" content="#0B1433">
 <meta property="og:title" content="Download ScottPrivacy for Android">
-<meta property="og:description" content="Download the ScottPrivacy APK: scam call blocking, scam SMS to Spam and a phone cleaner. Install steps and automatic updates.">
+<meta property="og:description" content="Download the ScottPrivacy APK: install steps and automatic updates.">
 <meta property="og:image" content="https://scottventures.github.io/scottprivacy-site/assets/img/og.png">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://scottventures.github.io/scottprivacy-site/download.html">
 <link rel="icon" href="logo.svg">
 <link rel="preload" href="assets/fonts/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
 </head>
-<body>
+<body data-page="download.html">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
-    <nav class="nav" aria-label="Main">
-      <a href="index.html#features">Features</a>
-      <a href="index.html#privacy">Privacy</a>
-      <a href="index.html#faq">FAQ</a>
-      <a href="index.html#numbers">Stats</a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="features.html">Features</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="stats.html">Stats</a>
+      <a href="faq.html">FAQ</a>
       <a href="support.html">Support</a>
+      <a class="btn btn-primary nav-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download the app</a>
     </nav>
-    <a class="btn btn-primary btn-small" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download</a>
+    <a class="btn btn-primary btn-small head-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg><span>Download</span></a>
+    <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
 </header>
 <main id="main">
-
 <section class="page-hero">
   <div class="wrap">
     <span class="eyebrow">Download</span>
@@ -50,12 +53,16 @@
         <li><div><strong>Allow this once.</strong> If Android says your browser can't install apps, tap <strong>Settings</strong>, turn on <strong>Allow from this source</strong>, then go back.</div></li>
         <li><div><strong>Install and open.</strong> Tap <strong>Install</strong>, then <strong>Open</strong>. ScottPrivacy walks you through the rest.</div></li>
       </ol>
-      <p class="note">Google Play Protect may say the app is from an unknown developer, because this copy doesn't come from Google Play. Tap <strong>More details › Install anyway</strong>. Only download ScottPrivacy from this website.</p>
+      <p class="note">If Play Protect says the app is from an unknown developer, tap <strong>More details › Install anyway</strong>. That's normal for apps that don't come from Google Play. Only download ScottPrivacy from this website.</p>
     </div>
     <div style="display:grid;gap:20px;align-content:start">
       <div class="dl-card" id="updates">
         <h3>Updates install themselves</h3>
         <p style="margin-top:10px">Once a day the app checks this website. When there's a new version it asks you, downloads it, checks it, and Android asks you to confirm. You can also tap <strong>Settings › Check for updates</strong>.</p>
+      </div>
+      <div class="dl-card" id="editions">
+        <h3>Website version vs. full version</h3>
+        <p style="margin-top:10px">To protect people from fake apps, Google Play Protect blocks any app that can read SMS when it's installed from a website (in Kenya, India, Nigeria, South Africa and other countries). So this download leaves SMS reading out: it has call blocking, the call warning screen, the message checker, security check and cleaner. <strong>Automatic scam SMS filtering</strong> is in the full version from Palm Store and Google Play.</p>
       </div>
       <div class="dl-card">
         <h3>On a Tecno, Infinix or itel phone?</h3>
@@ -85,19 +92,19 @@ fetch("update/version.json", {cache: "no-store"}).then(function (r) { return r.j
   document.getElementById("ver").textContent = "Version " + v.version_name + mb;
   if (v.sha256 && !/^0+$/.test(v.sha256)) document.getElementById("sha").textContent = v.sha256;
 }).catch(function () {});
-</script>
-</main>
+</script></main>
 <footer class="site-footer">
   <div class="wrap">
     <div class="cols">
       <div>
         <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
         <p>Scam call blocking, scam SMS protection and a phone cleaner that works on your phone. Nothing is uploaded.</p>
+        <a class="foot-rating" href="reviews.html" data-rating-foot hidden></a>
       </div>
       <div>
         <h4>App</h4>
         <ul>
-          <li><a href="index.html#features">Features</a></li>
+          <li><a href="features.html">Features</a></li>
           <li><a href="download.html">Download for Android</a></li>
           <li><a href="download.html#updates">Updates</a></li>
           <li><a href="stats.html">Download stats</a></li>
@@ -106,9 +113,10 @@ fetch("update/version.json", {cache: "no-store"}).then(function (r) { return r.j
       <div>
         <h4>Help</h4>
         <ul>
-          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="download.html#install">How to install</a></li>
           <li><a href="support.html">Contact support</a></li>
+          <li><a href="reviews.html#rate">Rate the app</a></li>
         </ul>
       </div>
       <div>
@@ -121,10 +129,13 @@ fetch("update/version.json", {cache: "no-store"}).then(function (r) { return r.j
     </div>
     <div class="bottom">
       <span>© 2026 ScottPrivacy. All rights reserved.</span>
-      <span>This website uses no cookies and no trackers.</span>
+      <span>No cookies. No trackers.</span>
     </div>
   </div>
 </footer>
+<script src="assets/config.js"></script>
+<script src="assets/site.js" defer></script>
 <script src="assets/help.js" defer></script>
+<script src="assets/reviews.js" defer></script>
 </body>
 </html>
