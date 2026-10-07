@@ -1,0 +1,120 @@
+# Goes in the PUBLIC ScottVentures/scottprivacy-site repository as .github/workflows/release.yml
+#
+# Publishing an app update is now just:
+#   1. Export the APK from Godot (raise Version > Code first).
+#   2. scottprivacy-site › Releases › Draft a new release › tag v<version name> (e.g. v1.0.5),
+#      write what changed (one line per change), attach the APK, Publish.
+# This workflow then checks the APK, writes update/version.json (download link, SHA-256, size, notes)
+# and puts it live, so the app offers the update and the website shows the new version.
+# If something is wrong (version not higher, tag doesn't match the APK), the run fails and GitHub emails you.
+name: Publish app update
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:   # re-run for the latest release (Actions › Publish app update › Run workflow)
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: app-release
+  cancel-in-progress: false
+
+jobs:
+  version-file:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the APK and write update/version.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RELEASE_ID: ${{ github.event.release.id }}
+        run: |
+          python3 - <<'PY'
+          import glob, hashlib, json, os, re, subprocess, sys, urllib.request
+
+          repo, token = os.environ["REPO"], os.environ["GH_TOKEN"]
+          def api(path, method="GET", body=None):
+              req = urllib.request.Request("https://api.github.com/repos/%s%s" % (repo, path), method=method,
+                                           data=json.dumps(body).encode() if body is not None else None,
+                                           headers={"Authorization": "Bearer " + token, "Accept": "application/vnd.github+json"})
+              return json.load(urllib.request.urlopen(req))
+          def fail(msg):
+              print("::error::" + msg)
+              sys.exit(1)
+
+          rid = os.environ.get("RELEASE_ID", "")
+          rel = api("/releases/" + rid) if rid else api("/releases/latest")
+          tag = rel["tag_name"]
+          apks = [a for a in rel.get("assets", []) if a["name"].lower().endswith(".apk")]
+          if not apks:
+              fail("Release %s has no APK attached. Edit the release, attach the APK, then run this workflow again." % tag)
+          asset = apks[0]
+          if asset["name"] != "ScottPrivacy.apk":   # the website's Download button expects this exact name
+              asset = api("/releases/assets/%d" % asset["id"], "PATCH", {"name": "ScottPrivacy.apk"})
+              print("Renamed the APK to ScottPrivacy.apk")
+
+          url = "https://github.com/%s/releases/download/%s/ScottPrivacy.apk" % (repo, tag)
+          req = urllib.request.Request("https://api.github.com/repos/%s/releases/assets/%d" % (repo, asset["id"]),
+                                       headers={"Authorization": "Bearer " + token, "Accept": "application/octet-stream"})
+          with urllib.request.urlopen(req) as r, open("app.apk", "wb") as f:
+              while True:
+                  chunk = r.read(1 << 20)
+                  if not chunk:
+                      break
+                  f.write(chunk)
+
+          sdk = os.environ.get("ANDROID_HOME") or os.environ.get("ANDROID_SDK_ROOT") or "/usr/local/lib/android/sdk"
+          code = name = None
+          for t in sorted(glob.glob(os.path.join(sdk, "build-tools", "*", "aapt2")), reverse=True):
+              out = subprocess.run([t, "dump", "badging", "app.apk"], capture_output=True, text=True).stdout
+              m = re.search(r"versionCode='(\d+)'.*?versionName='([^']*)'", out)
+              if m:
+                  code, name = int(m.group(1)), m.group(2)
+                  break
+          if code is None:
+              fail("Couldn't read the APK's version. Is the attached file really the ScottPrivacy APK?")
+
+          path = "update/version.json"
+          old = json.load(open(path)) if os.path.exists(path) else {}
+          if code <= int(old.get("version_code", 0)):
+              fail("This APK has version code %d, but the app already offers code %s. In Godot set Version > Code to %d, "
+                   "export again, replace the APK in the release, then run this workflow again."
+                   % (code, old.get("version_code"), int(old.get("version_code", 0)) + 1))
+          if tag.lstrip("vV") != name:
+              print("::warning::Release tag %s doesn't match the APK's version name %s (that's allowed, just check it's right)." % (tag, name))
+
+          h = hashlib.sha256()
+          with open("app.apk", "rb") as f:
+              for chunk in iter(lambda: f.read(1 << 20), b""):
+                  h.update(chunk)
+          notes = [re.sub(r"^\s*[-*•]\s*", "", l).strip() for l in (rel.get("body") or "").splitlines()]
+          notes = [n for n in notes if n and not n.startswith("#")][:8] or ["Improvements and fixes"]
+          data = {"version_code": code, "version_name": name, "apk_url": url, "sha256": h.hexdigest(),
+                  "size": os.path.getsize("app.apk"), "min_sdk": 24, "notes": notes}
+          os.makedirs("update", exist_ok=True)
+          with open(path, "w") as f:
+              json.dump(data, f, indent=2)
+              f.write("\n")
+          os.remove("app.apk")
+          print(json.dumps(data, indent=2))
+          PY
+
+      - name: Put it live
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "ScottPrivacy release bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add update/version.json
+          if git diff --cached --quiet; then echo "version.json already up to date."; exit 0; fi
+          git commit -m "App update $(python3 -c "import json;print(json.load(open('update/version.json'))['version_name'])")"
+          git pull --rebase origin HEAD
+          git push origin HEAD
+          # Ask GitHub Pages to rebuild now (pushes made by workflows don't always start a build).
+          curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds" || true
