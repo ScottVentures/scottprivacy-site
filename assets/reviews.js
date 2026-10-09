@@ -107,7 +107,7 @@
     var status = document.getElementById("rev-status");
     var gate = document.getElementById("rev-gate");
     var btn = f.querySelector("button[type=submit]");
-    var auth = A(), mine = null;
+    var auth = A(), mine = null, shown = Date.now();
 
     function say(kind, text) { status.className = "form-status " + kind; status.textContent = text; }
     function pick(n) { var r = f.querySelector("input[name=stars][value='" + n + "']"); if (r) r.checked = true; }
@@ -139,6 +139,7 @@
       if (f.botcheck && f.botcheck.checked) return;
       var picked = f.querySelector("input[name=stars]:checked");
       if (!picked) { say("err", T("Tap a star to choose your rating.")); return; }
+      if (Date.now() - shown < 1500) { shown = 0; say("err", T("Please check your rating, then press the button again.")); return; }
       var data = { stars: parseInt(picked.value, 10), comment: f.comment.value.trim() || null };
       var label = btn.textContent;
       btn.disabled = true; btn.textContent = T("Sending…");

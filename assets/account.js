@@ -4,7 +4,7 @@
   var A = window.SPAuth, esc = A.esc;
   var SITE = location.origin + location.pathname.replace(/[^/]*$/, "");
   var params = new URLSearchParams(location.search);
-  var root, view = "signin", recovering = false;
+  var root, view = "signin", recovering = false, signingIn = false;
 
   var WHY = {
     download: "Create a free account or sign in to download ScottPrivacy.",
@@ -27,9 +27,93 @@
     var next = params.get("next");
     return next && /^((sw|fr)\/)?[a-z0-9_\-]+\.html(#[\w\-]*)?$/i.test(next) ? next : null;
   }
-  function afterSignIn() {
-    if (nextPage()) location.href = nextPage();
-    else render();
+  function afterSignIn() { render(); }
+
+  // ---------------------------------------------------------------- two-step verification (authenticator app codes)
+  function mfa() { return A.client.auth.mfa; }
+  function needsCode() {
+    return mfa().getAuthenticatorAssuranceLevel().then(function (r) {
+      var l = (r && r.data) || {};
+      return l.nextLevel === "aal2" && l.currentLevel !== "aal2";
+    }).catch(function () { return false; });
+  }
+  function codeField(label) {
+    return '<label>' + label + '<input name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required></label>';
+  }
+  function codeView() {
+    root.innerHTML = '<div class="auth-card"><h2>Two-step verification</h2><p class="muted">Open your authenticator app and enter the 6-digit code for ScottPrivacy.</p>' +
+      '<form class="form" novalidate>' + codeField("Code") +
+      '<button class="btn btn-primary" type="submit">Verify</button><p class="form-status" role="status" aria-live="polite"></p>' +
+      '<p class="muted small"><a href="#" data-out>Sign out</a></p></form></div>';
+    var f = $("form"), st = f.querySelector(".form-status"), btn = f.querySelector("button[type=submit]");
+    f.code.focus();
+    f.querySelector("[data-out]").addEventListener("click", function (e) { e.preventDefault(); A.client.auth.signOut().then(render); });
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!f.checkValidity()) { status(st, "err", "Enter the 6 digits from your app."); return; }
+      busy(btn, true, "Checking…"); status(st);
+      mfa().listFactors().then(function (r) {
+        if (r.error) throw r.error;
+        var factor = (r.data.totp || [])[0];
+        if (!factor) throw new Error("No authenticator is set up for this account.");
+        return mfa().challengeAndVerify({ factorId: factor.id, code: f.code.value.trim() });
+      }).then(function (r) {
+        if (r.error) throw r.error;
+        return A.reloadProfile();
+      }).then(render).catch(function (err) {
+        status(st, "err", /invalid|expired/i.test(err && err.message) ? "That code didn't work. Codes change every 30 seconds, try the newest one." : nice(err));
+        busy(btn, false, "Verify");
+      });
+    });
+  }
+  function mfaSection(isAdmin) {
+    var box = $("#mfa-box");
+    mfa().listFactors().then(function (r) {
+      if (r.error) throw r.error;
+      var on = (r.data.totp || [])[0];
+      if (on) {
+        box.innerHTML = '<p><b>On.</b> Signing in asks for a code from your authenticator app.</p>' +
+          '<button class="btn btn-outline" type="button" data-mfa-off>Turn off</button><p class="form-status" role="status"></p>';
+        box.querySelector("[data-mfa-off]").addEventListener("click", function () {
+          var warn = isAdmin ? "Turn off two-step verification? You won't be able to open the admin dashboard until you turn it on again." : "Turn off two-step verification?";
+          if (!confirm(warn)) return;
+          mfa().unenroll({ factorId: on.id }).then(function (x) { if (x.error) throw x.error; return A.client.auth.refreshSession(); })
+            .then(render).catch(function (err) { status(box.querySelector(".form-status"), "err", nice(err)); });
+        });
+      } else {
+        box.innerHTML = "<p>" + (isAdmin ? "<b>Needed for the admin dashboard.</b> " : "") +
+          "Also ask for a code from an authenticator app (Google Authenticator, Microsoft Authenticator, Authy…) when you sign in, so a stolen password isn't enough.</p>" +
+          '<button class="btn btn-primary" type="button" data-mfa-on>Set up</button><p class="form-status" role="status"></p>';
+        box.querySelector("[data-mfa-on]").addEventListener("click", function () { enroll(box); });
+      }
+    }).catch(function (err) { box.textContent = nice(err); });
+  }
+  function enroll(box) {
+    var st = box.querySelector(".form-status");
+    mfa().listFactors().then(function (r) {     // clear setups that were started but never finished
+      var stale = ((r.data && r.data.all) || []).filter(function (f) { return f.status !== "verified"; });
+      return Promise.all(stale.map(function (f) { return mfa().unenroll({ factorId: f.id }); }));
+    }).then(function () {
+      return mfa().enroll({ factorType: "totp", friendlyName: "ScottPrivacy " + Date.now().toString(36) });
+    }).then(function (r) {
+      if (r.error) throw r.error;
+      var d = r.data, qr = d.totp.qr_code || "";
+      if (qr.indexOf("data:") !== 0) qr = "data:image/svg+xml;utf-8," + encodeURIComponent(qr);
+      box.innerHTML = "<p>1. Scan this QR code with your authenticator app.</p>" +
+        '<img class="mfa-qr" width="180" height="180" alt="QR code for your authenticator app" src="' + esc(qr) + '">' +
+        '<p class="small">Can\'t scan it? Type this key into the app instead: <code class="mfa-key">' + esc(d.totp.secret) + "</code></p>" +
+        '<form class="form" novalidate><p>2. Enter the 6-digit code the app shows.</p>' + codeField("Code") +
+        '<button class="btn btn-primary" type="submit">Turn on</button><p class="form-status" role="status" aria-live="polite"></p></form>';
+      var f = box.querySelector("form"), fst = f.querySelector(".form-status");
+      f.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!f.checkValidity()) { status(fst, "err", "Enter the 6 digits from your app."); return; }
+        mfa().challengeAndVerify({ factorId: d.id, code: f.code.value.trim() }).then(function (x) {
+          if (x.error) throw x.error;
+          render();
+        }).catch(function (err) { status(fst, "err", /invalid|expired/i.test(err && err.message) ? "That code didn't work. Try the newest one." : nice(err)); });
+      });
+    }).catch(function (err) { status(st, "err", nice(err)); });
   }
 
   // ---------------------------------------------------------------- signed out
@@ -65,11 +149,12 @@
       if (!f.checkValidity()) { f.reportValidity(); return; }
       var btn = f.querySelector("button[type=submit]"), st = f.querySelector(".form-status");
       busy(btn, true, "Signing in…"); status(st);
+      signingIn = true;
       A.client.auth.signInWithPassword({ email: f.email.value.trim(), password: f.password.value }).then(function (r) {
         if (r.error) throw r.error;
         return A.reloadProfile();
-      }).then(afterSignIn).catch(function (err) { status(st, "err", nice(err)); })
-        .then(function () { busy(btn, false, "Sign in"); });
+      }).then(afterSignIn).catch(function (err) { status(st, "err", nice(err)); busy(btn, false, "Sign in"); })
+        .then(function () { signingIn = false; });
     });
   }
 
@@ -79,15 +164,19 @@
       '<label>Country<input name="country" autocomplete="country-name" maxlength="40" placeholder="e.g. Kenya"></label></div>' +
       '<label>Email<input name="email" type="email" autocomplete="email" required></label>' +
       '<label>Password<input name="password" type="password" autocomplete="new-password" required minlength="8"><span class="hint">At least 8 characters.</span></label>' +
-      '<label class="check"><input type="checkbox" name="agree" required> I agree to the <a href="privacy.html" target="_blank">privacy policy</a></label>' +
+      '<label class="check"><input type="checkbox" name="agree" required> I agree to the <a href="privacy.html" target="_blank" rel="noopener noreferrer">privacy policy</a></label>' +
+      '<input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">' +
       '<button class="btn btn-primary" type="submit">Create account</button>' +
       '<p class="form-status" role="status" aria-live="polite"></p></form>';
   }
   function bindSignUp(f) {
+    var shown = Date.now();
     f.addEventListener("submit", function (e) {
       e.preventDefault();
       if (!f.checkValidity()) { f.reportValidity(); return; }
       var btn = f.querySelector("button[type=submit]"), st = f.querySelector(".form-status");
+      if (f.website.value) return;                              // filled in by a robot: the field is invisible to people
+      if (Date.now() - shown < 2500) { status(st, "err", "That was quick! Please check your details and press Create account again."); shown = 0; return; }
       busy(btn, true, "Creating…"); status(st);
       var redirect = SITE + "account.html" + (params.get("next") ? "?next=" + encodeURIComponent(params.get("next")) : "");
       A.client.auth.signUp({
@@ -163,11 +252,15 @@
       '<section class="dl-card"><h3>Password</h3><form class="form" id="f-pass" novalidate>' +
       '<label>New password<input name="password" type="password" autocomplete="new-password" minlength="8" required></label>' +
       '<button class="btn btn-outline" type="submit">Change password</button><p class="form-status" role="status"></p></form></section>' +
+      '<section class="dl-card" id="mfa"><h3>Two-step verification</h3><div id="mfa-box" class="muted">Loading…</div></section>' +
       '<section class="dl-card"><h3>Your review</h3><div id="my-review" class="muted">Loading…</div></section>' +
       '<section class="dl-card"><h3>Your downloads</h3><div id="my-dl" class="muted">Loading…</div></section>' +
       '<section class="dl-card danger"><h3>Delete account</h3><p class="muted">Deletes your account, your review and your download history. This can\'t be undone.</p>' +
       '<button class="btn btn-danger" type="button" data-delete>Delete my account</button><p class="form-status" role="status"></p></section>' +
       "</div></div>";
+
+    mfaSection(r === "super_admin" || r === "admin");
+    if (location.hash === "#mfa") setTimeout(function () { var m = $("#mfa"); if (m) m.scrollIntoView(); }, 50);
 
     root.querySelector("[data-signout]").addEventListener("click", function () { A.client.auth.signOut().then(function () { location.href = "index.html"; }); });
 
@@ -225,8 +318,12 @@
       return;
     }
     if (recovering) return newPasswordView();
-    if (A.state.user && nextPage()) { location.replace(nextPage()); return; }
-    if (A.state.user) accountView(); else authView();
+    if (!A.state.user) { authView(); return; }
+    needsCode().then(function (need) {
+      if (need) codeView();
+      else if (nextPage()) location.replace(nextPage());
+      else accountView();
+    });
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -235,7 +332,7 @@
     if (params.get("tab") === "signup") view = "signup";
     A.onChange(function (event) {
       if (event === "PASSWORD_RECOVERY") { recovering = true; render(); }
-      else if (event === "SIGNED_IN" && params.get("next")) afterSignIn();
+      else if (event === "SIGNED_IN" && params.get("next") && !signingIn) afterSignIn();
       else if (event === "SIGNED_OUT" || event === "USER_UPDATED") render();
     });
     A.ready.then(render);

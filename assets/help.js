@@ -158,10 +158,15 @@
     if (!f) return;
     var key = f.getAttribute("data-key") || "";
     var status = document.getElementById("form-status");
+    var shown = Date.now();
     f.addEventListener("submit", function (e) {
       e.preventDefault();
       if (!f.checkValidity()) { f.reportValidity(); return; }
-      if (f.botcheck && f.botcheck.checked) return;
+      if (f.botcheck && f.botcheck.checked) return;              // invisible to people, so only robots tick it
+      if (Date.now() - shown < 3000) {                          // nobody types a real message this fast
+        status.className = "form-status err"; status.textContent = T("Please check your message, then press Send again.");
+        shown = 0; return;
+      }
       var data = {
         subject: "ScottPrivacy support: " + f.topic.value,
         from_name: f.name.value || "ScottPrivacy user",
@@ -172,7 +177,7 @@
       if (!key || key.indexOf("YOUR_") === 0) {
         // Not set up yet: fall back to the visitor's email app.
         var body = "Topic: " + data.topic + "\nPhone: " + data.phone + "\n\n" + data.message;
-        location.href = "mailto:" + f.getAttribute("data-fallback") + "?subject=" + encodeURIComponent(data.subject) + "&body=" + encodeURIComponent(body);
+        location.href = "mailto:" + f.getAttribute("data-u") + "@" + f.getAttribute("data-d") + "?subject=" + encodeURIComponent(data.subject) + "&body=" + encodeURIComponent(body);
         return;
       }
       data.access_key = key;

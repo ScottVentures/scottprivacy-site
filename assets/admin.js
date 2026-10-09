@@ -358,7 +358,14 @@
       if (!A.state.user) { A.goSignIn("admin"); return; }
       if (!A.isAdmin()) { denied("Your account doesn't have admin rights."); return; }
       root.innerHTML = '<p class="muted">Loading…</p>';
-      loadAll().then(function () { shell(); body(); }).catch(function (e) { denied(esc(e.message)); });
+      // The database only gives admin rights to sessions confirmed with two-step verification.
+      db.auth.mfa.getAuthenticatorAssuranceLevel().then(function (r) {
+        var l = (r && r.data) || {};
+        if (l.currentLevel === "aal2") return loadAll().then(function () { shell(); body(); });
+        if (l.nextLevel === "aal2") { location.replace("account.html?next=admin.html"); return; }
+        root.innerHTML = '<div class="auth-card"><h2>Turn on two-step verification</h2><p class="muted">To keep users safe, the admin dashboard only opens after you confirm sign-in with a code from an authenticator app (Google Authenticator, Microsoft Authenticator, Authy…).</p>' +
+          '<a class="btn btn-primary" href="account.html#mfa">Set it up in my account</a></div>';
+      }).catch(function (e) { denied(esc(e.message)); });
     });
   });
 })();

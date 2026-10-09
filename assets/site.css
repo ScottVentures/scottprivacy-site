@@ -555,3 +555,7 @@ pre.crash{white-space:pre-wrap;word-break:break-word;font-size:12.5px;background
 .site-footer .langs{display:flex;gap:6px;flex-wrap:wrap}
 .site-footer .langs a{color:inherit}
 .site-footer .langs b{color:#fff;font-weight:600}
+
+/* two-step verification */
+.mfa-qr{display:block;width:180px;height:180px;margin:8px 0 12px;padding:8px;background:#fff;border-radius:12px;border:1px solid rgba(11,20,51,.12)}
+.mfa-key{word-break:break-all;user-select:all}
