@@ -12,6 +12,10 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://scottventures.github.io/scottprivacy-site/privacy.html">
+<link rel="alternate" hreflang="en" href="https://scottventures.github.io/scottprivacy-site/privacy.html">
+<link rel="alternate" hreflang="sw" href="https://scottventures.github.io/scottprivacy-site/sw/privacy.html">
+<link rel="alternate" hreflang="fr" href="https://scottventures.github.io/scottprivacy-site/fr/privacy.html">
+<link rel="alternate" hreflang="x-default" href="https://scottventures.github.io/scottprivacy-site/privacy.html">
 <link rel="icon" href="logo.svg">
 <link rel="preload" href="assets/fonts/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
@@ -23,8 +27,8 @@
     <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="features.html">Features</a>
+      <a href="scams.html">Scam alerts</a>
       <a href="reviews.html">Reviews</a>
-      <a href="stats.html">Stats</a>
       <a href="faq.html">FAQ</a>
       <a href="support.html">Support</a>
       <a class="btn btn-primary nav-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download the app</a>
@@ -40,13 +44,13 @@
   <div class="wrap">
     <span class="eyebrow">Legal</span>
     <h1>Privacy policy</h1>
-    <p>Effective 6 October 2026 · App: ScottPrivacy (com.scottprivacy.app)</p>
+    <p>Effective 9 October 2026 · App: ScottPrivacy (com.scottprivacy.app)</p>
   </div>
 </section>
 <div class="wrap doc">
   <nav class="toc" aria-label="On this page"><b>On this page</b><a href="#summary">The short version</a><a href="#on-device">What stays on your phone</a><a href="#internet">The only times the app uses the internet</a><a href="#control">Your control</a><a href="#children">Children</a><a href="#website">This website</a><a href="#accounts">Your account</a><a href="#reviews">Ratings and reviews</a><a href="#contact">Changes and contact</a></nav>
   <article>
-<div class="summary"><h2 id="summary" style="margin:0 0 8px;font-size:20px">The short version</h2><p><strong>ScottPrivacy checks your calls, messages, contacts, apps and files on your phone. None of it is uploaded to us or anyone else.</strong> We don't have accounts, ads, analytics or tracking, and we don't sell or share data.</p></div>
+<div class="summary"><h2 id="summary" style="margin:0 0 8px;font-size:20px">The short version</h2><p><strong>ScottPrivacy checks your calls, messages, contacts, apps and files on your phone. None of it is uploaded to us or anyone else.</strong> We don't use ads, analytics or tracking, and we don't sell or share data. Your free account holds only your email, name and country.</p></div>
 <h2 id="on-device">What stays on your phone</h2>
 <p>To protect you, the app reads the following. It is processed only on your device and stored only in the app's private storage, which other apps can't read.</p>
 <table class="table">
@@ -56,7 +60,7 @@
 <tr><td>Names in your own mobile money messages (M-PESA, Airtel Money, MTN MoMo…)</td><td>Showing a name for numbers that aren't in your contacts. You can switch this off and erase learned names.</td></tr>
 <tr><td>Contacts</td><td>Telling contacts apart from unknown numbers, so contacts always get through</td></tr>
 <tr><td>List of installed apps and their permissions</td><td>App check and App permissions: finding apps with risky access</td></tr>
-<tr><td>Files in your phone storage (after you allow file access)</td><td>Finding junk, old APK files, large files and exact duplicates. Files are checked on the phone, never uploaded, and only what you confirm is deleted. The Google Play version only looks in folders you pick.</td></tr>
+<tr><td>Files in your phone storage (after you allow file access)</td><td>Finding junk, old APK files, large files and exact duplicates. Files are checked on the phone, never uploaded, and only what you confirm is deleted.</td></tr>
 <tr><td>Your country (from the SIM card, or the one you pick)</td><td>Reading local phone numbers correctly and showing local scam tips</td></tr>
 <tr><td>Wi-Fi name, network type, device settings</td><td>The network &amp; device audit</td></tr>
 <tr><td>"Install unknown apps" (website copies only)</td><td>Installing ScottPrivacy's own updates after you tap Update. It isn't used to install anything else.</td></tr>
@@ -68,6 +72,9 @@
 <li><strong>Password breach check (when you use it):</strong> only the first 5 characters of a SHA-1 hash of the password are sent to <a href="https://haveibeenpwned.com/Passwords">Pwned Passwords</a>. Your password itself never leaves the phone.</li>
 <li><strong>Email breach check (only if you add your own API key):</strong> the email address you type is sent to <a href="https://haveibeenpwned.com/Privacy">Have I Been Pwned</a> to look it up.</li>
 <li><strong>Scam rule updates:</strong> about once a day the app downloads a small rules file from GitHub Pages. Nothing about you is sent; like any website, GitHub may see your IP address. See <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</li>
+<li><strong>Report scam (when you tap it):</strong> only the reported number, and whether it was a call or SMS, is sent and linked to your account. Numbers reported by several people are sent to every ScottPrivacy phone about twice a day, so everyone is warned. Your messages are never sent.</li>
+<li><strong>Backup (when you're signed in):</strong> your block lists and protection settings are backed up to your account once a day, so you can restore them on a new phone.</li>
+<li><strong>Crash reports (only if you agree):</strong> if the app closes unexpectedly, it asks before sending technical details: phone model, Android version and the error. No messages, numbers, contacts or files.</li>
 <li><strong>App updates (copies downloaded from this website):</strong> about once a day the app downloads a small file, <code>update/version.json</code>, to see if there is a newer version. If you choose to update, the new app file is downloaded from GitHub, checked, and Android asks you to confirm. Nothing about you is sent. Copies from Google Play or Palm Store are updated by that store instead.</li>
 <li><strong>Contact support:</strong> if you tap it, your email app opens with your phone model and app version filled in. You decide whether to send it.</li>
 </ul>
@@ -76,10 +83,10 @@
 <ul>
 <li>Every permission is optional and can be removed in Android settings. Features that need it will stop working.</li>
 <li>You can stop using ScottPrivacy as your Phone or SMS app at any time in Android settings. Your messages and call history stay on your phone.</li>
-<li><strong>Delete your data:</strong> Settings &gt; Erase personal data, or uninstall the app. Since we hold no copy, there is nothing to delete on our side.</li>
+<li><strong>Delete your data:</strong> Settings &gt; Erase personal data, or uninstall the app. To delete your account together with your scam reports, backup and review on our side, use <strong>Delete my account</strong> on your <a href="account.html">account page</a>.</li>
 </ul>
 <h2 id="children">Children</h2>
-<p>ScottPrivacy is not directed at children under 13 and doesn't knowingly collect anything from them. In fact it collects nothing at all.</p>
+<p>ScottPrivacy is not directed at children under 13 and doesn't knowingly collect anything from them.</p>
 <h2 id="website">This website</h2>
 <p>The website uses no cookies, analytics or trackers, and loads nothing from other companies. If you sign in, your browser keeps a sign-in token so you stay signed in; it is used for nothing else. The help assistant runs in your browser, so your questions aren't sent anywhere.</p>
 <p>If you send a message with the <a href="support.html">contact form</a>, it is delivered to us by <a href="https://web3forms.com/privacy">Web3Forms</a> and we receive your name, email, phone model, rating and message. We use them only to reply and to improve ScottPrivacy, and delete them when they're no longer needed. Download numbers come from GitHub's public release counts, which contain nothing about who downloaded.</p>
@@ -113,6 +120,7 @@
         <h4>Help</h4>
         <ul>
           <li><a href="faq.html">FAQ</a></li>
+          <li><a href="scams.html">Scam alerts</a></li>
           <li><a href="download.html#install">How to install</a></li>
           <li><a href="support.html">Contact support</a></li>
           <li><a href="reviews.html#rate">Rate the app</a></li>
@@ -128,12 +136,12 @@
     </div>
     <div class="bottom">
       <span>© 2026 ScottPrivacy. All rights reserved.</span>
+      <span class="langs"><b>English</b> · <a href="sw/privacy.html" hreflang="sw" lang="sw">Kiswahili</a> · <a href="fr/privacy.html" hreflang="fr" lang="fr">Français</a></span>
       <span>No cookies. No trackers.</span>
     </div>
   </div>
 </footer>
 <script src="assets/config.js"></script>
-<script src="assets/vendor/supabase.js" defer></script>
 <script src="assets/auth.js" defer></script>
 <script src="assets/site.js" defer></script>
 <script src="assets/help.js" defer></script>

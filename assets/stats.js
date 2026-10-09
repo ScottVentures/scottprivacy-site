@@ -122,7 +122,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    var hist = fetch("stats/downloads.json", { cache: "no-store" }).then(function (r) { return r.json(); }).catch(function () { return { days: [] }; });
+    var hist = fetch(((window.SP || {}).root || "") + "stats/downloads.json", { cache: "no-store" }).then(function (r) { return r.json(); }).catch(function () { return { days: [] }; });
     var rel = fetch("https://api.github.com/repos/" + REPO + "/releases?per_page=100").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
     Promise.all([hist, rel]).then(function (v) { render(v[0], Array.isArray(v[1]) ? v[1] : []); });
   });

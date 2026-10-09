@@ -3,7 +3,7 @@
 (function () {
   "use strict";
   var A = window.SPAuth, esc = A.esc, db;
-  var root, tab = "overview", users = [], reviews = [], downloads = [], filter = { q: "", role: "", status: "", rev: "pending" };
+  var root, tab = "overview", users = [], reviews = [], downloads = [], scams = [], crashes = [], allowed = [], filter = { q: "", role: "", status: "", rev: "pending" };
   var NS = "http://www.w3.org/2000/svg";
 
   function $(s) { return root.querySelector(s); }
@@ -37,8 +37,12 @@
       db.from("profiles").select("*").order("created_at", { ascending: false }).limit(1000),
       db.from("reviews").select("id, stars, comment, approved, created_at, updated_at, user_id, profiles(email, full_name, country)").order("updated_at", { ascending: false }).limit(500),
       db.from("downloads").select("id, version, created_at, user_id, profiles(email, full_name)").order("created_at", { ascending: false }).limit(500),
+      db.from("scam_reports").select("id, number, kind, created_at, user_id").order("created_at", { ascending: false }).limit(5000),
+      db.from("crash_reports").select("id, app_version, device, android, report, created_at, profiles(email)").order("created_at", { ascending: false }).limit(200),
+      db.from("scam_allow").select("number"),
     ]).then(function (r) {
       users = r[0].data || []; reviews = r[1].data || []; downloads = r[2].data || [];
+      scams = r[3].data || []; crashes = r[4].data || []; allowed = (r[5].data || []).map(function (x) { return x.number; });
     });
   }
 
@@ -50,7 +54,7 @@
       '<p class="muted">Signed in as ' + esc(me.full_name || A.state.user.email) + "</p></div>" +
       '<button class="btn btn-outline btn-small" type="button" data-refresh>Refresh</button></div>' +
       '<div class="admin-tabs" role="tablist">' +
-      ["overview:Overview", "users:Users", "reviews:Reviews", "downloads:Downloads"].map(function (t) {
+      ["overview:Overview", "users:Users", "reviews:Reviews", "reports:Scam reports", "downloads:Downloads", "crashes:Crashes"].map(function (t) {
         var k = t.split(":")[0];
         return '<button type="button" role="tab" data-tab="' + k + '" aria-selected="' + (tab === k) + '">' + t.split(":")[1] +
           (k === "reviews" ? ' <span class="count" data-pending></span>' : "") + "</button>";
@@ -68,6 +72,8 @@
     if (tab === "overview") overview(b);
     else if (tab === "users") usersTab(b);
     else if (tab === "reviews") reviewsTab(b);
+    else if (tab === "reports") reportsTab(b);
+    else if (tab === "crashes") crashesTab(b);
     else downloadsTab(b);
   }
 
@@ -80,7 +86,8 @@
       var avg = reviews.length ? (reviews.reduce(function (s, r) { return s + r.stars; }, 0) / reviews.length).toFixed(1) : "–";
       var tiles = [["Accounts", o.users, "+" + o.users_7d + " this week"], ["Active this week", o.active_7d, "Signed in during the last 7 days"],
         ["Downloads", o.downloads, "+" + o.downloads_7d + " this week"], ["Average rating", avg, reviews.length + " ratings"],
-        ["Reviews to check", o.pending_reviews, o.pending_reviews ? "Waiting for approval" : "All caught up"], ["Suspended", o.suspended, "Accounts blocked"]];
+        ["Reviews to check", o.pending_reviews, o.pending_reviews ? "Waiting for approval" : "All caught up"], ["Suspended", o.suspended, "Accounts blocked"],
+        ["Scam reports", o.scam_reports || 0, "+" + (o.scam_reports_7d || 0) + " this week"], ["Crashes", o.crashes_7d || 0, "In the last 7 days"]];
       $("#ov-tiles").innerHTML = tiles.map(function (t) {
         return '<div class="tile"><div class="lbl">' + t[0] + '</div><div class="val">' + esc(t[1]) + '</div><div class="sub">' + esc(t[2]) + "</div></div>";
       }).join("");
@@ -260,6 +267,63 @@
     });
   }
 
+  // ---------------------------------------------------------------- scam reports
+  var MIN_REPORTS = 3;   // same as COMMUNITY_MIN_REPORTS in the app
+  function reportsTab(b) {
+    var by = {};
+    scams.forEach(function (r) {
+      var e = by[r.number] || (by[r.number] = { number: r.number, people: {}, kinds: {}, last: r.created_at });
+      e.people[r.user_id] = 1; e.kinds[r.kind] = 1;
+      if (r.created_at > e.last) e.last = r.created_at;
+    });
+    var list = Object.keys(by).map(function (k) { var e = by[k]; e.n = Object.keys(e.people).length; return e; })
+      .sort(function (a, b) { return b.n - a.n || (b.last > a.last ? 1 : -1); });
+    b.innerHTML = '<p class="muted small">Numbers reported by at least ' + MIN_REPORTS + ' people are sent to every phone, which then blocks or flags them. ' +
+      'Mark a number "Not a scam" if it was reported by mistake (it then never goes to phones).</p>' +
+      (list.length ? '<div class="table-wrap"><table class="table admin-table"><thead><tr><th>Number</th><th>People</th><th>Type</th><th>Last report</th><th>Status</th><th></th></tr></thead><tbody>' +
+      list.map(function (e) {
+        var ok = allowed.indexOf(e.number) >= 0;
+        var status = ok ? '<span class="status active">Not a scam</span>' : (e.n >= MIN_REPORTS ? '<span class="status suspended">On phones</span>' : '<span class="muted small">Needs ' + (MIN_REPORTS - e.n) + ' more</span>');
+        return "<tr><td><b>" + esc(e.number) + "</b></td><td>" + e.n + "</td><td>" + Object.keys(e.kinds).join(", ") + "</td><td>" + fmtAgo(e.last) + "</td><td>" + status + "</td>" +
+          '<td class="acts">' + (ok ? '<button type="button" class="link" data-unallow="' + esc(e.number) + '">Undo</button>' : '<button type="button" class="link" data-allow="' + esc(e.number) + '">Not a scam</button>') +
+          '<button type="button" class="link danger" data-sdel="' + esc(e.number) + '">Delete reports</button></td></tr>';
+      }).join("") + "</tbody></table></div>" : '<p class="muted">No reports yet.</p>');
+    function done(msg) { toast(msg); loadAll().then(body); }
+    b.querySelectorAll("[data-allow]").forEach(function (x) {
+      x.addEventListener("click", function () {
+        db.from("scam_allow").insert({ number: x.getAttribute("data-allow") }).then(function (r) { if (r.error) throw r.error; done("Marked as not a scam"); }).catch(function (e) { toast(e.message, true); });
+      });
+    });
+    b.querySelectorAll("[data-unallow]").forEach(function (x) {
+      x.addEventListener("click", function () {
+        db.from("scam_allow").delete().eq("number", x.getAttribute("data-unallow")).then(function (r) { if (r.error) throw r.error; done("Back on the scam list"); }).catch(function (e) { toast(e.message, true); });
+      });
+    });
+    b.querySelectorAll("[data-sdel]").forEach(function (x) {
+      x.addEventListener("click", function () {
+        if (!confirm("Delete every report for " + x.getAttribute("data-sdel") + "?")) return;
+        db.from("scam_reports").delete().eq("number", x.getAttribute("data-sdel")).then(function (r) { if (r.error) throw r.error; done("Reports deleted"); }).catch(function (e) { toast(e.message, true); });
+      });
+    });
+  }
+
+  // ---------------------------------------------------------------- crash reports
+  function crashesTab(b) {
+    b.innerHTML = crashes.length ? '<div class="rev-admin">' + crashes.map(function (c) {
+      return '<article class="rev-card"><div class="rev-head"><div><b>' + esc(c.device || "Unknown phone") + "</b><span class='sub'>Android " + esc(c.android || "?") +
+        " · ScottPrivacy " + esc(c.app_version || "?") + (c.profiles && c.profiles.email ? " · " + esc(c.profiles.email) : "") + "</span></div><time>" + fmtAgo(c.created_at) + "</time></div>" +
+        '<details><summary class="small">Show details</summary><pre class="crash">' + esc(c.report) + "</pre></details>" +
+        '<div class="acts"><button class="btn btn-outline btn-small danger" data-cdel="' + c.id + '">Delete</button></div></article>';
+    }).join("") + "</div>" : '<p class="muted">No crash reports. 🎉</p>';
+    b.querySelectorAll("[data-cdel]").forEach(function (x) {
+      x.addEventListener("click", function () {
+        db.from("crash_reports").delete().eq("id", x.getAttribute("data-cdel")).then(function (r) {
+          if (r.error) throw r.error; crashes = crashes.filter(function (c) { return c.id != x.getAttribute("data-cdel"); }); toast("Deleted"); body();
+        }).catch(function (e) { toast(e.message, true); });
+      });
+    });
+  }
+
   // ---------------------------------------------------------------- downloads
   function downloadsTab(b) {
     b.innerHTML = '<div class="admin-bar"><p class="muted small" style="margin:0">Latest ' + downloads.length + ' downloads by signed-in users</p>' +
@@ -289,8 +353,8 @@
     root = document.getElementById("admin-root");
     if (!root) return;
     if (!A.configured) { denied("Accounts aren't set up yet. Follow tools/site/ACCOUNTS_SETUP.md."); return; }
-    db = A.client;
     A.ready.then(function () {
+      db = A.client;
       if (!A.state.user) { A.goSignIn("admin"); return; }
       if (!A.isAdmin()) { denied("Your account doesn't have admin rights."); return; }
       root.innerHTML = '<p class="muted">Loading…</p>';

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /scottprivacy-site/admin.html
+Sitemap: https://scottventures.github.io/scottprivacy-site/sitemap.xml

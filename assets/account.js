@@ -25,7 +25,7 @@
   }
   function nextPage() {
     var next = params.get("next");
-    return next && /^[a-z0-9_\-]+\.html(#[\w\-]*)?$/i.test(next) ? next : null;
+    return next && /^((sw|fr)\/)?[a-z0-9_\-]+\.html(#[\w\-]*)?$/i.test(next) ? next : null;
   }
   function afterSignIn() {
     if (nextPage()) location.href = nextPage();

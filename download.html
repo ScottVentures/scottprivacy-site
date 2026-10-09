@@ -12,6 +12,10 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://scottventures.github.io/scottprivacy-site/download.html">
+<link rel="alternate" hreflang="en" href="https://scottventures.github.io/scottprivacy-site/download.html">
+<link rel="alternate" hreflang="sw" href="https://scottventures.github.io/scottprivacy-site/sw/download.html">
+<link rel="alternate" hreflang="fr" href="https://scottventures.github.io/scottprivacy-site/fr/download.html">
+<link rel="alternate" hreflang="x-default" href="https://scottventures.github.io/scottprivacy-site/download.html">
 <link rel="icon" href="logo.svg">
 <link rel="preload" href="assets/fonts/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
@@ -23,8 +27,8 @@
     <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><b>Scott<em>Privacy</em></b></a>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="features.html">Features</a>
+      <a href="scams.html">Scam alerts</a>
       <a href="reviews.html">Reviews</a>
-      <a href="stats.html">Stats</a>
       <a href="faq.html">FAQ</a>
       <a href="support.html">Support</a>
       <a class="btn btn-primary nav-dl" href="download.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>Download the app</a>
@@ -58,6 +62,10 @@
       <p class="note">If Play Protect says the app is from an unknown developer, tap <strong>More details › Install anyway</strong>. That's normal for apps that don't come from Google Play. Only download ScottPrivacy from this website.</p>
     </div>
     <div style="display:grid;gap:20px;align-content:start">
+      <div class="dl-card qr-card">
+        <img src="assets/img/qr-download.svg" alt="QR code for the ScottPrivacy download page" width="132" height="132">
+        <div><h3>On a computer?</h3><p style="margin-top:6px">Scan this with your phone's camera to open this page on your phone, then tap Download.</p></div>
+      </div>
       <div class="dl-card" id="updates">
         <h3>Updates install themselves</h3>
         <p style="margin-top:10px">Once a day the app checks this website. When there's a new version it asks you, downloads it, checks it, and Android asks you to confirm. You can also tap <strong>Settings › Check for updates</strong>.</p>
@@ -88,7 +96,7 @@
   </div>
 </section>
 <script>
-fetch("update/version.json", {cache: "no-store"}).then(function (r) { return r.json(); }).then(function (v) {
+fetch(((window.SP || {}).root || "") + "update/version.json", {cache: "no-store"}).then(function (r) { return r.json(); }).then(function (v) {
   if (!v || !v.version_name) return;
   var mb = v.size ? " · " + (v.size / 1048576).toFixed(0) + " MB" : "";
   document.getElementById("ver").textContent = "Version " + v.version_name + mb;
@@ -116,6 +124,7 @@ fetch("update/version.json", {cache: "no-store"}).then(function (r) { return r.j
         <h4>Help</h4>
         <ul>
           <li><a href="faq.html">FAQ</a></li>
+          <li><a href="scams.html">Scam alerts</a></li>
           <li><a href="download.html#install">How to install</a></li>
           <li><a href="support.html">Contact support</a></li>
           <li><a href="reviews.html#rate">Rate the app</a></li>
@@ -131,12 +140,12 @@ fetch("update/version.json", {cache: "no-store"}).then(function (r) { return r.j
     </div>
     <div class="bottom">
       <span>© 2026 ScottPrivacy. All rights reserved.</span>
+      <span class="langs"><b>English</b> · <a href="sw/download.html" hreflang="sw" lang="sw">Kiswahili</a> · <a href="fr/download.html" hreflang="fr" lang="fr">Français</a></span>
       <span>No cookies. No trackers.</span>
     </div>
   </div>
 </footer>
 <script src="assets/config.js"></script>
-<script src="assets/vendor/supabase.js" defer></script>
 <script src="assets/auth.js" defer></script>
 <script src="assets/site.js" defer></script>
 <script src="assets/help.js" defer></script>

@@ -8,6 +8,7 @@
   var C = window.SP || {};
   var STAR = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>';
 
+  function T(x, n) { return window.SP && SP.t ? SP.t(x, n) : (n == null ? x : x.replace("{n}", n)); }
   function A() { return window.SPAuth || { configured: false }; }
   function esc(s) { return String(s || "").replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function stars(avg, cls) {
@@ -33,9 +34,9 @@
     all("[data-avg]").forEach(function (e) { e.textContent = n ? avg.toFixed(1) : "–"; });
     all("[data-stars]").forEach(function (e) { e.innerHTML = stars(n ? avg : 0, "lg"); });
     all("[data-count]").forEach(function (e) {
-      e.textContent = n ? "Based on " + n.toLocaleString() + " rating" + (n === 1 ? "" : "s") : "No ratings yet. Be the first!";
+      e.textContent = n ? (n === 1 ? T("Based on 1 rating") : T("Based on {n} ratings", n.toLocaleString())) : T("No ratings yet. Be the first!");
     });
-    all("[data-count-short]").forEach(function (e) { e.textContent = n ? n.toLocaleString() + " rating" + (n === 1 ? "" : "s") : "Be the first to rate"; });
+    all("[data-count-short]").forEach(function (e) { e.textContent = n ? (n === 1 ? T("1 rating") : T("{n} ratings", n.toLocaleString())) : T("Be the first to rate"); });
     for (var k = 1; k <= 5; k++) {
       var c = (s && s.stars && s.stars[k]) || 0;
       all('[data-bar="' + k + '"]').forEach(function (e) { e.style.width = (n ? (c / n * 100) : 0) + "%"; });
@@ -49,31 +50,54 @@
 
   function renderList(box, rows) {
     if (!rows.length) {
-      box.innerHTML = '<div class="rev-empty">' + STAR + "<p><b>No written reviews yet.</b><br>Tried ScottPrivacy? Your review helps other people stay safe.</p>" +
-        '<a class="btn btn-primary btn-small" href="reviews.html#rate">Write the first review</a></div>';
+      box.innerHTML = '<div class="rev-empty">' + STAR + "<p><b>" + T("No written reviews yet.") + "</b><br>" + T("Tried ScottPrivacy? Your review helps other people stay safe.") + "</p>" +
+        '<a class="btn btn-primary btn-small" href="reviews.html#rate">' + T("Write the first review") + "</a></div>";
       return;
     }
     box.innerHTML = rows.map(function (r) {
       var who = esc(r.name || "ScottPrivacy user") + (r.country ? " · " + esc(r.country) : "");
       return '<article class="rev-card"><div class="rev-head"><span class="avatar">' + esc((r.name || "S").trim().charAt(0).toUpperCase()) + "</span><div><b>" + who +
-        '</b><span class="rev-stars">' + stars(r.stars, "sm") + '<span class="verified" title="Written by a registered user">Verified user</span></span></div><time>' + ago(r.created_at) + "</time></div>" +
+        '</b><span class="rev-stars">' + stars(r.stars, "sm") + '<span class="verified" title="' + T("Written by a registered user") + '">' + T("Verified user") + '</span></span></div><time>' + ago(r.created_at) + "</time></div>" +
         (r.comment ? "<p>" + esc(r.comment) + "</p>" : "") + "</article>";
     }).join("");
   }
 
+  // Public numbers are read with a plain request, so pages don't need the sign-in library for them.
+  function rpc(name, args) {
+    return fetch(C.supabaseUrl.replace(/\/$/, "") + "/rest/v1/rpc/" + name, {
+      method: "POST", headers: { apikey: C.supabaseKey, Authorization: "Bearer " + C.supabaseKey, "Content-Type": "application/json" },
+      body: JSON.stringify(args || {}),
+    }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+
   function load() {
     var lists = all("#rev-list, #rev-teaser");
-    var db = A().client;
-    if (!db) {
+    if (!(C.supabaseUrl && C.supabaseKey)) {
       renderStats(null);
       lists.forEach(function (b) { renderList(b, []); });
       return;
     }
-    db.rpc("review_stats").then(function (r) { renderStats(r.error ? null : r.data); }, function () { renderStats(null); });
+    rpc("review_stats").then(function (d) { renderStats(d); seo(d); }, function () { renderStats(null); });
     lists.forEach(function (b) {
       var lim = parseInt(b.getAttribute("data-limit"), 10) || 20;
-      db.rpc("public_reviews", { max_rows: lim }).then(function (r) { renderList(b, r.error ? [] : (r.data || [])); }, function () { renderList(b, []); });
+      rpc("public_reviews", { max_rows: lim }).then(function (rows) { renderList(b, rows || []); }, function () { renderList(b, []); });
     });
+  }
+
+  // Lets search engines show the star rating next to ScottPrivacy in results.
+  function seo(s) {
+    var n = (s && s.count) || 0;
+    if (n < (C.minRatingsToShow || 3) || document.getElementById("ld-rating")) return;
+    var el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.id = "ld-rating";
+    el.textContent = JSON.stringify({
+      "@context": "https://schema.org", "@type": "SoftwareApplication", name: "ScottPrivacy",
+      operatingSystem: "Android", applicationCategory: "SecurityApplication",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      aggregateRating: { "@type": "AggregateRating", ratingValue: Number(s.average).toFixed(1), ratingCount: n, bestRating: 5, worstRating: 1 },
+    });
+    document.head.appendChild(el);
   }
 
   // ---------------------------------------------------------------- the rating form
@@ -104,9 +128,9 @@
         if (!mine) return;
         pick(mine.stars);
         f.comment.value = mine.comment || "";
-        btn.textContent = "Update my rating";
-        say("ok", "You rated ScottPrivacy " + mine.stars + " star" + (mine.stars > 1 ? "s" : "") + "." +
-          (mine.comment ? (mine.approved ? " Your review is published." : " Your review is waiting for a quick check.") : "") + " You can change it any time.");
+        btn.textContent = T("Update my rating");
+        say("ok", T("You rated ScottPrivacy {n} stars.", mine.stars) +
+          (mine.comment ? " " + T(mine.approved ? "Your review is published." : "Your review is waiting for a quick check.") : "") + " " + T("You can change it any time."));
       });
     }
 
@@ -114,10 +138,10 @@
       e.preventDefault();
       if (f.botcheck && f.botcheck.checked) return;
       var picked = f.querySelector("input[name=stars]:checked");
-      if (!picked) { say("err", "Tap a star to choose your rating."); return; }
+      if (!picked) { say("err", T("Tap a star to choose your rating.")); return; }
       var data = { stars: parseInt(picked.value, 10), comment: f.comment.value.trim() || null };
       var label = btn.textContent;
-      btn.disabled = true; btn.textContent = "Sending…";
+      btn.disabled = true; btn.textContent = T("Sending…");
       var req;
       if (auth.configured) {
         if (!auth.state.user) { auth.goSignIn("review"); return; }
@@ -133,11 +157,11 @@
       req.then(function () {
         var changedText = !mine || (mine.comment || null) !== data.comment;
         mine = { stars: data.stars, comment: data.comment, approved: mine && !changedText ? mine.approved : false };
-        say("ok", data.comment && changedText ? "Thank you! Your rating counts now; your review appears once it's checked." : "Thank you! Your rating has been saved.");
-        if (auth.configured) label = "Update my rating"; else f.reset();
+        say("ok", T(data.comment && changedText ? "Thank you! Your rating counts now; your review appears once it's checked." : "Thank you! Your rating has been saved."));
+        if (auth.configured) label = T("Update my rating"); else f.reset();
         load();
       }).catch(function () {
-        say("err", "Sorry, that didn't go through. Check your connection and try again.");
+        say("err", T("Sorry, that didn't go through. Check your connection and try again."));
       }).then(function () { btn.disabled = false; btn.textContent = label; });
     });
 

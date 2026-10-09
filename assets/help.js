@@ -3,6 +3,7 @@
    to the support form. Edit KB to add answers. */
 (function () {
   "use strict";
+  function T(x) { return window.SP && SP.t ? SP.t(x) : x; }
 
   // ---------------------------------------------------------------- knowledge base
   var KB = [
@@ -34,6 +35,8 @@
       a: "Wait a few minutes and check Spam or Promotions. Still nothing? Try signing up again or send us a message with the <a href='support.html'>contact form</a>." },
     { q: "How do I delete my account?", k: "delete account remove account close account data erase",
       a: "Sign in, open <a href='account.html'>My account</a> and tap <b>Delete my account</b> at the bottom. Your review and download history are deleted with it." },
+    { q: "How do I report a scam number?", k: "report scam number fraud warn others community reported spam caller ripoti",
+      a: "Open the call or the message and tap <b>Report as scam</b>. The number is blocked for you, and when several people report the same number every ScottPrivacy user is warned about it. Only the number is shared, never your messages. See the latest <a href='scams.html'>scam alerts</a>." },
     { q: "Is ScottPrivacy free?", k: "free price cost pay money subscription pro ads",
       a: "Yes. You can download and use ScottPrivacy for free, and there are no ads." },
     { q: "Does it upload my messages or contacts?", k: "privacy data upload send server safe messages contacts spy track",
@@ -45,7 +48,7 @@
     { q: "What is Code guard?", k: "code guard otp code call warning pin share",
       a: "If a one-time code arrives while you're on a call, ScottPrivacy warns you loudly not to read it out. Real companies never ask for that code." },
     { q: "Is the cleaner safe? Will it delete my photos?", k: "cleaner delete photos files junk duplicate safe storage space",
-      a: "It only scans folders you choose and deletes nothing until you confirm. For duplicates it always keeps the oldest copy." },
+      a: "It scans your phone's storage after you allow file access, and deletes nothing until you confirm. For duplicates it always keeps the oldest copy." },
     { q: "Someone sent me money \"by mistake\". What do I do?", k: "money sent by mistake reverse refund return mpesa wrong number nimekosea rudisha",
       a: "Don't send anything back yourself. Check your real balance in your M-PESA, MoMo or bank app. If the money truly arrived, the sender's provider can reverse it." },
     { q: "Which phones does it work on?", k: "phone android version supported old phone requirements 32 bit",
@@ -83,7 +86,7 @@
     var log = el("div", "hb-log");
     var form = el("form", "hb-ask");
     var input = el("input");
-    input.type = "text"; input.placeholder = "Ask a question, e.g. \"app not installed\""; input.setAttribute("aria-label", "Your question");
+    input.type = "text"; input.placeholder = T("Ask a question, e.g. \"app not installed\""); input.setAttribute("aria-label", T("Your question"));
     var btn = el("button", "btn btn-primary btn-small", "Ask");
     btn.type = "submit";
     form.appendChild(input); form.appendChild(btn);
@@ -101,7 +104,7 @@
     }
     function follow() { return "<div class='hb-more'>Still stuck? <a href='support.html#form'>Send us a message</a>.</div>"; }
 
-    bot("Hi! I can answer common questions about ScottPrivacy straight away. What do you need help with?");
+    bot(T("Hi! I can answer common questions about ScottPrivacy straight away. What do you need help with?"));
     suggest([KB[0], KB[1], KB[5], KB[3]]);
 
     form.onsubmit = function (e) {
@@ -126,7 +129,7 @@
   // Floating "Help" button on every page except the support page (which has the assistant built in).
   function floating() {
     if (document.getElementById("assistant")) return;
-    var fab = el("button", "hb-fab", "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-5 4v-4.2A2.5 2.5 0 0 1 4 13.5z'/></svg><span>Help</span>");
+    var fab = el("button", "hb-fab", "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-5 4v-4.2A2.5 2.5 0 0 1 4 13.5z'/></svg><span>" + T("Help") + "</span>");
     fab.type = "button"; fab.setAttribute("aria-expanded", "false");
     var panel = el("div", "hb-panel");
     panel.setAttribute("role", "dialog"); panel.setAttribute("aria-label", "ScottPrivacy help");
@@ -174,7 +177,7 @@
       }
       data.access_key = key;
       var btn = f.querySelector("button[type=submit]");
-      btn.disabled = true; btn.textContent = "Sending…";
+      btn.disabled = true; btn.textContent = T("Sending…");
       status.className = "form-status"; status.textContent = "";
       fetch("https://api.web3forms.com/submit", {
         method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data),
@@ -182,11 +185,11 @@
         if (!r.success) throw new Error(r.message || "failed");
         f.reset();
         status.className = "form-status ok";
-        status.textContent = "Thanks! Your message has been sent. We'll reply to " + data.email + ".";
+        status.textContent = T("Thanks! Your message has been sent. We'll reply to ") + data.email + ".";
       }).catch(function () {
         status.className = "form-status err";
-        status.textContent = "Sorry, your message couldn't be sent. Check your internet connection and try again.";
-      }).finally(function () { btn.disabled = false; btn.textContent = "Send message"; });
+        status.textContent = T("Sorry, your message couldn't be sent. Check your internet connection and try again.");
+      }).finally(function () { btn.disabled = false; btn.textContent = T("Send message"); });
     });
   }
 
@@ -194,7 +197,7 @@
   function counter() {
     var slot = document.querySelector("[data-downloads]");
     if (!slot) return;
-    fetch("stats/downloads.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
+    fetch(((window.SP || {}).root || "") + "stats/downloads.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
       var last = d && d.days && d.days[d.days.length - 1];
       var n = last ? last.total : 0;
       var min = parseInt(slot.getAttribute("data-downloads"), 10) || 1000;
