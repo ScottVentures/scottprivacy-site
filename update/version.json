@@ -1,11 +1,14 @@
 {
-  "version_code": 5,
-  "version_name": "1.0.6",
-  "apk_url": "https://github.com/ScottVentures/scottprivacy-site/releases/download/v1.0.6/ScottPrivacy.apk",
-  "sha256": "5c9373eb15e91a26ef2de90fe5f9b4cfa5e22018bd8be1615d4824f0bd4d1599",
-  "size": 54579846,
+  "version_code": 7,
+  "version_name": "1.0.8",
+  "apk_url": "https://github.com/ScottVentures/scottprivacy-site/releases/download/v1.0.8/ScottPrivacy.apk",
+  "sha256": "f239dc08db85efe7138da55b913f4bfd0a842ddad9665d40c62f82ee830d7516",
+  "size": 54669982,
   "min_sdk": 24,
   "notes": [
-    "Improvements and fixes"
+    "App lock with PIN or fingerprint",
+    "Your caller name: other ScottPrivacy users see your name when you call",
+    "Scam alerts on the Security tab",
+    "Pin conversations and mark all as read"
   ]
 }
