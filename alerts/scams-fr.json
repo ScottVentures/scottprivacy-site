@@ -1,0 +1,150 @@
+{
+ "updated": "2026-10-09",
+ "lang": "fr",
+ "alerts": [
+  {
+   "id": "sent-by-mistake",
+   "level": "high",
+   "where": "Kenya, Ouganda, Tanzanie, Ghana, Nigeria",
+   "title": "« Je t'ai envoyé de l'argent par erreur, renvoie-le s'il te plaît »",
+   "summary": "Vous recevez ce qui ressemble à une confirmation d'argent, puis un appel ou un SMS vous supplie de rendre l'argent. Aucun argent n'est jamais arrivé : la confirmation venait d'un numéro de téléphone ordinaire, pas de M-PESA ni de MoMo.",
+   "example": "TFX4K2 Confirmed. Ksh2,500.00 received from PETER M 0722000111. Nimekosea kutuma, tafadhali rudisha.",
+   "spot": [
+    "Les vrais messages M-PESA et MoMo viennent du nom M-PESA ou MoMo, jamais d'un numéro en 07…",
+    "Votre solde n'a pas vraiment augmenté",
+    "Ils sont pressés et rappellent sans arrêt"
+   ],
+   "do": [
+    "Vérifiez votre vrai solde avec le menu officiel avant de faire quoi que ce soit",
+    "Ne renvoyez jamais l'argent vous-même. Une vraie erreur est annulée par l'opérateur",
+    "Au Kenya, transférez le faux SMS au 333"
+   ]
+  },
+  {
+   "id": "share-the-code",
+   "level": "high",
+   "where": "Partout",
+   "title": "« Envoie-moi le code que je viens de t'envoyer »",
+   "summary": "Un inconnu, ou un ami piraté, demande un code qui vient d'arriver par SMS. Ce code lui permet de prendre le contrôle de votre WhatsApp, de votre argent mobile ou de votre compte bancaire.",
+   "example": "Hi, I sent a 6-digit code to your number by mistake. Can you send it to me? It's urgent.",
+   "spot": [
+    "Personne de légitime n'a jamais besoin d'un code qui vous a été envoyé",
+    "Le SMS du code dit en général « ne partagez pas ce code »",
+    "Des messages du compte d'un ami qui demandent soudain des codes ou de l'argent"
+   ],
+   "do": [
+    "Ne partagez jamais un code, même avec quelqu'un qui semble être du service client",
+    "Activez la validation en deux étapes dans WhatsApp (Paramètres › Compte)",
+    "Appelez votre ami sur son numéro habituel pour vérifier"
+   ]
+  },
+  {
+   "id": "fake-customer-care",
+   "level": "high",
+   "where": "Partout",
+   "title": "Faux appels du service client",
+   "summary": "Un appelant prétend être de votre opérateur ou de votre banque. Votre ligne va être bloquée, votre compte est gelé ou vous avez gagné une récompense, sauf si vous « confirmez » votre code PIN ou composez un code qu'il vous donne.",
+   "example": "Hello, this is customer care. Your line will be suspended today. Please dial the code I'll give you to keep it active.",
+   "spot": [
+    "Les vrais employés ne demandent jamais votre code PIN ni votre mot de passe",
+    "Ils appellent depuis un numéro de mobile ordinaire",
+    "Ils veulent que vous agissiez tout de suite, pendant l'appel"
+   ],
+   "do": [
+    "Raccrochez et appelez vous-même le numéro officiel du service client",
+    "Ne composez jamais de codes et n'installez jamais d'applications à la demande d'un appelant",
+    "Bloquez le numéro dans ScottPrivacy et touchez Signaler une arnaque pour prévenir les autres"
+   ]
+  },
+  {
+   "id": "prize-promotion",
+   "level": "medium",
+   "where": "Partout",
+   "title": "Promotions « vous avez gagné » avec des frais",
+   "summary": "Un SMS annonce que vous avez gagné de l'argent, du crédit ou un téléphone lors d'une promotion d'anniversaire. Pour le réclamer, vous devez payer des frais d'« inscription » ou de « livraison », ou ouvrir un lien.",
+   "example": "Congratulations! You have won Ksh 50,000 in the anniversary promotion. Pay Ksh 300 registration fee to claim.",
+   "spot": [
+    "Vous n'avez jamais participé à un concours",
+    "Les vrais gains ne demandent jamais de payer d'abord",
+    "Des liens vers des sites étranges au lieu du site officiel de l'entreprise"
+   ],
+   "do": [
+    "Ne payez pas et n'ouvrez pas le lien",
+    "Collez le message dans le vérificateur de ScottPrivacy pour voir les signaux d'alerte",
+    "Supprimez-le ou placez-le dans les Spams"
+   ]
+  },
+  {
+   "id": "online-tasks",
+   "level": "medium",
+   "where": "Partout",
+   "title": "« Gagnez de l'argent en likant des vidéos » et offres d'emploi en ligne",
+   "summary": "Un inconnu sympathique sur WhatsApp ou Telegram propose de l'argent facile pour liker des vidéos ou noter des produits. Les premiers petits paiements sont réels. Puis on vous demande de « recharger » pour débloquer des tâches plus importantes, et l'argent disparaît.",
+   "example": "Hello! We are hiring part-time. Earn 3,000 daily by liking YouTube videos. Reply YES to start.",
+   "spot": [
+    "Des emplois qui vous trouvent sorti de nulle part",
+    "Une paie bien trop élevée pour des tâches simples",
+    "Toute demande de déposer de l'argent pour gagner de l'argent"
+   ],
+   "do": [
+    "Ne payez jamais pour obtenir un emploi ou débloquer des tâches",
+    "Arrêtez de répondre et bloquez l'expéditeur",
+    "Prévenez vos amis et votre famille : celle-ci se propage vite"
+   ]
+  },
+  {
+   "id": "parcel-fee",
+   "level": "medium",
+   "where": "Partout",
+   "title": "Colis en attente, payez de petits frais",
+   "summary": "Un SMS indique qu'un colis n'a pas pu être livré et vous demande de payer de petits frais de douane ou de livraison via un lien. Le lien vole les informations de votre carte ou de votre argent mobile.",
+   "example": "Your parcel is on hold due to unpaid customs fee of 150. Pay now to avoid return: http://parcel-release.top/pay",
+   "spot": [
+    "Vous n'attendez aucun colis",
+    "Des adresses web étranges, souvent avec .top, .xyz ou beaucoup de chiffres",
+    "De petits frais et un délai très court"
+   ],
+   "do": [
+    "N'ouvrez pas le lien",
+    "Suivez vos colis uniquement sur le site ou l'application officiels du transporteur",
+    "Si vous avez saisi les informations de votre carte, appelez votre banque immédiatement"
+   ]
+  },
+  {
+   "id": "upi-collect",
+   "level": "high",
+   "where": "Inde",
+   "title": "« Saisissez votre code PIN UPI pour recevoir l'argent »",
+   "summary": "Quelqu'un, souvent un « acheteur » sur un site de vente, vous envoie une demande de paiement UPI (collect) et dit que vous recevrez l'argent en l'approuvant. Saisir votre code PIN UPI fait toujours sortir de l'argent, jamais entrer.",
+   "example": "I've sent the payment request for your sofa. Just approve it on your UPI app and enter your PIN to receive the money.",
+   "spot": [
+    "Vous n'avez jamais besoin d'un code PIN pour recevoir de l'argent",
+    "Des demandes de paiement de personnes que vous ne connaissez pas",
+    "La pression pour approuver vite"
+   ],
+   "do": [
+    "Refusez la demande",
+    "Signalez la fraude sur cybercrime.gov.in ou appelez le 1930",
+    "Signalez les faux appels et SMS sur Sanchar Saathi (sancharsaathi.gov.in)"
+   ]
+  },
+  {
+   "id": "kyc-update",
+   "level": "high",
+   "where": "Inde, Kenya, Nigeria",
+   "title": "« Mettez à jour votre KYC ou votre compte sera bloqué »",
+   "summary": "Un SMS indique que votre compte bancaire, votre portefeuille ou votre SIM sera bloqué aujourd'hui si vous ne mettez pas à jour votre KYC via un lien ou une application. Le lien ou l'application vole vos informations ou prend le contrôle de votre téléphone.",
+   "example": "Dear customer, your account will be blocked today. Update KYC now: http://kyc-update-bank.xyz",
+   "spot": [
+    "Les banques ne bloquent pas les comptes via un lien dans un SMS",
+    "Des demandes d'installer une application pour « mettre à jour » quoi que ce soit",
+    "Des menaces et des délais le jour même"
+   ],
+   "do": [
+    "N'ouvrez pas le lien et n'installez rien",
+    "Rendez-vous en agence ou dans l'application officielle de votre banque pour vérifier",
+    "N'installez jamais d'application de partage d'écran parce qu'un appelant le demande"
+   ]
+  }
+ ]
+}

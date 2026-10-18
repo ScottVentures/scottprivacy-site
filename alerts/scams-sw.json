@@ -1,0 +1,150 @@
+{
+ "updated": "2026-10-09",
+ "lang": "sw",
+ "alerts": [
+  {
+   "id": "sent-by-mistake",
+   "level": "high",
+   "where": "Kenya, Uganda, Tanzania, Ghana, Nigeria",
+   "title": "\"Nimekosea kukutumia pesa, tafadhali zirudishe\"",
+   "summary": "Unapokea kinachoonekana kama uthibitisho wa pesa, kisha simu au SMS ikikusihi urudishe pesa. Hakuna pesa iliyowahi kuingia: uthibitisho ulitoka kwa namba ya kawaida ya simu, si kutoka M-PESA au MoMo.",
+   "example": "TFX4K2 Confirmed. Ksh2,500.00 received from PETER M 0722000111. Nimekosea kutuma, tafadhali rudisha.",
+   "spot": [
+    "Jumbe halisi za M-PESA na MoMo hutoka kwa jina M-PESA au MoMo, kamwe si kutoka kwa namba ya 07…",
+    "Salio lako halikuongezeka kweli",
+    "Wana haraka na wanaendelea kupiga simu"
+   ],
+   "do": [
+    "Angalia salio lako halisi kupitia menyu rasmi kabla ya kufanya chochote",
+    "Usirudishe pesa mwenyewe kamwe. Kosa la kweli hurekebishwa na mtoa huduma",
+    "Kenya, tuma SMS hiyo bandia kwa 333"
+   ]
+  },
+  {
+   "id": "share-the-code",
+   "level": "high",
+   "where": "Kila mahali",
+   "title": "\"Tafadhali nitumie namba ya siri niliyokutumia sasa hivi\"",
+   "summary": "Mtu usiyemjua, au rafiki ambaye akaunti yake imedukuliwa, anaomba namba ya siri iliyoingia kwa SMS. Namba hiyo inawawezesha kuchukua WhatsApp yako, pesa zako za simu au akaunti yako ya benki.",
+   "example": "Hi, I sent a 6-digit code to your number by mistake. Can you send it to me? It's urgent.",
+   "spot": [
+    "Hakuna mtu halali anayehitaji namba ya siri iliyotumwa kwako",
+    "SMS ya namba yenyewe kwa kawaida husema \"usishiriki namba hii\"",
+    "Jumbe kutoka akaunti ya rafiki zinazoomba ghafla namba za siri au pesa"
+   ],
+   "do": [
+    "Usishiriki namba ya siri kamwe, hata kwa mtu anayesikika kama huduma kwa wateja",
+    "Washa uthibitishaji wa hatua mbili kwenye WhatsApp (Mipangilio › Akaunti)",
+    "Mpigie rafiki yako kwa namba yake ya kawaida kuhakikisha"
+   ]
+  },
+  {
+   "id": "fake-customer-care",
+   "level": "high",
+   "where": "Kila mahali",
+   "title": "Simu bandia za huduma kwa wateja",
+   "summary": "Mpigaji anasema anatoka mtandao wako wa simu au benki. Laini yako itazuiwa, akaunti yako imefungiwa au umeshinda zawadi, isipokuwa \"uthibitishe\" PIN yako au upige msimbo anaokupa.",
+   "example": "Hello, this is customer care. Your line will be suspended today. Please dial the code I'll give you to keep it active.",
+   "spot": [
+    "Wafanyakazi halisi hawaombi kamwe PIN au nenosiri lako",
+    "Wanapiga kutoka namba ya kawaida ya simu",
+    "Wanataka uchukue hatua sasa hivi, ukiwa kwenye simu"
+   ],
+   "do": [
+    "Kata simu kisha upige namba rasmi ya huduma kwa wateja mwenyewe",
+    "Usipige misimbo wala kusakinisha programu ambazo mpigaji anakuomba",
+    "Zuia namba kwenye ScottPrivacy na ugusa Ripoti kama ulaghai ili wengine waonywe"
+   ]
+  },
+  {
+   "id": "prize-promotion",
+   "level": "medium",
+   "where": "Kila mahali",
+   "title": "Promosheni za \"umeshinda\" zinazodai ada",
+   "summary": "SMS inasema umeshinda pesa, muda wa maongezi au simu kwenye promosheni ya maadhimisho. Ili kuidai lazima ulipe ada ya \"usajili\" au \"usafirishaji\", au ufungue kiungo.",
+   "example": "Congratulations! You have won Ksh 50,000 in the anniversary promotion. Pay Ksh 300 registration fee to claim.",
+   "spot": [
+    "Hukuwahi kushiriki shindano lolote",
+    "Zawadi halisi hazikuombi ulipe kwanza",
+    "Viungo vya tovuti za ajabu badala ya tovuti rasmi ya kampuni"
+   ],
+   "do": [
+    "Usilipe na usifungue kiungo",
+    "Bandika ujumbe kwenye kikagua cha ScottPrivacy uone dalili za tahadhari",
+    "Ufute au uuhamishie Spam"
+   ]
+  },
+  {
+   "id": "online-tasks",
+   "level": "medium",
+   "where": "Kila mahali",
+   "title": "\"Pata pesa kwa kulike video\" na ofa za kazi mtandaoni",
+   "summary": "Mtu usiyemjua mwenye urafiki kwenye WhatsApp au Telegram anakupa malipo rahisi kwa kulike video au kukadiria bidhaa. Malipo madogo ya kwanza ni ya kweli. Kisha unaombwa \"kuongeza salio\" ili kufungua kazi kubwa zaidi, na pesa zinapotea.",
+   "example": "Hello! We are hiring part-time. Earn 3,000 daily by liking YouTube videos. Reply YES to start.",
+   "spot": [
+    "Kazi zinazokutafuta bila sababu",
+    "Malipo makubwa mno kwa kazi rahisi",
+    "Ombi lolote la kuweka pesa ili upate pesa"
+   ],
+   "do": [
+    "Usilipe kamwe ili upate kazi au ufungue kazi",
+    "Acha kujibu na umzuie mtumaji",
+    "Waonye marafiki na familia: huu unaenea haraka"
+   ]
+  },
+  {
+   "id": "parcel-fee",
+   "level": "medium",
+   "where": "Kila mahali",
+   "title": "Kifurushi kinasubiri, lipa ada ndogo",
+   "summary": "SMS inasema kifurushi hakikuweza kufikishwa na inakuomba ulipe ada ndogo ya forodha au usafirishaji kupitia kiungo. Kiungo hicho huiba maelezo ya kadi yako au pesa za simu.",
+   "example": "Your parcel is on hold due to unpaid customs fee of 150. Pay now to avoid return: http://parcel-release.top/pay",
+   "spot": [
+    "Hutarajii kifurushi chochote",
+    "Anwani za tovuti za ajabu, mara nyingi zenye .top, .xyz au namba nyingi",
+    "Ada ndogo na muda mfupi wa mwisho"
+   ],
+   "do": [
+    "Usifungue kiungo",
+    "Fuatilia vifurushi kwenye tovuti au programu rasmi ya kampuni ya usafirishaji pekee",
+    "Ikiwa uliweka maelezo ya kadi, piga simu benki yako mara moja"
+   ]
+  },
+  {
+   "id": "upi-collect",
+   "level": "high",
+   "where": "India",
+   "title": "\"Weka PIN yako ya UPI ili upokee pesa\"",
+   "summary": "Mtu, mara nyingi \"mnunuzi\" kwenye tovuti ya kuuza, anakutumia ombi la UPI collect na kusema utapokea pesa ukiliidhinisha. Kuweka PIN yako ya UPI daima hutoa pesa, kamwe haziingizi.",
+   "example": "I've sent the payment request for your sofa. Just approve it on your UPI app and enter your PIN to receive the money.",
+   "spot": [
+    "Huhitaji kamwe PIN ili upokee pesa",
+    "Maombi ya collect kutoka kwa watu usiowajua",
+    "Shinikizo la kuidhinisha haraka"
+   ],
+   "do": [
+    "Kataa ombi",
+    "Ripoti ulaghai kwenye cybercrime.gov.in au piga 1930",
+    "Ripoti simu na SMS bandia kwenye Sanchar Saathi (sancharsaathi.gov.in)"
+   ]
+  },
+  {
+   "id": "kyc-update",
+   "level": "high",
+   "where": "India, Kenya, Nigeria",
+   "title": "\"Sasisha KYC yako la sivyo akaunti yako itazuiwa\"",
+   "summary": "SMS inasema akaunti yako ya benki, pochi au SIM itazuiwa leo usiposasisha KYC yako kupitia kiungo au programu. Kiungo au programu hiyo huiba maelezo yako au kuchukua udhibiti wa simu yako.",
+   "example": "Dear customer, your account will be blocked today. Update KYC now: http://kyc-update-bank.xyz",
+   "spot": [
+    "Benki hazizuii akaunti kupitia kiungo kwenye SMS",
+    "Maombi ya kusakinisha programu ili \"kusasisha\" chochote",
+    "Vitisho na muda wa mwisho wa siku hiyo hiyo"
+   ],
+   "do": [
+    "Usifungue kiungo wala kusakinisha chochote",
+    "Tembelea tawi la benki yako au programu rasmi kuhakikisha",
+    "Usisakinishe kamwe programu za kushiriki skrini kwa sababu mpigaji ameomba"
+   ]
+  }
+ ]
+}

@@ -3,7 +3,7 @@
 (function () {
   "use strict";
   var A = window.SPAuth, esc = A.esc, db;
-  var root, tab = "overview", users = [], reviews = [], downloads = [], scams = [], crashes = [], allowed = [], filter = { q: "", role: "", status: "", rev: "pending" };
+  var root, tab = "overview", users = [], reviews = [], downloads = [], scams = [], crashes = [], allowed = [], callerNames = [], filter = { q: "", role: "", status: "", rev: "pending" };
   var NS = "http://www.w3.org/2000/svg";
 
   function $(s) { return root.querySelector(s); }
@@ -40,7 +40,9 @@
       db.from("scam_reports").select("id, number, kind, created_at, user_id").order("created_at", { ascending: false }).limit(5000),
       db.from("crash_reports").select("id, app_version, device, android, report, created_at, profiles(email)").order("created_at", { ascending: false }).limit(200),
       db.from("scam_allow").select("number"),
+      db.from("caller_names").select("number, name, verified, created_at, updated_at, user_id, profiles(email, full_name)").order("updated_at", { ascending: false }).limit(2000),
     ]).then(function (r) {
+      callerNames = r[6].data || [];
       users = r[0].data || []; reviews = r[1].data || []; downloads = r[2].data || [];
       scams = r[3].data || []; crashes = r[4].data || []; allowed = (r[5].data || []).map(function (x) { return x.number; });
     });
@@ -54,7 +56,7 @@
       '<p class="muted">Signed in as ' + esc(me.full_name || A.state.user.email) + "</p></div>" +
       '<button class="btn btn-outline btn-small" type="button" data-refresh>Refresh</button></div>' +
       '<div class="admin-tabs" role="tablist">' +
-      ["overview:Overview", "users:Users", "reviews:Reviews", "reports:Scam reports", "downloads:Downloads", "crashes:Crashes"].map(function (t) {
+      ["overview:Overview", "users:Users", "reviews:Reviews", "reports:Scam reports", "names:Caller names", "downloads:Downloads", "crashes:Crashes"].map(function (t) {
         var k = t.split(":")[0];
         return '<button type="button" role="tab" data-tab="' + k + '" aria-selected="' + (tab === k) + '">' + t.split(":")[1] +
           (k === "reviews" ? ' <span class="count" data-pending></span>' : "") + "</button>";
@@ -74,6 +76,7 @@
     else if (tab === "reviews") reviewsTab(b);
     else if (tab === "reports") reportsTab(b);
     else if (tab === "crashes") crashesTab(b);
+    else if (tab === "names") namesTab(b);
     else downloadsTab(b);
   }
 
@@ -305,6 +308,39 @@
         db.from("scam_reports").delete().eq("number", x.getAttribute("data-sdel")).then(function (r) { if (r.error) throw r.error; done("Reports deleted"); }).catch(function (e) { toast(e.message, true); });
       });
     });
+  }
+
+  // ---------------------------------------------------------------- caller names
+  function namesTab(b) {
+    b.innerHTML = '<p class="muted small">Names people chose for their own numbers. ScottPrivacy users see them when that number calls or texts. ' +
+      'Remove any name that pretends to be someone else, a company or an official.</p>' +
+      '<div class="admin-bar"><input type="search" placeholder="Search number, name or email" data-nsearch></div>' +
+      '<div data-nlist></div>';
+    var box = b.querySelector("[data-nlist]");
+    function draw(q) {
+      q = (q || "").toLowerCase();
+      var rows = callerNames.filter(function (n) {
+        return !q || (n.number + " " + n.name + " " + ((n.profiles || {}).email || "")).toLowerCase().indexOf(q) >= 0;
+      });
+      box.innerHTML = rows.length ? '<div class="table-wrap"><table class="table admin-table"><thead><tr><th>Number</th><th>Name shown</th><th>Account</th><th>Checked</th><th>Changed</th><th></th></tr></thead><tbody>' +
+        rows.map(function (n) {
+          return "<tr><td><b>" + esc(n.number) + "</b></td><td>" + esc(n.name) + "</td><td>" + esc((n.profiles || {}).email || "") + "</td><td>" +
+            (n.verified ? '<span class="status active">By SMS</span>' : '<span class="muted small">No</span>') + "</td><td>" + fmtAgo(n.updated_at) + "</td>" +
+            '<td class="acts"><button type="button" class="link danger" data-ndel="' + esc(n.number) + '">Remove</button></td></tr>';
+        }).join("") + "</tbody></table></div>" : '<p class="muted">' + (q ? "Nothing matches." : "Nobody has added a caller name yet.") + "</p>";
+      box.querySelectorAll("[data-ndel]").forEach(function (x) {
+        x.addEventListener("click", function () {
+          var num = x.getAttribute("data-ndel");
+          if (!confirm("Remove the caller name for " + num + "?")) return;
+          db.from("caller_names").delete().eq("number", num).then(function (r) {
+            if (r.error) throw r.error;
+            toast("Caller name removed"); loadAll().then(body);
+          }).catch(function (e) { toast(e.message, true); });
+        });
+      });
+    }
+    b.querySelector("[data-nsearch]").addEventListener("input", function (e) { draw(e.target.value); });
+    draw("");
   }
 
   // ---------------------------------------------------------------- crash reports

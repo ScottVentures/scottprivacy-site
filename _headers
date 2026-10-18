@@ -1,0 +1,27 @@
+# Made by tools/site/build_site.py. Cloudflare Pages reads this file; edit build_site.py instead.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://rkgsgigluuosikfjieqq.supabase.co wss://rkgsgigluuosikfjieqq.supabase.co https://api.web3forms.com https://api.github.com https://cloudflareinsights.com; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; frame-ancestors 'none'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-site
+
+/assets/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/update/*
+  Cache-Control: no-cache
+/rules/*
+  Cache-Control: public, max-age=600
+/alerts/*
+  Cache-Control: public, max-age=600
+/stats/*
+  Cache-Control: public, max-age=600
+/admin.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+/account.html
+  X-Robots-Tag: noindex
+  Cache-Control: no-store

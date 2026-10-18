@@ -1,0 +1,150 @@
+{
+ "updated": "2026-10-09",
+ "lang": "en",
+ "alerts": [
+  {
+   "id": "sent-by-mistake",
+   "level": "high",
+   "where": "Kenya, Uganda, Tanzania, Ghana, Nigeria",
+   "title": "\"I sent you money by mistake, please send it back\"",
+   "summary": "You get what looks like a money confirmation, then a call or SMS begging you to return the money. No money ever arrived: the confirmation came from an ordinary phone number, not from M-PESA or MoMo.",
+   "example": "TFX4K2 Confirmed. Ksh2,500.00 received from PETER M 0722000111. Nimekosea kutuma, tafadhali rudisha.",
+   "spot": [
+    "Real M-PESA and MoMo messages come from the name M-PESA or MoMo, never from a 07… number",
+    "Your balance didn't actually go up",
+    "They're in a hurry and keep calling"
+   ],
+   "do": [
+    "Check your real balance with the official menu before doing anything",
+    "Never send money back yourself. A real mistake is reversed by the provider",
+    "In Kenya, forward the fake SMS to 333"
+   ]
+  },
+  {
+   "id": "share-the-code",
+   "level": "high",
+   "where": "Everywhere",
+   "title": "\"Please send me the code I just sent you\"",
+   "summary": "A stranger, or a hacked friend, asks for a code that just arrived by SMS. That code lets them take over your WhatsApp, your mobile money or your bank account.",
+   "example": "Hi, I sent a 6-digit code to your number by mistake. Can you send it to me? It's urgent.",
+   "spot": [
+    "Nobody legitimate ever needs a code that was sent to you",
+    "The code's own SMS usually says \"don't share this code\"",
+    "Messages from a friend's account that suddenly ask for codes or money"
+   ],
+   "do": [
+    "Never share a code, even with someone who sounds like customer care",
+    "Turn on two-step verification in WhatsApp (Settings › Account)",
+    "Call your friend on their usual number to check"
+   ]
+  },
+  {
+   "id": "fake-customer-care",
+   "level": "high",
+   "where": "Everywhere",
+   "title": "Fake customer care calls",
+   "summary": "A caller says they're from your mobile network or bank. Your line will be blocked, your account is frozen or you've won a reward, unless you \"confirm\" your PIN or dial a code they give you.",
+   "example": "Hello, this is customer care. Your line will be suspended today. Please dial the code I'll give you to keep it active.",
+   "spot": [
+    "Real staff never ask for your PIN or password",
+    "They call from an ordinary mobile number",
+    "They want you to act right now, while on the call"
+   ],
+   "do": [
+    "Hang up and call the official customer care number yourself",
+    "Never dial codes or install apps a caller asks you to",
+    "Block the number in ScottPrivacy and tap Report as scam so others are warned"
+   ]
+  },
+  {
+   "id": "prize-promotion",
+   "level": "medium",
+   "where": "Everywhere",
+   "title": "\"You've won\" promotions with a fee",
+   "summary": "An SMS says you won cash, airtime or a phone in an anniversary promotion. To claim it you must pay a \"registration\" or \"delivery\" fee, or open a link.",
+   "example": "Congratulations! You have won Ksh 50,000 in the anniversary promotion. Pay Ksh 300 registration fee to claim.",
+   "spot": [
+    "You never entered any competition",
+    "Real prizes never ask you to pay first",
+    "Links to odd websites instead of the company's official one"
+   ],
+   "do": [
+    "Don't pay and don't open the link",
+    "Paste the message into ScottPrivacy's checker to see the warning signs",
+    "Delete it or move it to Spam"
+   ]
+  },
+  {
+   "id": "online-tasks",
+   "level": "medium",
+   "where": "Everywhere",
+   "title": "\"Earn money liking videos\" and online job offers",
+   "summary": "A friendly stranger on WhatsApp or Telegram offers easy pay for liking videos or rating products. The first small payments are real. Then you're asked to \"top up\" to unlock bigger tasks, and the money is gone.",
+   "example": "Hello! We are hiring part-time. Earn 3,000 daily by liking YouTube videos. Reply YES to start.",
+   "spot": [
+    "Jobs that find you out of nowhere",
+    "Pay that's far too high for simple tasks",
+    "Any request to deposit money to earn money"
+   ],
+   "do": [
+    "Never pay to get a job or unlock tasks",
+    "Stop replying and block the sender",
+    "Warn friends and family: this one spreads fast"
+   ]
+  },
+  {
+   "id": "parcel-fee",
+   "level": "medium",
+   "where": "Everywhere",
+   "title": "Parcel waiting, pay a small fee",
+   "summary": "An SMS says a parcel couldn't be delivered and asks you to pay a small customs or delivery fee through a link. The link steals your card or mobile money details.",
+   "example": "Your parcel is on hold due to unpaid customs fee of 150. Pay now to avoid return: http://parcel-release.top/pay",
+   "spot": [
+    "You're not expecting a parcel",
+    "Strange web addresses, often with .top, .xyz or lots of numbers",
+    "Tiny fee and a short deadline"
+   ],
+   "do": [
+    "Don't open the link",
+    "Track parcels only on the courier's official website or app",
+    "If you entered card details, call your bank straight away"
+   ]
+  },
+  {
+   "id": "upi-collect",
+   "level": "high",
+   "where": "India",
+   "title": "\"Enter your UPI PIN to receive money\"",
+   "summary": "Someone, often a \"buyer\" on a selling site, sends you a UPI collect request and says you'll receive money by approving it. Entering your UPI PIN always sends money out, never in.",
+   "example": "I've sent the payment request for your sofa. Just approve it on your UPI app and enter your PIN to receive the money.",
+   "spot": [
+    "You never need a PIN to receive money",
+    "Collect requests from people you don't know",
+    "Pressure to approve quickly"
+   ],
+   "do": [
+    "Decline the request",
+    "Report fraud at cybercrime.gov.in or call 1930",
+    "Report fake calls and SMS on Sanchar Saathi (sancharsaathi.gov.in)"
+   ]
+  },
+  {
+   "id": "kyc-update",
+   "level": "high",
+   "where": "India, Kenya, Nigeria",
+   "title": "\"Update your KYC or your account will be blocked\"",
+   "summary": "An SMS says your bank account, wallet or SIM will be blocked today unless you update your KYC through a link or an app. The link or app steals your details or takes over your phone.",
+   "example": "Dear customer, your account will be blocked today. Update KYC now: http://kyc-update-bank.xyz",
+   "spot": [
+    "Banks don't block accounts through a link in an SMS",
+    "Requests to install an app to \"update\" anything",
+    "Threats and same-day deadlines"
+   ],
+   "do": [
+    "Don't open the link or install anything",
+    "Visit your bank's branch or official app to check",
+    "Never install screen-sharing apps because a caller asks"
+   ]
+  }
+ ]
+}
