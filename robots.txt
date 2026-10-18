@@ -29,9 +29,5 @@ Disallow: /
 
 User-agent: *
 Allow: /
-Disallow: /admin.html
-Disallow: /account.html
-Disallow: /scottprivacy-site/admin.html
-Disallow: /scottprivacy-site/account.html
 
 Sitemap: https://scottprivacy.pages.dev/sitemap.xml
