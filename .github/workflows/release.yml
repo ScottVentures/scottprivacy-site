@@ -26,7 +26,12 @@ jobs:
   version-file:
     runs-on: ubuntu-latest
     steps:
+      # A release starts this on the release's tag, not on the branch the website lives on, so ask for
+      # main explicitly. (Without this, pushing update/version.json failed and phones never heard about
+      # updates unless the workflow was run again by hand.)
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Check the APK and write update/version.json
         env:
@@ -59,14 +64,14 @@ jobs:
               print("Renamed the APK to ScottPrivacy.apk")
 
           url = "https://github.com/%s/releases/download/%s/ScottPrivacy.apk" % (repo, tag)
-          req = urllib.request.Request("https://api.github.com/repos/%s/releases/assets/%d" % (repo, asset["id"]),
-                                       headers={"Authorization": "Bearer " + token, "Accept": "application/octet-stream"})
-          with urllib.request.urlopen(req) as r, open("app.apk", "wb") as f:
-              while True:
-                  chunk = r.read(1 << 20)
-                  if not chunk:
-                      break
-                  f.write(chunk)
+          # The repository is public, so download it like a visitor would (no sign-in header that the
+          # file server could reject after GitHub redirects the download).
+          print("Downloading " + url)
+          try:
+              subprocess.run(["curl", "-fsSL", "--retry", "5", "--retry-delay", "5", "-o", "app.apk", url], check=True)
+          except subprocess.CalledProcessError:
+              fail("Couldn't download %s. Check the release has the APK attached and is published (not a draft)." % url)
+          print("Downloaded %d bytes" % os.path.getsize("app.apk"))
 
           sdk = os.environ.get("ANDROID_HOME") or os.environ.get("ANDROID_SDK_ROOT") or "/usr/local/lib/android/sdk"
           code = name = None
@@ -76,11 +81,21 @@ jobs:
               if m:
                   code, name = int(m.group(1)), m.group(2)
                   break
+          if code is None:   # no aapt2 on this runner: read the APK with a small Python library instead
+              subprocess.run([sys.executable, "-m", "pip", "install", "-q", "pyaxmlparser"], check=False)
+              try:
+                  from pyaxmlparser import APK
+                  a = APK("app.apk")
+                  code, name = int(a.version_code), str(a.version_name)
+              except Exception as e:
+                  print("pyaxmlparser: %s" % e)
           if code is None:
               fail("Couldn't read the APK's version. Is the attached file really the ScottPrivacy APK?")
+          print("APK version %s (code %d), release tag %s" % (name, code, tag))
 
           path = "update/version.json"
           old = json.load(open(path)) if os.path.exists(path) else {}
+          print("The app currently offers version code %s" % old.get("version_code"))
           if code <= int(old.get("version_code", 0)):
               fail("This APK has version code %d, but the app already offers code %s. In Godot set Version > Code to %d, "
                    "export again, replace the APK in the release, then run this workflow again."
@@ -113,8 +128,8 @@ jobs:
           git add update/version.json
           if git diff --cached --quiet; then echo "version.json already up to date."; exit 0; fi
           git commit -m "App update $(python3 -c "import json;print(json.load(open('update/version.json'))['version_name'])")"
-          git pull --rebase origin HEAD
-          git push origin HEAD
+          git pull --rebase origin main
+          git push origin HEAD:main
           # Ask GitHub Pages to rebuild now (pushes made by workflows don't always start a build).
           curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds" || true
