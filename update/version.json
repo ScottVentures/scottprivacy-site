@@ -1,9 +1,9 @@
 {
-  "version_code": 9,
+  "version_code": 10,
   "version_name": "1.1.0",
   "apk_url": "https://github.com/ScottVentures/scottprivacy-site/releases/download/v1.1.0/ScottPrivacy.apk",
-  "sha256": "033ba6807377d32755e4bcad51650a9fb4f7efcdac063d16e227be707468e3c9",
-  "size": 55078773,
+  "sha256": "dc1e54a2eab20430e34aa107453a62b02e118105eb710fdc00512c9c496752d2",
+  "size": 55068313,
   "min_sdk": 24,
   "notes": [
     "What's new in ScottPrivacy 1.1.0",
