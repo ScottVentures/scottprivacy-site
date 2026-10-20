@@ -1,3 +1,8 @@
+/*
+ * ScottPrivacy, a ScottVentures product.
+ * Copyright (c) 2026 John Mwadime (johnniekips [at] gmail.com, scotttechstar [at] gmail.com). All rights reserved.
+ * Proprietary and confidential: no copying, use or distribution without written permission. See LICENSE.
+ */
 /* Website settings. Keys here are meant to be public: what they can do is limited on the server side. */
 window.SP = {
   // Accounts, reviews and download tracking (Supabase). Fill both in after following tools/site/ACCOUNTS_SETUP.md.

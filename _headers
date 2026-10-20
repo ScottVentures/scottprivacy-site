@@ -1,6 +1,6 @@
 # Made by tools/site/build_site.py. Cloudflare Pages reads this file; edit build_site.py instead.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://rkgsgigluuosikfjieqq.supabase.co wss://rkgsgigluuosikfjieqq.supabase.co https://api.web3forms.com https://api.github.com https://cloudflareinsights.com; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://rkgsgigluuosikfjieqq.supabase.co; font-src 'self'; connect-src 'self' https://rkgsgigluuosikfjieqq.supabase.co wss://rkgsgigluuosikfjieqq.supabase.co https://api.web3forms.com https://api.github.com https://cloudflareinsights.com; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; frame-ancestors 'none'
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -17,6 +17,8 @@
   Cache-Control: public, max-age=600
 /alerts/*
   Cache-Control: public, max-age=600
+/occasions.json
+  Cache-Control: public, max-age=300
 /stats/*
   Cache-Control: public, max-age=600
 /admin.html

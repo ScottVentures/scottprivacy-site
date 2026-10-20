@@ -1,3 +1,8 @@
+/*
+ * ScottPrivacy, a ScottVentures product.
+ * Copyright (c) 2026 John Mwadime (johnniekips [at] gmail.com, scotttechstar [at] gmail.com). All rights reserved.
+ * Proprietary and confidential: no copying, use or distribution without written permission. See LICENSE.
+ */
 /* Accounts for the whole site: one Supabase client, the account button in the header, and the
    "sign in to download / review" rule. Pages use window.SPAuth. Nothing here is a secret: what each
    person may do is enforced by the database rules (tools/site/database.sql). */

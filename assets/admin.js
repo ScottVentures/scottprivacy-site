@@ -1,9 +1,14 @@
+/*
+ * ScottPrivacy, a ScottVentures product.
+ * Copyright (c) 2026 John Mwadime (johnniekips [at] gmail.com, scotttechstar [at] gmail.com). All rights reserved.
+ * Proprietary and confidential: no copying, use or distribution without written permission. See LICENSE.
+ */
 /* Admin dashboard. Every action is checked again by the database or the admin-users function, so
    hiding buttons here is only for convenience, not security. */
 (function () {
   "use strict";
   var A = window.SPAuth, esc = A.esc, db;
-  var root, tab = "overview", users = [], reviews = [], downloads = [], scams = [], crashes = [], allowed = [], callerNames = [], filter = { q: "", role: "", status: "", rev: "pending" };
+  var root, tab = "overview", users = [], reviews = [], downloads = [], scams = [], crashes = [], allowed = [], callerNames = [], greetings = [], greetErr = null, builtIn = [], filter = { q: "", role: "", status: "", rev: "pending" };
   var NS = "http://www.w3.org/2000/svg";
 
   function $(s) { return root.querySelector(s); }
@@ -41,7 +46,10 @@
       db.from("crash_reports").select("id, app_version, device, android, report, created_at, profiles(email)").order("created_at", { ascending: false }).limit(200),
       db.from("scam_allow").select("number"),
       db.from("caller_names").select("number, name, verified, created_at, updated_at, user_id, profiles(email, full_name)").order("updated_at", { ascending: false }).limit(2000),
+      db.from("occasions").select("*").order("starts_on", { ascending: false }).limit(300),
+      fetch(window.SP.root + "occasions.json", { cache: "no-cache" }).then(function (x) { return x.ok ? x.json() : {}; }).catch(function () { return {}; }),
     ]).then(function (r) {
+      greetings = r[7].data || []; greetErr = r[7].error || null; builtIn = (r[8] && r[8].occasions) || [];
       callerNames = r[6].data || [];
       users = r[0].data || []; reviews = r[1].data || []; downloads = r[2].data || [];
       scams = r[3].data || []; crashes = r[4].data || []; allowed = (r[5].data || []).map(function (x) { return x.number; });
@@ -56,7 +64,7 @@
       '<p class="muted">Signed in as ' + esc(me.full_name || A.state.user.email) + "</p></div>" +
       '<button class="btn btn-outline btn-small" type="button" data-refresh>Refresh</button></div>' +
       '<div class="admin-tabs" role="tablist">' +
-      ["overview:Overview", "users:Users", "reviews:Reviews", "reports:Scam reports", "names:Caller names", "downloads:Downloads", "crashes:Crashes"].map(function (t) {
+      ["overview:Overview", "users:Users", "reviews:Reviews", "reports:Scam reports", "names:Caller names", "greetings:Greetings", "downloads:Downloads", "crashes:Crashes"].map(function (t) {
         var k = t.split(":")[0];
         return '<button type="button" role="tab" data-tab="' + k + '" aria-selected="' + (tab === k) + '">' + t.split(":")[1] +
           (k === "reviews" ? ' <span class="count" data-pending></span>' : "") + "</button>";
@@ -77,6 +85,7 @@
     else if (tab === "reports") reportsTab(b);
     else if (tab === "crashes") crashesTab(b);
     else if (tab === "names") namesTab(b);
+    else if (tab === "greetings") greetingsTab(b);
     else downloadsTab(b);
   }
 
@@ -341,6 +350,215 @@
     }
     b.querySelector("[data-nsearch]").addEventListener("input", function (e) { draw(e.target.value); });
     draw("");
+  }
+
+  // ---------------------------------------------------------------- holiday greetings
+  // A greeting shows on the website (ribbon at the top), in the app (a card with the poster) and as a phone
+  // notification on the morning of its first day, only between its dates, then stops by itself.
+  var COUNTRIES = [["KE", "Kenya"], ["UG", "Uganda"], ["TZ", "Tanzania"], ["RW", "Rwanda"], ["NG", "Nigeria"], ["GH", "Ghana"], ["ZA", "South Africa"], ["IN", "India"]];
+  var ZONES = [[3, "East Africa (Kenya, Uganda, Tanzania): UTC+3"], [2, "Rwanda, South Africa, Zambia: UTC+2"], [1, "Nigeria: UTC+1"], [0, "Ghana: UTC+0"], [5.5, "India: UTC+5:30"]];
+  var PALETTES = [["kenya", "Kenyan flag", ["#000000", "#BB0000", "#006600"], true], ["brand", "ScottPrivacy blue", ["#2F5BEA", "#34D399", "#0B1433"], false],
+    ["christmas", "Christmas", ["#C8102E", "#0A7D32", "#F2C14E"], false], ["eid", "Eid", ["#0A7D32", "#F2C14E", "#0B1433"], false],
+    ["diwali", "Diwali", ["#FF9933", "#F2C14E", "#7A1FA2"], false], ["uganda", "Ugandan flag", ["#000000", "#FCDC04", "#D90000"], true],
+    ["tanzania", "Tanzanian flag", ["#1EB53A", "#000000", "#00A3DD"], true], ["custom", "My own colours", null, false]];
+
+  function today() { return new Date(Date.now() + 3 * 36e5).toISOString().slice(0, 10); }   // Kenya time
+  function addDays(d, n) { return new Date(new Date(d + "T00:00:00Z").getTime() + n * 864e5).toISOString().slice(0, 10); }
+  function dayDiff(a, b) { return Math.round((new Date(b + "T00:00:00Z") - new Date(a + "T00:00:00Z")) / 864e5); }
+  function niceDay(d) { return new Date(d + "T12:00:00Z").toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short", year: "numeric" }); }
+  function greetStatus(g) {
+    var t = today();
+    if (!g.enabled) return '<span class="status suspended">Off</span>';
+    if (g.ends_on < t) return '<span class="muted small">Ended</span>';
+    if (g.starts_on > t) { var n = dayDiff(t, g.starts_on); return '<span class="status pending">Starts ' + (n === 1 ? "tomorrow" : "in " + n + " days") + "</span>"; }
+    return '<span class="status active">Showing now</span>';
+  }
+  function whoSees(list) {
+    if (!list || !list.length) return "Everyone";
+    return list.map(function (c) { var f = COUNTRIES.find(function (x) { return x[0] === c; }); return f ? f[1] : c; }).join(", ");
+  }
+  function posterName(url) { var m = /\/object\/public\/occasions\/(.+)$/.exec(url || ""); return m ? decodeURIComponent(m[1]) : ""; }
+
+  function greetingsTab(b) {
+    if (greetErr) {
+      b.innerHTML = '<div class="auth-card"><h2>One more step</h2><p class="muted">Greetings need the latest database update. In Supabase open <b>SQL Editor</b>, paste the whole of <code>tools/site/database.sql</code> and press <b>Run</b>, then refresh this page.</p><p class="small muted">' + esc(greetErr.message || "") + "</p></div>";
+      return;
+    }
+    var t = today();
+    var now = greetings.filter(function (g) { return g.ends_on >= t; }).sort(function (a, c) { return a.starts_on < c.starts_on ? -1 : 1; });
+    var past = greetings.filter(function (g) { return g.ends_on < t; });
+    function card(g) {
+      return '<article class="greet-card">' +
+        (g.poster_url ? '<a href="' + esc(g.poster_url) + '" target="_blank" rel="noopener"><img src="' + esc(g.poster_url) + '" alt="" loading="lazy"></a>' : '<div class="greet-noposter" style="background:linear-gradient(' + (g.colors || []).map(esc).join(",") + ')"></div>') +
+        '<div class="greet-info"><div class="greet-stripes">' + (g.colors || []).map(function (c) { return '<i style="background:' + esc(c) + '"></i>'; }).join("") + "</div>" +
+        "<b>" + esc(g.title_en) + (g.celebrate !== false && (g.emojis || []).length ? ' <span class="greet-emoji">' + esc(g.emojis.join(" ")) + "</span>" : "") + "</b>" + (g.text_en ? '<p class="small">' + esc(g.text_en) + "</p>" : "") +
+        '<p class="sub">' + esc(niceDay(g.starts_on)) + (g.ends_on !== g.starts_on ? " – " + esc(niceDay(g.ends_on)) : "") + " · " + esc(whoSees(g.countries)) + "</p>" +
+        '<div class="acts">' + greetStatus(g) +
+        '<button type="button" class="link" data-gedit="' + g.id + '">Edit</button>' +
+        '<button type="button" class="link" data-gtoggle="' + g.id + '">' + (g.enabled ? "Turn off" : "Turn on") + "</button>" +
+        '<button type="button" class="link danger" data-gdel="' + g.id + '">Delete</button></div></div></article>';
+    }
+    b.innerHTML =
+      '<div class="admin-bar"><p class="muted small" style="margin:0;flex:1">Add a message and a poster, pick the days and who sees it. It shows at the top of the website, as a card in the app and as a phone notification on the first morning, then stops by itself after the last day.</p>' +
+      '<button class="btn btn-primary btn-small" type="button" data-gnew>+ New greeting</button></div>' +
+      "<h3>Showing now and coming up</h3>" + (now.length ? '<div class="greet-list">' + now.map(card).join("") + "</div>" : '<p class="muted">Nothing planned. Press <b>+ New greeting</b> to add one.</p>') +
+      (past.length ? '<details class="greet-past"><summary>Past greetings (' + past.length + ")</summary><div class=\"greet-list\">" + past.map(card).join("") + "</div></details>" : "") +
+      "<h3>Built in every year</h3><p class='muted small'>These show automatically (from <code>tools/site/occasions.json</code>). A greeting you add here for the same day is shown instead.</p>" +
+      '<div class="table-wrap"><table class="table admin-table"><thead><tr><th>Greeting</th><th>When</th><th>Who sees it</th></tr></thead><tbody>' +
+      builtIn.map(function (o) {
+        var when = (o.yearly || []).map(function (md) { return new Date("2000-" + md + "T12:00:00Z").toLocaleDateString(undefined, { day: "numeric", month: "long" }); })
+          .concat((o.dates || []).map(niceDay)).join(", ");
+        return "<tr><td><b>" + esc((o.title || {}).en || o.id) + "</b></td><td>" + esc(when) + "</td><td>" + esc(whoSees(o.countries)) + "</td></tr>";
+      }).join("") + "</tbody></table></div>";
+
+    b.querySelector("[data-gnew]").addEventListener("click", function () { greetingDialog(null); });
+    b.querySelectorAll("[data-gedit]").forEach(function (x) {
+      x.addEventListener("click", function () { greetingDialog(greetings.find(function (g) { return g.id == x.getAttribute("data-gedit"); })); });
+    });
+    b.querySelectorAll("[data-gtoggle]").forEach(function (x) {
+      x.addEventListener("click", function () {
+        var g = greetings.find(function (y) { return y.id == x.getAttribute("data-gtoggle"); });
+        db.from("occasions").update({ enabled: !g.enabled }).eq("id", g.id).then(function (r) {
+          if (r.error) throw r.error; toast(g.enabled ? "Greeting turned off" : "Greeting turned on"); return loadAll();
+        }).then(body).catch(function (e) { toast(e.message, true); });
+      });
+    });
+    b.querySelectorAll("[data-gdel]").forEach(function (x) {
+      x.addEventListener("click", function () {
+        var g = greetings.find(function (y) { return y.id == x.getAttribute("data-gdel"); });
+        if (!confirm('Delete "' + g.title_en + '" and its poster?')) return;
+        db.from("occasions").delete().eq("id", g.id).then(function (r) {
+          if (r.error) throw r.error;
+          var name = posterName(g.poster_url);
+          return name ? db.storage.from("occasions").remove([name]) : null;
+        }).then(function () { toast("Greeting deleted"); return loadAll(); }).then(body).catch(function (e) { toast(e.message, true); });
+      });
+    });
+  }
+
+  function greetingDialog(g) {
+    var editing = !!g, t = today();
+    g = g || { title_en: "", title_sw: "", title_fr: "", text_en: "", text_sw: "", text_fr: "", starts_on: t, ends_on: t, countries: ["KE"],
+      colors: PALETTES[0][2], flag: true, utc_offset: 3, poster_url: null, enabled: true, celebrate: true, emojis: ["🇰🇪", "🎉", "🌺", "✨"] };
+    var chosen = (g.emojis || []).slice(0, 8);
+    var pal = PALETTES.find(function (p) { return p[2] && p[2].join() === (g.colors || []).join() && p[3] === !!g.flag; }) || PALETTES[PALETTES.length - 1];
+    var d = document.createElement("dialog");
+    d.className = "admin-dialog greet-dialog";
+    function field(label, name, val, max, area, hint) {
+      return "<label>" + label + (area ? '<textarea name="' + name + '" maxlength="' + max + '" rows="2">' + esc(val || "") + "</textarea>"
+        : '<input name="' + name + '" maxlength="' + max + '" value="' + esc(val || "") + '">') + (hint ? '<span class="hint">' + hint + "</span>" : "") + "</label>";
+    }
+    d.innerHTML = '<form class="form" method="dialog" novalidate><h3>' + (editing ? "Edit greeting" : "New greeting") + "</h3>" +
+      field("Title (English)", "title_en", g.title_en, 80, false, "Short, like “Happy Mashujaa Day!”") +
+      '<div class="row">' + field("Title in Kiswahili", "title_sw", g.title_sw, 80) + field("Title in French", "title_fr", g.title_fr, 80) + "</div>" +
+      field("Message (English)", "text_en", g.text_en, 300, true, "One or two sentences. Optional.") +
+      '<div class="row">' + field("Message in Kiswahili", "text_sw", g.text_sw, 300, true) + field("Message in French", "text_fr", g.text_fr, 300, true) + "</div>" +
+      '<p class="hint" style="margin-top:-6px">Leave a language empty to show the English one.</p>' +
+      '<div class="row"><label>First day<input type="date" name="starts_on" value="' + esc(g.starts_on) + '" required></label>' +
+      '<label>Last day<input type="date" name="ends_on" value="' + esc(g.ends_on) + '" required><span class="hint">It stops by itself after this day (at most 31 days).</span></label></div>' +
+      '<label>Days are counted in<select name="utc_offset">' + ZONES.map(function (z) { return '<option value="' + z[0] + '"' + (Number(g.utc_offset) === z[0] ? " selected" : "") + ">" + z[1] + "</option>"; }).join("") + "</select></label>" +
+      '<fieldset class="choice"><legend>Who sees it</legend><label class="check"><input type="radio" name="who" value="all"' + (!g.countries.length ? " checked" : "") + "> Everyone</label>" +
+      '<label class="check"><input type="radio" name="who" value="some"' + (g.countries.length ? " checked" : "") + "> Only people in these countries</label>" +
+      '<div class="greet-countries" data-countries>' + COUNTRIES.map(function (c) {
+        return '<label class="check"><input type="checkbox" value="' + c[0] + '"' + (g.countries.indexOf(c[0]) >= 0 ? " checked" : "") + "> " + c[1] + "</label>";
+      }).join("") + "</div>" +
+      '<label data-other>Other countries<input name="other" placeholder="Two-letter codes, e.g. ZM, MW" value="' + esc(g.countries.filter(function (c) { return !COUNTRIES.some(function (x) { return x[0] === c; }); }).join(", ")) + '"></label></fieldset>' +
+      '<label>Colours<select name="palette">' + PALETTES.map(function (p) { return '<option value="' + p[0] + '"' + (p === pal ? " selected" : "") + ">" + p[1] + "</option>"; }).join("") + "</select></label>" +
+      '<div class="greet-colors" data-colors>' + [0, 1, 2].map(function (i) { return '<input type="color" name="c' + i + '" value="' + esc((g.colors || [])[i] || "#2F5BEA") + '" aria-label="Colour ' + (i + 1) + '">'; }).join("") +
+      '<label class="check"><input type="checkbox" name="flag"' + (g.flag ? " checked" : "") + "> White lines between the colours (like a flag)</label></div>" +
+      '<fieldset class="choice"><legend>Celebration</legend><label class="check"><input type="checkbox" name="celebrate"' + (g.celebrate !== false ? " checked" : "") + "> Flowers, confetti and emojis fly across the screen for a moment</label>" +
+      '<div data-celeb><p class="hint">Pick up to 8 emojis (tap again to remove). With none, only flowers and confetti fly.</p><div class="emoji-chosen" data-chosen></div><div class="emoji-pick" data-pick></div></div></fieldset>' +
+      '<label>Poster<input type="file" name="poster" accept="image/png,image/jpeg"><span class="hint">PNG or JPG, up to 3 MB. A tall picture (1080 × 1350) looks best.</span></label>' +
+      '<div class="greet-preview" data-preview>' + (g.poster_url ? '<img src="' + esc(g.poster_url) + '" alt=""><label class="check"><input type="checkbox" name="noposter"> Remove this poster</label>' : "") + "</div>" +
+      '<label class="check"><input type="checkbox" name="enabled"' + (g.enabled ? " checked" : "") + "> Switched on</label>" +
+      '<p class="form-status" role="status"></p><div class="dlg-acts"><button type="button" class="btn btn-outline btn-small" data-cancel>Cancel</button>' +
+      '<button type="submit" class="btn btn-primary btn-small">' + (editing ? "Save changes" : "Save greeting") + "</button></div></form>";
+    document.body.appendChild(d);
+    var f = d.querySelector("form"), st = f.querySelector(".form-status");
+    function emojiCode(e) { return Array.from(e).map(function (c) { return c.codePointAt(0).toString(16); }).filter(function (h) { return h !== "fe0f"; }).join("-"); }
+    function emojiImg(e) { return '<img src="' + window.SP.root + "assets/emoji/" + emojiCode(e) + '.png" alt="' + esc(e) + '" width="30" height="30">'; }
+    function drawChosen() {
+      d.querySelector("[data-chosen]").innerHTML = chosen.length ? chosen.map(function (e, i) {
+        return '<button type="button" class="emoji-chip on" data-unpick="' + i + '" title="Remove">' + emojiImg(e) + "</button>";
+      }).join("") : '<span class="muted small">No emojis: flowers and confetti only</span>';
+      d.querySelectorAll("[data-unpick]").forEach(function (x) { x.addEventListener("click", function () { chosen.splice(+x.getAttribute("data-unpick"), 1); drawChosen(); }); });
+    }
+    fetch(window.SP.root + "assets/emoji/list.json").then(function (r) { return r.json(); }).then(function (j) {
+      var box = d.querySelector("[data-pick]");
+      box.innerHTML = (j.emoji || []).map(function (e) { return '<button type="button" class="emoji-chip" data-e="' + esc(e) + '">' + emojiImg(e) + "</button>"; }).join("");
+      box.querySelectorAll("[data-e]").forEach(function (x) {
+        x.addEventListener("click", function () {
+          var e = x.getAttribute("data-e");
+          if (chosen.indexOf(e) >= 0) chosen.splice(chosen.indexOf(e), 1); else if (chosen.length < 8) chosen.push(e);
+          drawChosen();
+        });
+      });
+    }).catch(function () { });
+    drawChosen();
+    f.celebrate.addEventListener("change", function () { d.querySelector("[data-celeb]").hidden = !f.celebrate.checked; });
+    d.querySelector("[data-celeb]").hidden = !f.celebrate.checked;
+    function syncWho() { var some = f.who.value === "some"; d.querySelector("[data-countries]").hidden = !some; d.querySelector("[data-other]").hidden = !some; }
+    function syncPal() {
+      var p = PALETTES.find(function (x) { return x[0] === f.palette.value; });
+      if (p[2]) { [0, 1, 2].forEach(function (i) { f["c" + i].value = p[2][i]; }); f.flag.checked = p[3]; }
+      d.querySelector("[data-colors]").hidden = !!p[2];
+    }
+    f.querySelectorAll("input[name=who]").forEach(function (r) { r.addEventListener("change", syncWho); });
+    f.palette.addEventListener("change", syncPal);
+    syncWho(); d.querySelector("[data-colors]").hidden = !!pal[2];
+    f.starts_on.addEventListener("change", function () { if (f.ends_on.value < f.starts_on.value) f.ends_on.value = f.starts_on.value; });
+    f.poster.addEventListener("change", function () {
+      var file = f.poster.files[0], box = d.querySelector("[data-preview]");
+      if (!file) return;
+      if (file.size > 3 * 1024 * 1024) { st.className = "form-status err"; st.textContent = "The poster is bigger than 3 MB. Save it smaller and try again."; f.poster.value = ""; return; }
+      st.textContent = "";
+      box.innerHTML = '<img alt="" src="' + URL.createObjectURL(file) + '">';
+    });
+    d.querySelector("[data-cancel]").addEventListener("click", function () { d.close(); d.remove(); });
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var err = function (m) { st.className = "form-status err"; st.textContent = m; };
+      var title = f.title_en.value.trim();
+      if (title.length < 2) return err("Write a title in English.");
+      if (!f.starts_on.value || !f.ends_on.value) return err("Pick the first and the last day.");
+      if (f.ends_on.value < f.starts_on.value) return err("The last day can't be before the first day.");
+      if (dayDiff(f.starts_on.value, f.ends_on.value) > 31) return err("A greeting can run for 31 days at most.");
+      var countries = [];
+      if (f.who.value === "some") {
+        d.querySelectorAll("[data-countries] input:checked").forEach(function (c) { countries.push(c.value); });
+        f.other.value.toUpperCase().split(/[^A-Z]+/).forEach(function (c) { if (/^[A-Z]{2}$/.test(c) && countries.indexOf(c) < 0) countries.push(c); });
+        if (!countries.length) return err("Pick at least one country, or choose Everyone.");
+      }
+      var row = {
+        title_en: title, title_sw: f.title_sw.value.trim() || null, title_fr: f.title_fr.value.trim() || null,
+        text_en: f.text_en.value.trim() || null, text_sw: f.text_sw.value.trim() || null, text_fr: f.text_fr.value.trim() || null,
+        starts_on: f.starts_on.value, ends_on: f.ends_on.value, utc_offset: Number(f.utc_offset.value), countries: countries,
+        colors: [0, 1, 2].map(function (i) { return f["c" + i].value.toUpperCase(); }), flag: f.flag.checked, enabled: f.enabled.checked, celebrate: f.celebrate.checked, emojis: chosen.slice(0, 8)
+      };
+      var btn = f.querySelector("button[type=submit]"); btn.disabled = true;
+      st.className = "form-status"; st.textContent = "Saving…";
+      var file = f.poster.files[0], oldPoster = g.poster_url, up = Promise.resolve(f.noposter && f.noposter.checked ? null : oldPoster);
+      if (file) {
+        var name = "greeting-" + Date.now() + (file.type === "image/png" ? ".png" : ".jpg");
+        st.textContent = "Uploading the poster…";
+        up = db.storage.from("occasions").upload(name, file, { contentType: file.type, cacheControl: "31536000", upsert: false }).then(function (r) {
+          if (r.error) throw r.error;
+          return db.storage.from("occasions").getPublicUrl(name).data.publicUrl;
+        });
+      }
+      up.then(function (url) {
+        row.poster_url = url || null;
+        return editing ? db.from("occasions").update(row).eq("id", g.id) : db.from("occasions").insert(row);
+      }).then(function (r) {
+        if (r.error) throw r.error;
+        if (oldPoster && oldPoster !== row.poster_url && posterName(oldPoster)) db.storage.from("occasions").remove([posterName(oldPoster)]);
+        d.close(); d.remove();
+        toast(row.starts_on <= today() && row.ends_on >= today() && row.enabled ? "Saved. It's showing now" : "Greeting saved");
+        return loadAll();
+      }).then(function () { tab = "greetings"; shell(); body(); })
+        .catch(function (e2) { err(e2.message || String(e2)); btn.disabled = false; });
+    });
+    d.showModal();
   }
 
   // ---------------------------------------------------------------- crash reports

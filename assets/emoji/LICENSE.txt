@@ -1,0 +1,2 @@
+These emoji pictures are made from Noto Color Emoji by Google, licensed under the SIL Open Font License 1.1
+(https://openfontlicense.org). Made by tools/make_emoji.py.

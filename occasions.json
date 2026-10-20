@@ -1,0 +1,278 @@
+{
+ "occasions": [
+  {
+   "id": "mashujaa",
+   "emojis": [
+    "🇰🇪",
+    "🎉",
+    "🌺",
+    "✨",
+    "🖤",
+    "❤️",
+    "💚"
+   ],
+   "yearly": [
+    "10-20"
+   ],
+   "countries": [
+    "KE"
+   ],
+   "tz": "Africa/Nairobi",
+   "utc_offset": 3,
+   "colors": [
+    "#000000",
+    "#BB0000",
+    "#006600"
+   ],
+   "flag": true,
+   "title": {
+    "en": "Happy Mashujaa Day!",
+    "sw": "Heri ya Siku ya Mashujaa!",
+    "fr": "Bonne fête de Mashujaa !"
+   },
+   "text": {
+    "en": "Today we honour the heroes who fought for Kenya's freedom, and everyone who keeps their family and community safe.",
+    "sw": "Leo tunawaenzi mashujaa waliopigania uhuru wa Kenya, na wote wanaolinda familia na jamii zao.",
+    "fr": "Aujourd'hui, nous honorons les héros qui se sont battus pour la liberté du Kenya, et tous ceux qui protègent leur famille et leur communauté."
+   },
+   "image": {
+    "2026": "occasions/mashujaa-2026.png"
+   }
+  },
+  {
+   "id": "jamhuri",
+   "emojis": [
+    "🇰🇪",
+    "🎉",
+    "🎆",
+    "🌺",
+    "✨"
+   ],
+   "yearly": [
+    "12-12"
+   ],
+   "countries": [
+    "KE"
+   ],
+   "tz": "Africa/Nairobi",
+   "utc_offset": 3,
+   "colors": [
+    "#000000",
+    "#BB0000",
+    "#006600"
+   ],
+   "flag": true,
+   "title": {
+    "en": "Happy Jamhuri Day!",
+    "sw": "Heri ya Siku ya Jamhuri!",
+    "fr": "Bonne fête de Jamhuri !"
+   },
+   "text": {
+    "en": "Celebrating Kenya's independence and the republic we build together.",
+    "sw": "Tunasherehekea uhuru wa Kenya na Jamhuri tunayoijenga pamoja.",
+    "fr": "Nous célébrons l'indépendance du Kenya et la république que nous construisons ensemble."
+   }
+  },
+  {
+   "id": "madaraka",
+   "emojis": [
+    "🇰🇪",
+    "🎉",
+    "🌺",
+    "✨"
+   ],
+   "yearly": [
+    "06-01"
+   ],
+   "countries": [
+    "KE"
+   ],
+   "tz": "Africa/Nairobi",
+   "utc_offset": 3,
+   "colors": [
+    "#000000",
+    "#BB0000",
+    "#006600"
+   ],
+   "flag": true,
+   "title": {
+    "en": "Happy Madaraka Day!",
+    "sw": "Heri ya Siku ya Madaraka!",
+    "fr": "Bonne fête de Madaraka !"
+   },
+   "text": {
+    "en": "Celebrating the day Kenya began to govern itself.",
+    "sw": "Tunasherehekea siku Kenya ilipoanza kujitawala.",
+    "fr": "Nous célébrons le jour où le Kenya a commencé à se gouverner lui-même."
+   }
+  },
+  {
+   "id": "utamaduni",
+   "emojis": [
+    "🇰🇪",
+    "🥁",
+    "🌺",
+    "🎉",
+    "✨"
+   ],
+   "yearly": [
+    "10-10"
+   ],
+   "countries": [
+    "KE"
+   ],
+   "tz": "Africa/Nairobi",
+   "utc_offset": 3,
+   "colors": [
+    "#000000",
+    "#BB0000",
+    "#006600"
+   ],
+   "flag": true,
+   "title": {
+    "en": "Happy Utamaduni Day!",
+    "sw": "Heri ya Siku ya Utamaduni!",
+    "fr": "Bonne fête d'Utamaduni !"
+   },
+   "text": {
+    "en": "Celebrating the cultures and traditions that make Kenya one.",
+    "sw": "Tunasherehekea tamaduni na mila zinazoiunganisha Kenya.",
+    "fr": "Nous célébrons les cultures et les traditions qui unissent le Kenya."
+   }
+  },
+  {
+   "id": "labour",
+   "emojis": [
+    "🎉",
+    "💪",
+    "🤝",
+    "✨"
+   ],
+   "yearly": [
+    "05-01"
+   ],
+   "countries": [
+    "KE",
+    "UG",
+    "TZ",
+    "NG",
+    "GH"
+   ],
+   "tz": "Africa/Nairobi",
+   "utc_offset": 3,
+   "colors": [
+    "#2F5BEA",
+    "#34D399",
+    "#0B1433"
+   ],
+   "title": {
+    "en": "Happy Labour Day!",
+    "sw": "Heri ya Sikukuu ya Wafanyakazi!",
+    "fr": "Bonne fête du Travail !"
+   },
+   "text": {
+    "en": "Thank you to every worker who keeps our country moving.",
+    "sw": "Asante kwa kila mfanyakazi anayeiendeleza nchi yetu.",
+    "fr": "Merci à tous les travailleurs qui font avancer notre pays."
+   }
+  },
+  {
+   "id": "easter-2027",
+   "emojis": [
+    "🐣",
+    "🌷",
+    "🌸",
+    "✨"
+   ],
+   "dates": [
+    "2027-03-26",
+    "2027-03-27",
+    "2027-03-28",
+    "2027-03-29"
+   ],
+   "countries": [],
+   "tz": "Africa/Nairobi",
+   "utc_offset": 3,
+   "colors": [
+    "#7C3AED",
+    "#F59E0B",
+    "#34D399"
+   ],
+   "title": {
+    "en": "Happy Easter!",
+    "sw": "Heri ya Pasaka!",
+    "fr": "Joyeuses Pâques !"
+   },
+   "text": {
+    "en": "Wishing you and your family a peaceful Easter.",
+    "sw": "Tunakutakia wewe na familia yako Pasaka yenye amani.",
+    "fr": "Nous vous souhaitons, à vous et à votre famille, de joyeuses Pâques."
+   }
+  },
+  {
+   "id": "christmas",
+   "emojis": [
+    "🎄",
+    "🎁",
+    "🔔",
+    "⛄",
+    "✨"
+   ],
+   "yearly": [
+    "12-24",
+    "12-25",
+    "12-26"
+   ],
+   "countries": [],
+   "tz": "Africa/Nairobi",
+   "utc_offset": 3,
+   "colors": [
+    "#B91C1C",
+    "#15803D",
+    "#F59E0B"
+   ],
+   "title": {
+    "en": "Merry Christmas!",
+    "sw": "Heri ya Krismasi!",
+    "fr": "Joyeux Noël !"
+   },
+   "text": {
+    "en": "Wishing you a joyful and safe Christmas with the people you love.",
+    "sw": "Tunakutakia Krismasi yenye furaha na usalama pamoja na wapendwa wako.",
+    "fr": "Nous vous souhaitons un Noël joyeux et serein avec ceux que vous aimez."
+   }
+  },
+  {
+   "id": "new-year",
+   "emojis": [
+    "🎆",
+    "🎇",
+    "🥂",
+    "🎉",
+    "✨"
+   ],
+   "yearly": [
+    "12-31",
+    "01-01"
+   ],
+   "countries": [],
+   "tz": "Africa/Nairobi",
+   "utc_offset": 3,
+   "colors": [
+    "#F59E0B",
+    "#2F5BEA",
+    "#0B1433"
+   ],
+   "title": {
+    "en": "Happy New Year!",
+    "sw": "Heri ya Mwaka Mpya!",
+    "fr": "Bonne année !"
+   },
+   "text": {
+    "en": "Here's to a safe new year, free from scams.",
+    "sw": "Tunakutakia mwaka mpya salama, bila ulaghai.",
+    "fr": "Nous vous souhaitons une nouvelle année sûre, sans arnaques."
+   }
+  }
+ ]
+}

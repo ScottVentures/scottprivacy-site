@@ -1,3 +1,8 @@
+/*
+ * ScottPrivacy, a ScottVentures product.
+ * Copyright (c) 2026 John Mwadime (johnniekips [at] gmail.com, scotttechstar [at] gmail.com). All rights reserved.
+ * Proprietary and confidential: no copying, use or distribution without written permission. See LICENSE.
+ */
 /* ScottPrivacy download dashboard. History comes from stats/downloads.json (written once a day by the
    Publish website GitHub Action); the per-version numbers are read live from GitHub's public API. */
 (function () {

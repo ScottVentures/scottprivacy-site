@@ -1,3 +1,8 @@
+/*
+ * ScottPrivacy, a ScottVentures product.
+ * Copyright (c) 2026 John Mwadime (johnniekips [at] gmail.com, scotttechstar [at] gmail.com). All rights reserved.
+ * Proprietary and confidential: no copying, use or distribution without written permission. See LICENSE.
+ */
 /* ScottPrivacy help: an instant-answer assistant (works in the browser, no server, nothing sent) and the
    support form. The assistant matches questions against the answers below; anything it can't answer goes
    to the support form. Edit KB to add answers. */

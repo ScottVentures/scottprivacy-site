@@ -1,3 +1,8 @@
+/*
+ * ScottPrivacy, a ScottVentures product.
+ * Copyright (c) 2026 John Mwadime (johnniekips [at] gmail.com, scotttechstar [at] gmail.com). All rights reserved.
+ * Proprietary and confidential: no copying, use or distribution without written permission. See LICENSE.
+ */
 /* ScottPrivacy website. No cookies, no trackers, no third-party requests: fonts and images are served from here. */
 @font-face{font-family:"Poppins";font-weight:400;font-display:swap;src:url(fonts/poppins-regular.woff2) format("woff2")}
 @font-face{font-family:"Poppins";font-weight:600;font-display:swap;src:url(fonts/poppins-semibold.woff2) format("woff2")}
@@ -559,3 +564,54 @@ pre.crash{white-space:pre-wrap;word-break:break-word;font-size:12.5px;background
 /* two-step verification */
 .mfa-qr{display:block;width:180px;height:180px;margin:8px 0 12px;padding:8px;background:#fff;border-radius:12px;border:1px solid rgba(11,20,51,.12)}
 .mfa-key{word-break:break-all;user-select:all}
+
+/* holiday greeting (assets/occasion.js) */
+.occasion{background:#0B1433;color:#fff;position:relative;z-index:60}
+.occasion-stripes{display:flex;height:6px}
+.occasion-stripes i{flex:1;background:var(--oc1)}
+.occasion-stripes i:nth-child(2){background:var(--oc2)}
+.occasion-stripes i:nth-child(3){background:var(--oc3)}
+.occasion.flag .occasion-stripes{height:8px;background:#fff;gap:2px}
+.occasion-in{display:flex;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px}
+.occasion-in p{margin:0;flex:1;font-size:15px;line-height:1.45;color:#D7E0FF}
+.occasion-in p b{color:#fff;font-family:var(--head)}
+.occasion-ic{flex:none;width:30px;height:30px;border-radius:50%;background:conic-gradient(var(--oc1) 0 33%,var(--oc2) 0 66%,var(--oc3) 0);box-shadow:0 0 0 2px #fff;animation:oc-pop .6s ease}
+.occasion-link{flex:none;color:#0B1433;background:#fff;border-radius:999px;padding:7px 14px;font:600 14px var(--head);text-decoration:none;white-space:nowrap}
+.occasion-link:hover{background:#E7EDFD}
+.occasion-x{flex:none;background:none;border:0;color:#AFC0EE;font-size:24px;line-height:1;cursor:pointer;padding:4px 6px}
+.occasion-x:hover{color:#fff}
+.occasion-logo{border-radius:11px;padding:2px;background:conic-gradient(var(--oc1),var(--oc2),var(--oc3),var(--oc1));animation:oc-pop .8s ease}
+@keyframes oc-pop{0%{transform:scale(.6) rotate(-20deg);opacity:0}70%{transform:scale(1.1) rotate(4deg);opacity:1}100%{transform:none}}
+@media (max-width:640px){.occasion-in{flex-wrap:wrap;gap:10px}.occasion-in p{flex-basis:calc(100% - 90px);font-size:14px}.occasion-link{margin-left:44px}}
+@media (prefers-reduced-motion:reduce){.occasion-ic,.occasion-logo{animation:none}}
+
+/* Admin › Greetings */
+.status.pending{color:#d97706}
+.greet-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:12px 0 28px}
+.greet-card{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}
+.greet-card img,.greet-noposter{width:96px;height:120px;object-fit:cover;border-radius:10px;flex:none;background:var(--bg)}
+.greet-info{min-width:0;display:flex;flex-direction:column;gap:4px}
+.greet-info p{margin:0}
+.greet-info .acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:auto}
+.greet-stripes{display:flex;height:6px;border-radius:3px;overflow:hidden;width:72px}
+.greet-stripes i{flex:1}
+.greet-past{margin:-12px 0 28px}.greet-past summary{cursor:pointer;font-weight:600;margin-bottom:8px}
+.greet-dialog{width:min(640px,calc(100vw - 32px))}
+.greet-dialog textarea{resize:vertical;min-height:56px}
+.greet-countries{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:4px 12px;margin:4px 0 8px 26px}
+.greet-colors{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.greet-colors input[type=color]{width:44px;height:36px;padding:2px;border-radius:8px}
+.greet-preview img{max-width:180px;max-height:225px;border-radius:12px;display:block;margin-bottom:6px}
+
+/* Holiday celebration: flowers, confetti and emojis flying across the page for a few seconds */
+.celebrate{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
+.celebrate>*{position:absolute;left:0;top:0;display:block;will-change:transform}
+.celebrate img{height:auto}
+.celebrate .petal{border-radius:70% 0 70% 0;box-shadow:inset -2px -2px 0 rgba(0,0,0,.08)}
+.celebrate .confetti{border-radius:2px}
+.occasion-ic{cursor:pointer}
+.emoji-pick,.emoji-chosen{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.emoji-pick{max-height:150px;overflow:auto;padding:6px;border:1px solid var(--line);border-radius:12px}
+.emoji-chip{border:1px solid transparent;background:none;border-radius:10px;padding:3px;cursor:pointer;line-height:0}
+.emoji-chip:hover{background:var(--bg)}.emoji-chip.on{border-color:var(--line);background:var(--bg)}
+.greet-emoji{font-weight:400;font-size:14px}
